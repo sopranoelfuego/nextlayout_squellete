@@ -5,7 +5,7 @@ import { sidebarData, SidebarItemType } from "./SidebarData";
 
 function index() {
   return (
-    <Stack minHeight="100vh">
+    <Stack minHeight="100vh" paddingTop="7rem">
       {sidebarData.map((data:SidebarItemType) => (
         <SidebarItem item={data} expand={true} key={data?.href} />
       ))}

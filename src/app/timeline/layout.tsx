@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Stack } from '@mui/material'
 import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
@@ -16,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-   <Box sx={{display:"flex",alignItems:"flex-start",justifyContent:"center"}}>
+   <Box sx={{display:"flex",alignItems:"flex-start"}}>
     <Sidebar/>
     <Stack direction="column">
       
