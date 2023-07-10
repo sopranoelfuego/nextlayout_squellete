@@ -1,7 +1,11 @@
-import React from 'react'
+'use client'
+import Box from "@mui/material/Box"
+import { Button } from '@mui/material'
 
-export default function page() {
+export default function Home() {
   return (
-    <div>page de settings</div>
+    <Box>
+      settings here
+    </Box>
   )
 }

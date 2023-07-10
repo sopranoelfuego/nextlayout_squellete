@@ -4,10 +4,10 @@ import {
     HiHome,
     HiShoppingCart,
     
+
     HiUsers,
     HiViewGrid,
 } from "react-icons/hi";
-import { IconType } from "react-icons/lib";
 export type SidebarItemType=
       {
         href: string ,
@@ -19,7 +19,7 @@ export type SidebarItemType=
 
 export const sidebarData:SidebarItemType[] = [
     {
-        href: "/",
+        href: "/timeline",
         linkName: "Dashboard",
         icon: <HiHome size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
