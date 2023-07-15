@@ -1,14 +1,11 @@
 "use client"
 import React,{useState} from 'react'
 
-export const ExpandContext=React.createContext<{expand:boolean,handleChangeExpand:Function}>({expand:false,handleChangeExpand:()=>null})
+export const ExpandContext=React.createContext<{expand:boolean,setExpand:Function}>({expand:false,setExpand:()=>null})
 
-function ExpandContextProvider({children}:{children:React.ReactNode}) {
-    const [expand, setExpand] = useState(false)
-  const handleChangeExpand=()=>setExpand(prev=>!prev)
+export function  ExpandContextProvider({children}:{children:React.ReactNode}) {
+    const [expand, setExpand] = useState(true)
     return (
-    <ExpandContext.Provider value={{expand,handleChangeExpand}}>{children}</ExpandContext.Provider>
+    <ExpandContext.Provider value={{expand,setExpand}}>{children}</ExpandContext.Provider>
   )
 }
-
-export default ExpandContextProvider

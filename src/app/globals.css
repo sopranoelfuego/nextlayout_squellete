@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,7 +16,8 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-/* backgroundMain:#055E68 */
+/* backgroundSidebar:#F3F3F8*/
+/*sidebarItemHover:
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
 /* greyMain:#B9D2D2 */
@@ -33,5 +35,9 @@
 body{
   padding: 0;
   margin: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #eef5f3;
   
 }

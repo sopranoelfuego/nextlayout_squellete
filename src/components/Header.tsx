@@ -6,12 +6,11 @@ import { HiMenu } from 'react-icons/hi'
 /* greenMain:#62A388 */
 /* greyMain:#B9D2D2 */
 function Header() {
+  
   const theme=useTheme()
   return (
-    <Box sx={{width:`calc(100vw - ${theme.spacing(20)})`,backgroundColor:"#055E68",minHeight:"3.1rem"}}>
-        <IconButton>
-          <HiMenu size={30} />
-        </IconButton>
+    <Box sx={{backgroundColor:"#fff",boxShadow:"0 0 2px rgba(0,0,0,0.1)",minHeight:"3.1rem"}}>
+        header
       </Box>
   )
 }
