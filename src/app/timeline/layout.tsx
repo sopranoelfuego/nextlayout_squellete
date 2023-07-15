@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
    <Box sx={{display:"flex",alignItems:"flex-start"}}>
     <Sidebar/>
-    <Stack direction="column">
+    <Stack direction="column" display="flex" width="100%" >
       
     <Header/>
     {children}
