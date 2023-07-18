@@ -73,16 +73,21 @@ function Sidebar() {
             onClick={() => setExpand((expand:boolean) => !expand)}
             sx={{
               position: "absolute",
-              right: "-20px",
+              right: "-17px",
               transition: "all ease 400ms",
               top: "50%",
               padding: "5px",
               borderRadius: "50%",
               backgroundColor: "#055E68",
+              boxSizing:"border-box",
               color: "#fff",
+                border:"1px solid transparent",
+
               ":hover": {
-                color: "black",
-                cursor: "pointer",
+                color: "#055E68",
+                backgroundColor:"#fff",
+                border:"1px solid #055E68"
+              
               },
             }}
           >
@@ -100,15 +105,7 @@ function Sidebar() {
           </Box>
       </Box>
 
-      <Box>
-        <Button
-          variant="contained"
-          color="error"
-          startIcon={<HiLogout size={23} />}
-        >
-          disconect
-        </Button>
-      </Box>
+     
     </Stack>
   );
 }

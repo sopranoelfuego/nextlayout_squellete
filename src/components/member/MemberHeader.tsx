@@ -1,7 +1,19 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
 import { HiOutlineSearch, HiOutlineUserAdd } from "react-icons/hi";
+import {styled} from "@mui/material/styles"
 
+const CustumBtton=styled(Button)(()=>({
+  color:"#055E68",
+  
+  transition:"all ease 400ms",
+  ':hover':{
+    color:"#fff",
+  backgroundColor:"#055E68",
+
+
+  }
+}))
 function MemberHeader() {
   return (
     <Box
@@ -11,23 +23,14 @@ function MemberHeader() {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-end",
-        padding: "1.8rem 0.3rem",
+        padding: "1rem 0.3rem",
+        gap:"10px"
       }}
     >
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor:"red"
-        }}
-      >
-        {/* SEARCH INPUT */}
-        <Box
           sx={{
             display: "flex",
-            width: "100%",
-            
+            width: "400px",
             borderRadius: "10px",
             backgroundColor: "#eef5f3",
             alignItems: "center",
@@ -47,22 +50,14 @@ function MemberHeader() {
           <HiOutlineSearch fontSize={20} />
         </Box>
         {/* CREATE NEW MEMBER BOTTOM */}
-        <Button
-        variant="contained"
-          sx={{
-            display: "flex",
-            padding: "10px 20px ",
-            alignItems: "center",
-            gap: "6px",
-            justifyContent: "center",
-            backgroundColor: "#055E68",
-            borderRadius: "10px",
-            color: "#fff",
-          }}
+        {/* <button
+          className="buttonClass"
         >
-          <HiOutlineUserAdd fontSize={20} /> cree saaa
-        </Button>
-      </Box>
+          <HiOutlineUserAdd fontSize={16} /> <p >cree sasa</p>
+        </button> */}
+        <CustumBtton variant="contained"  startIcon={<HiOutlineUserAdd fontSize={16} /> }>
+          cree un membre
+        </CustumBtton>
     </Box>
   );
 }

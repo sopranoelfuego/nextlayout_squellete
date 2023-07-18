@@ -47,7 +47,7 @@ function Header() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: "1rem",
+          gap: "0.5rem",
           position: "relative",
         }}
       >

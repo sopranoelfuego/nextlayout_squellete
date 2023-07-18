@@ -32,6 +32,21 @@
     rgb(var(--background-start-rgb));
     background-size: cover;
 } */
+
+/* reusable ccss style */
+.buttonClass {
+  display: flex;
+      padding: 0.5rem 20px ;
+      align-items: center;
+      gap: 6px;
+      font-size:18px;
+      justify-content: center;
+      background-color: #055E68;
+      border-radius: 7px;
+      color: #fff;
+      
+}
+
 body{
   padding: 0;
   margin: 0;
