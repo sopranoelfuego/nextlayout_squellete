@@ -1,7 +1,9 @@
 import React from "react";
 import {
+    HiCog,
     HiDesktopComputer,
     HiHome,
+    HiOutlineUsers,
     HiShoppingCart,
     
 
@@ -25,6 +27,12 @@ export const sidebarData:SidebarItemType[] = [
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {
+        href: "/timeline/membres",
+        linkName: "Membre",
+        icon: <HiOutlineUsers size={20} />,
+        priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
+    },
+    {
         href: "/timeline/cotisation",
         linkName: "Cotisation",
         icon: <HiDesktopComputer size={20} />,
@@ -45,7 +53,7 @@ export const sidebarData:SidebarItemType[] = [
     {
         href: "/timeline/settings",
         linkName: "Parametres",
-        icon: <HiUsers size={20} />,
+        icon: <HiCog size={20} />,
         priveleges: ["SuperAdmin"],
     },
    
