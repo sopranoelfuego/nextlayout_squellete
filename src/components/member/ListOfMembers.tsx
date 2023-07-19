@@ -7,10 +7,13 @@ import {
   styled,
   tableCellClasses,
   TableBody,
+  Stack,
+  IconButton,
 } from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
+import { HiArchive, HiPencil } from "react-icons/hi";
 
 export type MemberType = {
   nom: string;
@@ -50,7 +53,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // { members }: { members: MemberType[] }
 function ListOfMembers() {
   return (
-    <Box sx={{ backgroundColor: `background.paper`, height: "100%",width:"100%",marginTop:"10px" }}>
+    <Box
+      sx={{
+        backgroundColor: `background.paper`,
+        height: "100%",
+        width: "100%",
+        marginTop: "10px",
+      }}
+    >
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -59,18 +69,32 @@ function ListOfMembers() {
               <StyledTableCell align="center">prenom</StyledTableCell>
               <StyledTableCell align="center">contact</StyledTableCell>
               <StyledTableCell align="center">email</StyledTableCell>
-              <StyledTableCell align="right">actions</StyledTableCell>
+              <StyledTableCell align="center">actions</StyledTableCell>
             </StyledTableRow>
           </TableHead>
-            <TableBody>
-              <StyledTableRow>
-                <StyledTableCell>bunanme</StyledTableCell>
-                <StyledTableCell align="center">kabura</StyledTableCell>
-                <StyledTableCell align="center">contact</StyledTableCell>
-                <StyledTableCell align="center">email@gmail.com</StyledTableCell>
-                <StyledTableCell align="right">actions</StyledTableCell>
-              </StyledTableRow>
-            </TableBody>
+          <TableBody>
+            <StyledTableRow>
+              <StyledTableCell>bunanme</StyledTableCell>
+              <StyledTableCell align="center">kabura</StyledTableCell>
+              <StyledTableCell align="center">contact</StyledTableCell>
+              <StyledTableCell align="center">email@gmail.com</StyledTableCell>
+              <StyledTableCell align="center">
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={{ xs: 1, sm: 2 }}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <IconButton >
+                    <HiPencil fontSize={20} color="black"/>
+                  </IconButton>
+                  <IconButton>
+                    <HiArchive fontSize={20} color="black"/>
+                  </IconButton>
+                </Stack>
+              </StyledTableCell>
+            </StyledTableRow>
+          </TableBody>
         </Table>
       </TableContainer>
     </Box>

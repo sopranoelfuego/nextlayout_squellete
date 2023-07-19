@@ -1,13 +1,12 @@
 import React from "react";
 import {
     HiCog,
-    HiDesktopComputer,
     HiHome,
     HiOutlineUsers,
     HiShoppingCart,
+    HiCurrencyEuro,
     
 
-    HiUsers,
     HiViewGrid,
 } from "react-icons/hi";
 export type SidebarItemType=
@@ -35,7 +34,7 @@ export const sidebarData:SidebarItemType[] = [
     {
         href: "/timeline/cotisation",
         linkName: "Cotisation",
-        icon: <HiDesktopComputer size={20} />,
+        icon: <HiCurrencyEuro size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {

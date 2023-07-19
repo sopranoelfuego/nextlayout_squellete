@@ -1,20 +1,11 @@
-import { Box, Button } from "@mui/material";
 import React from "react";
+import { Box } from "@mui/material";
 import { HiOutlineSearch, HiOutlineUserAdd } from "react-icons/hi";
-import {styled} from "@mui/material/styles"
 
-const CustumBtton=styled(Button)(()=>({
-  color:"#055E68",
-  
-  transition:"all ease 400ms",
-  ':hover':{
-    color:"#fff",
-  backgroundColor:"#055E68",
-
-
-  }
-}))
-function MemberHeader() {
+ type AppProps={
+setOpen:React.Dispatch<React.SetStateAction<boolean>>
+}
+function MemberHeader({setOpen}:AppProps) {
   return (
     <Box
       sx={{
@@ -22,6 +13,7 @@ function MemberHeader() {
         width: "100%",
         display: "flex",
         alignItems: "center",
+        flexDirection:{xs:"column",sm:"row"},
         justifyContent: "flex-end",
         padding: "1rem 0.3rem",
         gap:"10px"
@@ -30,7 +22,7 @@ function MemberHeader() {
       <Box
           sx={{
             display: "flex",
-            width: "400px",
+            width: {xs:"100%",sm:"400px"},
             borderRadius: "10px",
             backgroundColor: "#eef5f3",
             alignItems: "center",
@@ -50,14 +42,10 @@ function MemberHeader() {
           <HiOutlineSearch fontSize={20} />
         </Box>
         {/* CREATE NEW MEMBER BOTTOM */}
-        {/* <button
-          className="buttonClass"
-        >
-          <HiOutlineUserAdd fontSize={16} /> <p >cree sasa</p>
-        </button> */}
-        <CustumBtton variant="contained"  startIcon={<HiOutlineUserAdd fontSize={16} /> }>
-          cree un membre
-        </CustumBtton>
+     
+        <button onClick={()=>setOpen(prev=>!prev)}  className="py-2  hover:border-mainColor  opacity-75 hover:opacity-100 px-3 bg-mainColor rounded text-white flex items-center justify-center gap-1 sm:w-full md:w-auto  font-medium transition-all  ">
+         <HiOutlineUserAdd fontSize={16} />  cree un membre
+        </button>
     </Box>
   );
 }
