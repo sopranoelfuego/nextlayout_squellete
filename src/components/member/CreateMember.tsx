@@ -4,7 +4,6 @@ import Dialog from "@mui/material/Dialog";
 import { Grid, InputLabel, TextField } from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 type CreateMemberProps = {
@@ -30,23 +29,11 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
             <InputLabel sx={{ fontWeight: "bold" }}>Nom</InputLabel>
-            <TextField
-              fullWidth
-              id="nom"
-              name="firstName"
-              size="small"
-          
-            />
+            <TextField fullWidth id="nom" name="firstName" size="small" />
           </Grid>
           <Grid item xs={12} sm={6}>
             <InputLabel sx={{ fontWeight: "bold" }}>Prenom</InputLabel>
-            <TextField
-              fullWidth
-              id="nom"
-              name="firstName"
-              size="small"
-          
-            />
+            <TextField fullWidth id="nom" name="firstName" size="small" />
           </Grid>
           <Grid item xs={12} sm={6}>
             <InputLabel sx={{ fontWeight: "bold" }}>Contact</InputLabel>
@@ -56,7 +43,6 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
               name="firstName"
               size="small"
               type="tel"
-         
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -67,7 +53,6 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
               name="firstName"
               type="email"
               size="small"
-  
             />
           </Grid>
         </Grid>
