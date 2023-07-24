@@ -1,5 +1,6 @@
 "use client";
 
+import React,{useState} from "react"
 import { Box, Stack } from "@mui/material";
 import type { Metadata } from "next";
 // import { Inter } from 'next/font/google'
@@ -17,11 +18,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [displayMenuDrawer, setDisplayMenuDrawer] = useState<boolean>(false)
+  setDisplayMenuDrawer
   return (
     <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-      <Sidebar />
+      <Sidebar displayMenuDrawer={displayMenuDrawer} setDisplayMenuDrawer={setDisplayMenuDrawer}/>
       <Stack direction="column" display="flex" width="100%">
-        <Header />
+        <Header displayMenuDrawer={displayMenuDrawer} handleChangeDisplayMenuDrawer={setDisplayMenuDrawer} />
         <Box width="100%" sx={{padding:"1rem"}}>
           <PageHeader />
           {children}

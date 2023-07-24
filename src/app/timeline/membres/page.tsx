@@ -7,9 +7,12 @@ import CreateMember from "@/components/member/CreateMember"
 
 export default function Home() {
   const[open,setOpen]=useState(false)
+  const [filterValue, setFilterValue] = useState("")
+  const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>setFilterValue(e.target.value)
+  const handleClear=()=>setFilterValue("")
   return (
     <Box sx={{width:"100%"}}>
-      <MemberHeader setOpen={setOpen} />
+      <MemberHeader handleChange={handleChange} handleClear={handleClear} value={filterValue} setOpen={setOpen} />
       <ListOfMembers />
       <CreateMember open={open} setOpen={setOpen}/>
 

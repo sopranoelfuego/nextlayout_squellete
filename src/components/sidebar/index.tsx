@@ -6,10 +6,11 @@ import Divider from "@mui/material/Divider"
 import { sidebarData, SidebarItemType } from "./SidebarData";
 import {
   Box,
-  Button,
+  Drawer,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
-import { HiLogout, HiChevronRight } from "react-icons/hi";
+import {  HiChevronRight } from "react-icons/hi";
 import Image from "next/image";
 import { ExpandContext } from "../contexts/expandNavBarContext";
 
@@ -17,10 +18,15 @@ import { ExpandContext } from "../contexts/expandNavBarContext";
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
 /* greyMain:#B9D2D2 */
-
-function Sidebar() {
+type SidebarProps={
+  displayMenuDrawer:boolean,
+  setDisplayMenuDrawer:React.Dispatch<React.SetStateAction<boolean>>
+}
+function Sidebar({displayMenuDrawer,setDisplayMenuDrawer}:SidebarProps) {
   const { setExpand, expand } = useContext(ExpandContext);
+  const matches=useMediaQuery('(min-width:600px)')
   return (
+    <>
     <Stack
       width={expand ? "270px" : "90px"}
       minHeight="100vh"
@@ -30,6 +36,7 @@ function Sidebar() {
       direction="column"
       justifyContent="space-between"
       position="sticky"
+      
       top="0"
       left="0"
       alignItems="center"
@@ -39,7 +46,7 @@ function Sidebar() {
         boxShadow: "0 0 2px rgba(0,0,0,0.2)",
         transition: "all ease 400ms",
       }}
-      display="flex"
+      display={matches?"flex":"none"}
     >
       <Box sx={{ width: "100%", minHeight: "700px"}}>
         <Stack
@@ -63,8 +70,6 @@ function Sidebar() {
             sx={{
               fontWeight: "700",
               display:expand?"inline-flex":"none"
-              
-              
             }}
           >
             Eric mugabekazi
@@ -107,6 +112,14 @@ function Sidebar() {
 
      
     </Stack>
+     <Drawer
+            anchor="left"
+            open={displayMenuDrawer}
+            onClose={()=>setDisplayMenuDrawer((prev:boolean)=>!prev)}
+          >
+            AM DRAWER
+          </Drawer>
+    </>
   );
 }
 
