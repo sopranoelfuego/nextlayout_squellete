@@ -1,7 +1,6 @@
 import {
   Box,
   IconButton,
-  useTheme,
   Typography,
   List,
   ListItem,
@@ -12,7 +11,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import {
-
   HiChevronDown,
   HiChevronLeft,
   HiLogout,
@@ -24,14 +22,14 @@ import {
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
 /* greyMain:#B9D2D2 */
-type HeaderProps={
+interface HeaderProps{
   displayMenuDrawer:boolean,
   handleChangeDisplayMenuDrawer:React.Dispatch<React.SetStateAction<boolean>>
 
 }
 function Header({displayMenuDrawer,handleChangeDisplayMenuDrawer}:HeaderProps) {
   const [displayMenu, setDisplayMenu] = useState(false);
-  const matches = useMediaQuery("(max-width:600px)");
+  const matches = useMediaQuery("(max-width:700px)");
 
 
   return (
@@ -43,7 +41,6 @@ function Header({displayMenuDrawer,handleChangeDisplayMenuDrawer}:HeaderProps) {
         justifyContent: matches?"space-between":"flex-end",
         padding: " 1rem",
         alignItems: "center",
-        
         backgroundColor: "#fff",
         boxShadow: "0 0 2px rgba(0,0,0,0.1)",
         minHeight: "3.1rem",
@@ -67,7 +64,7 @@ function Header({displayMenuDrawer,handleChangeDisplayMenuDrawer}:HeaderProps) {
         }}
       >
         <HiOutlineUserCircle fontSize={27} />
-        <Typography fontWeight="700">eric ndikukazi</Typography>
+        <Typography fontWeight="700" sx={{display:matches?"none":"inline-flex"}}>eric ndikukazi</Typography>
         <IconButton
           onClick={() => setDisplayMenu((prev: boolean) => !prev)}
           sx={{ transition: "all ease 400ms" }}

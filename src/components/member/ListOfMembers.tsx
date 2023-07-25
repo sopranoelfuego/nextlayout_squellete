@@ -14,13 +14,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { HiArchive, HiPencil } from "react-icons/hi";
+import { MemberType } from "@/types";
 
-export type MemberType = {
-  nom: string;
-  contact: string;
-  email: string;
-  password: string;
-};
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     color: "white",
@@ -51,7 +46,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 // { members }: { members: MemberType[] }
-function ListOfMembers() {
+interface ListOfMembersProps {
+  listOfMembers: MemberType[];
+  handleClickOpenCreateDialog: (member: MemberType) => void;
+}
+function ListOfMembers({
+  listOfMembers,
+  handleClickOpenCreateDialog,
+}: ListOfMembersProps) {
   return (
     <Box
       sx={{
@@ -73,27 +75,38 @@ function ListOfMembers() {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            <StyledTableRow>
-              <StyledTableCell>bunanme</StyledTableCell>
-              <StyledTableCell align="center">kabura</StyledTableCell>
-              <StyledTableCell align="center">contact</StyledTableCell>
-              <StyledTableCell align="center">email@gmail.com</StyledTableCell>
-              <StyledTableCell align="center">
-                <Stack
-                  direction={{ xs: "column", sm: "row" }}
-                  spacing={{ xs: 1, sm: 2 }}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <IconButton >
-                    <HiPencil fontSize={20} color="black"/>
-                  </IconButton>
-                  <IconButton>
-                    <HiArchive fontSize={20} color="black"/>
-                  </IconButton>
-                </Stack>
-              </StyledTableCell>
-            </StyledTableRow>
+            {listOfMembers?.map((m: MemberType) => {
+              return (
+                <StyledTableRow key={m.id}>
+                  <StyledTableCell>{m?.nom}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.prenom}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.contact}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.email}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      spacing={{ xs: 1, sm: 2 }}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <IconButton>
+                        <HiPencil fontSize={20} color="black" />
+                      </IconButton>
+                      <IconButton>
+                        <HiArchive fontSize={20} color="black" />
+                      </IconButton>
+                    </Stack>
+                  </StyledTableCell>
+                </StyledTableRow>
+              );
+            })}
+            {listOfMembers?.length === 0 && (
+              <StyledTableRow>
+                <StyledTableCell colSpan={4} sx={{ textAlign: "center" }}>
+                  pas de donner
+                </StyledTableCell>
+              </StyledTableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
