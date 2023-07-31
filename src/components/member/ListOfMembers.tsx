@@ -9,12 +9,23 @@ import {
   TableBody,
   Stack,
   IconButton,
+  Typography,
 } from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { HiArchive, HiPencil } from "react-icons/hi";
 import { MemberType } from "@/types";
+
+export  const loadMembers=async()=>{
+  const data=await fetch('http://192.168.40.75:8081/gp-com/api/v1/membres?page=0&size=10&direction=ASC&sortBy=nom')
+  // if(!data.ok)throw new Error('Failed to fetch data')
+  if(!data.ok)
+  return alert(`alert type:${data?.type}`)
+console.log("data:",data)
+  // return data.json()
+  return []
+}
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,15 +56,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     borderRight: "0.5px solid #ccc",
   },
 }));
+
+
 // { members }: { members: MemberType[] }
 interface ListOfMembersProps {
   listOfMembers: MemberType[];
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
-function ListOfMembers({
+
+
+
+
+ const ListOfMembers=async({
   listOfMembers,
   handleClickOpenCreateDialog,
-}: ListOfMembersProps) {
+}: ListOfMembersProps) =>{
+  const members=await loadMembers()
+  console.log("members:",members)
   return (
     <Box
       sx={{
@@ -102,8 +121,11 @@ function ListOfMembers({
             })}
             {listOfMembers?.length === 0 && (
               <StyledTableRow>
-                <StyledTableCell colSpan={4} sx={{ textAlign: "center" }}>
-                  pas de donner
+                <StyledTableCell
+                  colSpan={5}
+                  sx={{ textAlign: "center"}}
+                >
+                  <Typography fontSize="bold">pas de donner</Typography>
                 </StyledTableCell>
               </StyledTableRow>
             )}
