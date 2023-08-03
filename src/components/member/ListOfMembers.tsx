@@ -16,15 +16,20 @@ import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { HiArchive, HiPencil } from "react-icons/hi";
 import { MemberType } from "@/types";
+// import { notFound } from 'next/navigation'
 
 export  const loadMembers=async()=>{
-  const data=await fetch('http://192.168.40.75:8081/gp-com/api/v1/membres?page=0&size=10&direction=ASC&sortBy=nom')
-  // if(!data.ok)throw new Error('Failed to fetch data')
-  if(!data.ok)
-  return alert(`alert type:${data?.type}`)
-console.log("data:",data)
-  // return data.json()
-  return []
+  const res=await fetch('http://192.168.40.75:8081/gp-com/api/v1/membres?page=0&size=10&direction=ASC&sortBy=nom')
+  // if(!res.ok)throw new Error('Failed to fetch res')
+  // if(res.status === 401){
+
+  //   notFound()
+  // }
+  if(!res.ok)
+  return alert(`alert type:${res?.type}`)
+
+  return res.json()
+  // return []
 }
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -72,7 +77,6 @@ interface ListOfMembersProps {
   handleClickOpenCreateDialog,
 }: ListOfMembersProps) =>{
   const members=await loadMembers()
-  console.log("members:",members)
   return (
     <Box
       sx={{
@@ -94,7 +98,7 @@ interface ListOfMembersProps {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {listOfMembers?.map((m: MemberType) => {
+            {members?.result?.content?.map((m: MemberType) => {
               return (
                 <StyledTableRow key={m.id}>
                   <StyledTableCell>{m?.nom}</StyledTableCell>
@@ -119,7 +123,7 @@ interface ListOfMembersProps {
                 </StyledTableRow>
               );
             })}
-            {listOfMembers?.length === 0 && (
+            {members?.result?.content === 0 && (
               <StyledTableRow>
                 <StyledTableCell
                   colSpan={5}

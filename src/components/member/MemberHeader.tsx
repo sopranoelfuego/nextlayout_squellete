@@ -20,7 +20,6 @@ function MemberHeader({ handleClickOpenCreateDialog, value, handleChange, handle
         flexDirection: { xs: "column", sm: "row" },
         justifyContent: "flex-end",
         padding: "1rem 0.3rem",
-
         gap: "10px",
       }}
     >
@@ -32,7 +31,7 @@ function MemberHeader({ handleClickOpenCreateDialog, value, handleChange, handle
       {/* CREATE NEW MEMBER BOTTOM */}
       <Box sx={{display:"flex",justifyContents:"center",alignItems:"center",flexDirection:{xs:"column",sm:"row"},width:{xs:"100%",sm:"auto"},gap:{xs:1,sm:2}}}>
         <button
-          onClick={() => handleClickOpenCreateDialog()}
+          onClick={() => console.log("reload")}
           className="py-2 border-mainColor border-solid border bg-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
           <HiOutlineRefresh fontSize={16} /> actualiser
