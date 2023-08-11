@@ -6,3 +6,6 @@ export type MemberType={
     contact: "",
     password: "",
 }
+export type MemberData={
+    result:{content:MemberType[]}
+}

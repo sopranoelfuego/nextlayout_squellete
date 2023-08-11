@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React,{useState} from "react";
 import {
   Box,
   TableCell,
@@ -11,26 +12,19 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import MemberHeader from "@/components/member/MemberHeader";
+import TablePagination from '@mui/material/TablePagination';
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { HiArchive, HiPencil } from "react-icons/hi";
 import { MemberType } from "@/types";
+import CreateMember from "@/app/timeline/membres/CreateMember";
+
+
+
 // import { notFound } from 'next/navigation'
 
-export  const loadMembers=async()=>{
-  const res=await fetch('http://192.168.40.75:8081/gp-com/api/v1/membres?page=0&size=10&direction=ASC&sortBy=nom')
-  // if(!res.ok)throw new Error('Failed to fetch res')
-  // if(res.status === 401){
-
-  //   notFound()
-  // }
-  if(!res.ok)
-  return alert(`alert type:${res?.type}`)
-
-  return res.json()
-  // return []
-}
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -62,22 +56,41 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
 // { members }: { members: MemberType[] }
 interface ListOfMembersProps {
-  listOfMembers: MemberType[];
-  handleClickOpenCreateDialog: (member: MemberType) => void;
+  members: any;
 }
 
+const ListOfMembers = ({
+  members,
+}: ListOfMembersProps) => {
+   const [open, setOpen] = useState<boolean>(false);
+  const [filterValue, setFilterValue] = useState<string>("");
+  const [member, setMember] = useState({
+    id: "",
+    nom: "",
+    email: "",
+    contact: "",
+    password: "",
+  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFilterValue(e.target.value);
+  const handleClear = () => setFilterValue("");
+  const handleClickOpenCreateDialog = (member?:MemberType) => {
+    if(member)
+    setMember(()=>member)
+    setOpen(true)
+  };
 
-
-
- const ListOfMembers=async({
-  listOfMembers,
-  handleClickOpenCreateDialog,
-}: ListOfMembersProps) =>{
-  const members=await loadMembers()
   return (
+    <>
+     <MemberHeader
+
+        handleChange={handleChange}
+        handleClear={handleClear}
+        value={filterValue}
+        handleClickOpenCreateDialog={handleClickOpenCreateDialog}
+      />
     <Box
       sx={{
         backgroundColor: `background.paper`,
@@ -125,10 +138,7 @@ interface ListOfMembersProps {
             })}
             {members?.result?.content === 0 && (
               <StyledTableRow>
-                <StyledTableCell
-                  colSpan={5}
-                  sx={{ textAlign: "center"}}
-                >
+                <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                   <Typography fontSize="bold">pas de donner</Typography>
                 </StyledTableCell>
               </StyledTableRow>
@@ -136,8 +146,23 @@ interface ListOfMembersProps {
           </TableBody>
         </Table>
       </TableContainer>
+              <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={members?.result?.totalPages}
+          rowsPerPage={members?.result?.size}
+          page={members?.result?.number}
+          // onPageChange={handleChangePage}
+          onPageChange={()=>console.log("chanage page")}
+          // onRowsPerPageChange={handleChangeRowsPerPage}
+          onRowsPerPageChange={()=>console.log("chanage rows")}
+        />
+
     </Box>
+      <CreateMember open={open} setOpen={setOpen} />
+
+        </>
   );
-}
+};
 
 export default ListOfMembers;

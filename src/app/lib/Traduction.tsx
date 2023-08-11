@@ -27,13 +27,14 @@ const TraductionProvider = ({ children }:{children:React.ReactNode}) => {
     useEffect(() => {
         if (langue) {
             LoadTraductions(langue).then((d) => {
+                console.log("d:",d?.default)
                 setMessages(d?.default);
             });
         }
     }, [langue]);
 
     return (
-        <IntlProvider locale={langue === "eng" ? "en" : "fr"} defaultLocale="en" messages={messages}>
+        <IntlProvider locale={langue === "eng" ? "en" : "fr"} defaultLocale="fr" messages={messages}>
             {/* @ts-ignore */}
             {children}
         </IntlProvider>

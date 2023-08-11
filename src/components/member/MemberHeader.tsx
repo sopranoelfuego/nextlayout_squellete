@@ -1,4 +1,6 @@
-import React from "react";
+
+"use client"
+import React,{useState} from "react";
 import { Box } from "@mui/material";
 import { HiOutlineUserAdd, HiOutlineRefresh } from "react-icons/hi";
 import InputSearchComponent from "../common/InputSearchComponent";
@@ -7,9 +9,12 @@ type AppProps = {
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClickOpenCreateDialog: ()=>void;
-  handleClear: () => void;
+  handleClear?: () => void;
 };
-function MemberHeader({ handleClickOpenCreateDialog, value, handleChange, handleClear }: AppProps) {
+function MemberHeader({ handleClickOpenCreateDialog,   }: AppProps) {
+  const [filterValue, setFilterValue] = useState<string>("");
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFilterValue(e.target.value);
   return (
     <Box
       sx={{
@@ -24,8 +29,8 @@ function MemberHeader({ handleClickOpenCreateDialog, value, handleChange, handle
       }}
     >
       <InputSearchComponent
-        handleClear={handleClear}
-        value={value}
+        handleClear={()=>console.log("clear")}
+        value={filterValue}
         handleChange={handleChange}
       />
       {/* CREATE NEW MEMBER BOTTOM */}

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useRouter,usePathname,useSearchParams } from "next/navigation";
+import Login from "./login/page";
 
 export default function Home() {
   
@@ -16,12 +17,13 @@ export default function Home() {
    }, [pathname, searchParams])
 
   return (
-    <Box>
-      loging page here
-      <Button variant="outlined" color="primary" size="small" href="/timeline">
+    <Box >
+      
+      <Login/>
+      {/* <Button variant="outlined" color="primary" size="small" href="/timeline">
         {" "}
         go straigth to the home page
-      </Button>
+      </Button> */}
     </Box>
   );
 }
