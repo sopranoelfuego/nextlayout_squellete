@@ -55,6 +55,26 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
               size="small"
             />
           </Grid>
+          <Grid item xs={12} >
+            <InputLabel sx={{ fontWeight: "bold" }}>Password</InputLabel>
+            <TextField
+              fullWidth
+              id="nom"
+              name="password"
+              type="text"
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12} >
+            <InputLabel sx={{ fontWeight: "bold" }}>confirm password</InputLabel>
+            <TextField
+              fullWidth
+              id="nom"
+              name="password_confirm"
+              type="text"
+              size="small"
+            />
+          </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
