@@ -1,7 +1,9 @@
 'use client' // Error components must be Client Components
  
+import { Box, Stack } from '@mui/material'
 import { useEffect } from 'react'
- 
+ import { HiOutlineRefresh } from "react-icons/hi";
+import { FormattedMessage } from 'react-intl';
 export default function Error({
   error,
   reset,
@@ -15,16 +17,21 @@ export default function Error({
   }, [error])
  
   return (
-    <div>
-      <h2>Something went wrong!</h2>
+    <Box sx={{width:"100%",textAlign:"center"}}>
+      <Stack sx={{margin:"0 auto",width:'fit-content',marginTop:'1rem'}} spacing={{xs:1,sm:2}} >
+
+      <p className='text-xs opacity-60 font-semibold ' ><FormattedMessage id="err_message"/></p>
+      
       <button
+      className={`bg-mainColor hover:bg-white border hover:border-mainColor transition-all duration-500 hover:text-mainColor  text-xs rounded-full py-2 text-white flex items-center gap-1  justify-center  `}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try again
+       <HiOutlineRefresh fontSize={20}/> <FormattedMessage id="ressayer"/>
       </button>
-    </div>
+      </Stack>
+    </Box>
   )
 }

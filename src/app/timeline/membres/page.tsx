@@ -1,16 +1,16 @@
 import React from "react";
 // import Box from "@mui/material/Box";
 import ListOfMembers from "@/app/timeline/membres/ListOfMembers";
-import { MemberType } from "@/types";
+import { ISearchParams, MemberType } from "@/types";
 
 interface ListOfMembersProps {
   members: any;
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
 
-const loadMembers=async()=>{
+const loadMembers=async({page,size,direction}:ISearchParams)=>{
   try{
-   const res=await fetch('http://192.168.40.79:8081/gp-com/api/v1/membres?page=0&size=10&direction=ASC&sortBy=nom')
+   const res=await fetch(`${process.env.ROOT_API}/membres?page:${page}&size:${size}&direction:${direction}&sortBy=nom`)
   if(!res.ok)throw Error("Failed to fetch")
   return res.json()
 
@@ -19,8 +19,20 @@ const loadMembers=async()=>{
  }
 }
 
-export  default async function Home() {
-  const members:ListOfMembersProps=await loadMembers()
+export  default async function Home({searchParams}:{
+  searchParams: { [key: string]: string | string[] | undefined | "ASC" | "DESC" }
+}) {
+
+// GET PARAMS
+/**  page:string
+    size:number
+    direction:'ASC' | 'DESC' */
+const page=typeof searchParams?.page === 'string' ?Number(searchParams?.page):0
+const size=typeof searchParams?.size === 'string' ?Number(searchParams?.size):10
+const direction= searchParams?.direction === 'DESC'?searchParams?.direction:'ASC'
+
+
+  const members:ListOfMembersProps=await loadMembers({page,size,direction})
   
   // const [open, setOpen] = useState<boolean>(false);
   // const [member, setMember] = useState({

@@ -9,11 +9,10 @@ import {
   ListItemButton,
   ListItemIcon,
   useMediaQuery,
-  ListItemAvatar,
   Avatar,
   Stack,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   HiChevronDown,
   HiChevronLeft,
@@ -22,6 +21,7 @@ import {
   HiOutlineUserCircle,
   HiUser,
 } from "react-icons/hi";
+import { LangueContext } from "./contexts/langueContext";
 /* backgroundMain:#055E68 */
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
@@ -39,32 +39,38 @@ export const listLanguages: Ilanguage[] = [
   {
     flag: "https://www.worldometers.info/img/flags/by-flag.gif",
     name: "Ikirundi",
-    code: "",
+    code: "bi",
   },
   {
     flag: "https://www.worldometers.info/img/flags/fr-flag.gif",
     name: "Français",
-    code: "",
+    code: "fr",
   },
   {
     flag: "https://www.worldometers.info/img/flags/uk-flag.gif",
     name: "English",
-    code: "",
+    code: "eng",
   },
 ];
 function Header({
   displayMenuDrawer,
   handleChangeDisplayMenuDrawer,
 }: HeaderProps) {
+  const {changeLangue,langue} = useContext(LangueContext)
   const [displayMenu, setDisplayMenu] = useState(false);
   const [displayLang, setDisplayLang] = useState(false)
   const matches = useMediaQuery("(max-width:700px)");
   const [language, setLanguage] = useState<Ilanguage>({
-    flag: "https://www.worldometers.info/img/flags/by-flag.gif",
+   flag: "https://www.worldometers.info/img/flags/by-flag.gif",
     name: "Ikirundi",
-    code: "",
+    code: "bi",
   });
+  useEffect(() => {
+    if(langue)setLanguage(()=>listLanguages.find(lang=>lang.code === langue)!)
+  }, [langue])
+  
 const handleChangeLangue=(l:Ilanguage)=>{
+  changeLangue(l.code)
   setLanguage((_)=>l)
   setDisplayLang(prev=>!prev)
 }
@@ -94,13 +100,13 @@ const handleChangeLangue=(l:Ilanguage)=>{
       {/* LANGAUE TOGGLE BLOCK */}
       <Box sx={{ position: "relative", marginRight: "2rem" }}>
         <Stack onClick={()=>setDisplayLang(prev=>!prev)} sx={{padding: "0.3rem 0.5rem",transition:"all ease 400ms",borderRadius:"50px",border:"2px solid #dcf5f7",":hover":{borderColor:"#62d6e3",cursor:"pointer"}}}>
-          <Stack direction="row" spacing={{ xs: 1 }}>
+          <Stack direction="row" spacing={{ xs: 1 }} alignItems="center">
             <Avatar
               alt="Remy Sharp"
               src={language.flag}
-              sx={{ width: 24, height: 24 }}
+              sx={{ width: 23, height: 23 }}
             />
-            <Typography fontSize="12px" fontWeight="700">
+            <Typography fontSize="12px" fontWeight="700" sx={{opacity:"0.8"}}>
               {language.name}
             </Typography>
           </Stack>

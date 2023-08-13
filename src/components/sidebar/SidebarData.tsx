@@ -5,14 +5,13 @@ import {
     HiOutlineUsers,
     HiShoppingCart,
     HiCurrencyEuro,
-    
-
     HiViewGrid,
 } from "react-icons/hi";
+import { FormattedMessage } from "react-intl";
 export type SidebarItemType=
       {
         href: string ,
-        linkName: string ,
+        linkName: any,
         icon: React.ReactNode,
         priveleges: string[],
     }
@@ -21,37 +20,37 @@ export type SidebarItemType=
 export const sidebarData:SidebarItemType[] = [
     {
         href: "/timeline",
-        linkName: "Dashboard",
+        linkName: <FormattedMessage id="dashboard"/>,
         icon: <HiHome size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {
         href: "/timeline/membres",
-        linkName: "Membre",
+        linkName: <FormattedMessage id="member"/>,
         icon: <HiOutlineUsers size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {
         href: "/timeline/cotisation",
-        linkName: "Cotisation",
+        linkName: <FormattedMessage id="cotisation"/>,
         icon: <HiCurrencyEuro size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {
         href: "/timeline/credit",
-        linkName: "credit",
+        linkName: <FormattedMessage id="credit"/>,
         icon: <HiViewGrid size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager"],
     },
     {
         href: "/timeline/remboursement",
-        linkName: "Remboursement",
+        linkName: <FormattedMessage id="rembourssement"/>,
         icon: <HiShoppingCart size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {
         href: "/timeline/settings",
-        linkName: "Parametres",
+        linkName: <FormattedMessage id="settings"/>,
         icon: <HiCog size={20} />,
         priveleges: ["SuperAdmin"],
     },

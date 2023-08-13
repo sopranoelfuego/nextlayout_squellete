@@ -1,0 +1,16 @@
+{
+    "login":"Login",
+    "dashboard":"Dashboard",
+    "member":"Member",
+    "cotisation":"Contribution",
+    "credit":"Credit",
+    "rembourssement":"Refunding",
+    "settings":"Settings",
+    "err_message":"Something went wrong!",
+    "ressayer":"Try again"
+    
+
+
+    
+
+}
