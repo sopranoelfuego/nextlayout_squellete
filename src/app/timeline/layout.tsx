@@ -19,7 +19,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [displayMenuDrawer, setDisplayMenuDrawer] = useState<boolean>(false)
-  setDisplayMenuDrawer
   return (
     <Box sx={{ display: "flex", alignItems: "flex-start" }}>
       <Sidebar displayMenuDrawer={displayMenuDrawer} setDisplayMenuDrawer={setDisplayMenuDrawer}/>

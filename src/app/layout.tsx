@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { LanguageContextProvider } from "@/components/contexts/langueContext";
 import TraductionProvider from "@/lib/Traduction";
+import { SessionProvider } from "next-auth/react"
 // import TraductionProvider from "@/app/lib/Traduction"
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <SessionProvider >
         <ExpandContextProvider>
           <LanguageContextProvider>
             <TraductionProvider>{children}</TraductionProvider>
           </LanguageContextProvider>
         </ExpandContextProvider>
+        </SessionProvider>
       </body>
     </html>
   );
