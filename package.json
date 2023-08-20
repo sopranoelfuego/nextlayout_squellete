@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "ziganya",
+=======
+  "name": "testeri",
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +15,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+<<<<<<< HEAD
     "@mui/material": "^5.14.5",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.15",
@@ -30,5 +35,28 @@
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.20",
     "typescript": "^5.1.6"
+=======
+    "@mui/material": "^5.13.7",
+    "@types/node": "20.4.1",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "autoprefixer": "10.4.14",
+    "bcrypt": "^5.1.0",
+    "eslint": "8.44.0",
+    "eslint-config-next": "13.4.9",
+    "formik": "^2.4.2",
+    "next": "13.4.9",
+    "next-auth": "^4.22.1",
+    "postcss": "8.4.25",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.10.1",
+    "react-intl": "^6.4.4",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0"
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
   }
 }

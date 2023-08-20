@@ -1,7 +1,11 @@
 
 "use client"
 import React,{useState} from "react";
+<<<<<<< HEAD
 import Box  from "@mui/material/Box";
+=======
+import { Box } from "@mui/material";
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import { HiOutlineUserAdd, HiOutlineRefresh } from "react-icons/hi";
 import InputSearchComponent from "../common/InputSearchComponent";
 

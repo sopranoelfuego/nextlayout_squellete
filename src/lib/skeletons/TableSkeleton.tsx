@@ -1,7 +1,11 @@
 // material-ui
+<<<<<<< HEAD
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Grid from "@mui/material/Grid"
+=======
+import { Card, CardContent, Grid } from "@mui/material";
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import Skeleton from "@mui/material/Skeleton";
 
 // project imports

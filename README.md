@@ -20,7 +20,10 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Learn More
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.

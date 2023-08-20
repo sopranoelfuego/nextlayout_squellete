@@ -4,11 +4,16 @@ import React, { useContext } from "react";
 import SidebarItem from "./SidebarItem";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
+<<<<<<< HEAD
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { sidebarData, SidebarItemType } from "./SidebarData";
+=======
+import { sidebarData, SidebarItemType } from "./SidebarData";
+import { Box, Drawer, Typography, useMediaQuery } from "@mui/material";
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import { HiChevronRight } from "react-icons/hi";
 import Image from "next/image";
 import { ExpandContext } from "../contexts/expandNavBarContext";

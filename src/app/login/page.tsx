@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -49,13 +50,37 @@ const Login = () => {
       }
     },
   });
+=======
+import {
+  Box,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
+import { FormattedMessage } from "react-intl";
+// HiOutlineEye,HiOutlineEyeOff
+
+const Login = () => {
+  const [showPassword, setshowPassword] = useState(false)
+  const handleChangeShowPassword=()=>setshowPassword(prev=>!prev)
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
   return (
     <Box
       sx={{
         minWidth: "100%",
         display: "flex",
         alignItems: "center",
+<<<<<<< HEAD
         height: "100svh",
+=======
+        height: "100vh",
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
         justifyContent: "center",
       }}
     >
@@ -67,6 +92,10 @@ const Login = () => {
           margin: "auto 0",
           borderRadius: "12px",
           backgroundColor: "white",
+<<<<<<< HEAD
+=======
+
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
           minHeight: { xs: "100%", sm: "700px" },
           maxHeight: { xs: "100%", sm: "700px" },
           height: "100%",
@@ -92,6 +121,7 @@ const Login = () => {
             color: "white",
           }}
         >
+<<<<<<< HEAD
           <Divider flexItem sx={{ color: "white", margin: 0 }}>
             <h1 className="font-bold text-xl">Ziganya</h1>
           </Divider>
@@ -99,11 +129,22 @@ const Login = () => {
             fontSize="15px"
             sx={{ opacity: 0.8, width: "100%", paging: 0, margin: 0 }}
           >
+=======
+          
+          <Divider flexItem sx={{color:"white",margin:0}} >
+          <h1 className="font-bold text-xl">Ziganya</h1>
+          </Divider>
+          <Typography fontSize="15px" sx={{ opacity: 0.8,width:"100%",paging:0,margin:0 }}>
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
             Cotisation - Crédit - Rembourssement
           </Typography>
         </Box>
         <Divider orientation="vertical" variant="middle" flexItem />
+<<<<<<< HEAD
         <form className="h-full w-full flex-1" onSubmit={formik.handleSubmit}>
+=======
+        <form className="h-full w-full flex-1">
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
           <Stack
             direction="column"
             spacing={{ xs: 1, sm: 2 }}
@@ -144,21 +185,33 @@ const Login = () => {
               label="username"
               id="outlined-size-small"
               size="small"
+<<<<<<< HEAD
               {...formik.getFieldProps("email")}
+=======
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
               fullWidth
               sx={{ margin: "0.9rem  0" }}
             />
             <TextField
               label="password"
               id="outlined-size-small"
+<<<<<<< HEAD
               type={showPassword ? "text" : "password"}
               size="small"
               {...formik.getFieldProps("password")}
+=======
+              type={showPassword?"text":"password"}
+              size="small"
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
               fullWidth
               InputProps={{
                 endAdornment: (
                   <IconButton onClick={handleChangeShowPassword}>
+<<<<<<< HEAD
                     {showPassword ? <HiOutlineEyeOff /> : <HiOutlineEye />}
+=======
+                    {showPassword?<HiOutlineEyeOff/>:<HiOutlineEye />}
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
                   </IconButton>
                 ),
               }}

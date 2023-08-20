@@ -52,7 +52,11 @@ body{
   margin: 0;
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
+<<<<<<< HEAD
   min-height: 100svh;
+=======
+  min-height: 100vh;
+>>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
   background-color: #eef5f3;
   
 }
