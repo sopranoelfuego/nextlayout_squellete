@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+/* backgroundSidebar:#F3F3F8*/
+/*sidebarItemHover:
+/* blackMain:#343434 */
+/* greenMain:#62A388 */
+/* greyMain:#B9D2D2 */
+
+/* body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+    background-size: cover;
+} */
+
+/* reusable ccss style */
+.buttonClass {
+  display: flex;
+      padding: 0.5rem 20px ;
+      align-items: center;
+      gap: 6px;
+      font-size:18px;
+      justify-content: center;
+      background-color: #055E68;
+      border-radius: 7px;
+      color: #fff;
+      
+}
+
+body{
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  min-height: 100svh;
+  background-color: #eef5f3;
+  
+}

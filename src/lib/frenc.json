@@ -1,0 +1,22 @@
+{
+    "login":"Se connecter",
+    "dashboard":"Tableau de bord",
+    "member":"Membres",
+    "cotisation":"Cotisations",
+    "credit":"Crédits",
+    "rembourssement":"Rembourssements",
+    "settings":"Paramètres",
+    "err_message":"Quelque chose n'a pas marché !",
+    "ressayer":"Ressayer",
+    "req-field":"ce champ est requis",
+    "encaissements":"encaissements",
+    "decaissements":"decaissements"
+
+
+
+
+
+
+
+
+}

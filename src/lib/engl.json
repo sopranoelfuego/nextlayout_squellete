@@ -1,0 +1,19 @@
+{
+    "login":"Login",
+    "dashboard":"Dashboard",
+    "member":"Members",
+    "cotisation":"Contributions",
+    "credit":"Credits",
+    "rembourssement":"Refundings",
+    "settings":"Settings",
+    "err_message":"Something went wrong!",
+    "ressayer":"Try again",
+    "req-field":"required field",
+    "encaissements":"Receipts",
+    "decaissements":"disbursement"
+    
+
+
+    
+
+}
