@@ -11,18 +11,16 @@ interface ListOfMembersProps {
   members: any;
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
+  console.log("run again")
 
 const loadMembers = async ({ page, size, direction }: ISearchParams) => {
-  try {
-    const res = await fetch(
-      `${process.env.ROOT_API}/membres?page:${page}&size:${size}&direction:${direction}&sortBy=nom`
+   const res = await fetch(
+      `${process.env.ROOT_API}/membres?page:${page}&size:${size}&direction:${direction}&sortBy=nom`,{cache:"no-cache"}
     );
     if (!res.ok) throw Error("Failed to fetch");
     return res.json();
-  } catch (err) {
-    throw new Error("Error accure");
-  }
 };
+
 
 export default async function Home({
   searchParams,

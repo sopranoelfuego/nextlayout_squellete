@@ -4,6 +4,8 @@ import React,{useState} from "react";
 import Box  from "@mui/material/Box";
 import { HiOutlineUserAdd, HiOutlineRefresh } from "react-icons/hi";
 import InputSearchComponent from "../common/InputSearchComponent";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type AppProps = {
   value: string;
@@ -12,6 +14,7 @@ type AppProps = {
   handleClear?: () => void;
 };
 function MemberHeader({ handleClickOpenCreateDialog,   }: AppProps) {
+  const router=useRouter()
   const [filterValue, setFilterValue] = useState<string>("");
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
@@ -35,12 +38,12 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
       />
       {/* CREATE NEW MEMBER BOTTOM */}
       <Box sx={{display:"flex",justifyContents:"center",alignItems:"center",flexDirection:{xs:"column",sm:"row"},width:{xs:"100%",sm:"auto"},gap:{xs:1,sm:2}}}>
-        <button
-          onClick={() => console.log("reload")}
+        <Link
+         href='/timeline/membres'
           className="py-2 border-mainColor border-solid border bg-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
           <HiOutlineRefresh fontSize={16} /> actualiser
-        </button>
+        </Link>
         <button
           onClick={() => handleClickOpenCreateDialog()}
           className="py-2  hover:border-mainColor whitespace-nowrap  opacity-75 hover:opacity-100 px-3 bg-mainColor rounded text-white flex items-center justify-center gap-1 w-full  font-medium transition-all  "

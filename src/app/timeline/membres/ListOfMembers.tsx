@@ -20,6 +20,7 @@ import Paper from "@mui/material/Paper";
 import { HiArchive, HiPencil } from "react-icons/hi";
 import { MemberType } from "@/types";
 import CreateMember from "@/app/timeline/membres/CreateMember";
+import { useRouter } from "next/navigation";
 
 
 
@@ -66,6 +67,7 @@ const ListOfMembers = ({
 }: ListOfMembersProps) => {
    const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
+  const router=useRouter()
   const [member, setMember] = useState({
     id: "",
     nom: "",

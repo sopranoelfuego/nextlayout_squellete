@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ;
 import Button  from "@mui/material/Button"
 import CircularProgress  from "@mui/material/CircularProgress"
@@ -6,16 +5,6 @@ import Dialog  from "@mui/material/Dialog"
 import DialogActions  from "@mui/material/DialogActions"
 import DialogContent  from "@mui/material/DialogContent"
 import DialogTitle  from "@mui/material/DialogTitle"
-=======
-import {
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 
 interface DeleteProps {
   open: boolean;
