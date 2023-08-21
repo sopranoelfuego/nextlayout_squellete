@@ -1,5 +1,4 @@
 "use client";
-<<<<<<< HEAD
 
 import React, { useContext, useEffect, useState } from "react";
 
@@ -15,22 +14,6 @@ import useMediaQuery from "@mui/material/useMediaQuery"
 import Avatar from "@mui/material/Avatar"
 import Stack from "@mui/material/Stack"
 import { useRouter } from 'next/navigation'
-=======
-import {
-  Box,
-  IconButton,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  ListItemIcon,
-  useMediaQuery,
-  Avatar,
-  Stack,
-} from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import {
   HiChevronDown,
   HiChevronLeft,
@@ -74,10 +57,7 @@ function Header({
   displayMenuDrawer,
   handleChangeDisplayMenuDrawer,
 }: HeaderProps) {
-<<<<<<< HEAD
   const router=useRouter()
-=======
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
   const {changeLangue,langue} = useContext(LangueContext)
   const [displayMenu, setDisplayMenu] = useState(false);
   const [displayLang, setDisplayLang] = useState(false)
@@ -213,11 +193,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
           }}
         >
           <ListItem disablePadding>
-<<<<<<< HEAD
             <ListItemButton onClick={()=>router.push("/login")}>
-=======
-            <ListItemButton>
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
               <ListItemIcon>
                 <HiLogout fontSize={20} />
               </ListItemIcon>

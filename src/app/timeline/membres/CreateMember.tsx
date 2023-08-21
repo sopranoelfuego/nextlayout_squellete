@@ -1,15 +1,10 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-<<<<<<< HEAD
 import DialogActions from "@mui/material/DialogActions";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
-=======
-import { Grid, InputLabel, TextField } from "@mui/material";
-import DialogActions from "@mui/material/DialogActions";
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 

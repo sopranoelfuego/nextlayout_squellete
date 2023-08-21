@@ -1,6 +1,5 @@
 'use client'
 import React,{useState} from "react";
-<<<<<<< HEAD
 
 
 import Box from "@mui/material/Box"
@@ -13,20 +12,6 @@ import Stack from "@mui/material/Stack"
 import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
 import TableBody from "@mui/material/TableBody"
-=======
-import {
-  Box,
-  TableCell,
-  TableHead,
-  TableRow,
-  styled,
-  tableCellClasses,
-  TableBody,
-  Stack,
-  IconButton,
-  Typography,
-} from "@mui/material";
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import MemberHeader from "@/components/member/MemberHeader";
 import TablePagination from '@mui/material/TablePagination';
 import TableContainer from "@mui/material/TableContainer";

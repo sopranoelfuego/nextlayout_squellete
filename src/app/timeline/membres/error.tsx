@@ -1,16 +1,10 @@
 'use client' // Error components must be Client Components
  
-<<<<<<< HEAD
 import  Box  from '@mui/material/Box'
 import  Stack  from '@mui/material/Stack'
 import { useEffect } from 'react'
  import { HiOutlineRefresh } from "react-icons/hi";
 
-=======
-import { Box, Stack } from '@mui/material'
-import { useEffect } from 'react'
- import { HiOutlineRefresh } from "react-icons/hi";
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import { FormattedMessage } from 'react-intl';
 export default function Error({
   error,

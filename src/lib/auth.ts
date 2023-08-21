@@ -13,7 +13,6 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
 
       credentials: {
-<<<<<<< HEAD
         email: { label: "email", type: "text", placeholder: "eric" },
         password: { label: "Password", type: "password" },
       },
@@ -21,21 +20,11 @@ export const authOptions: NextAuthOptions = {
         // Add logic here to look up the user from the credentials supplied
 
         const res = await fetch(`http://192.168.40.53:8081/gp-com/api/v1/login`, {
-=======
-        username: { label: "Username", type: "text", placeholder: "eric" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-
-        const res = await fetch("http://localhost:8000/auth/login", {
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-<<<<<<< HEAD
             username: credentials?.email,
             password: credentials?.password,
           }),
@@ -51,19 +40,6 @@ export const authOptions: NextAuthOptions = {
         // } else {
         //   return null;
         // }
-=======
-            username: credentials?.username,
-            password: credentials?.password,
-          }),
-        });
-        const user = await res.json();
-
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
       },
     }),
   ],

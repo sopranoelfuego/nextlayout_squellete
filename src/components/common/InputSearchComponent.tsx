@@ -1,10 +1,6 @@
 import React from 'react'
-<<<<<<< HEAD
 import Box from "@mui/material/Box"
 import IconButton from "@mui/material/Box"
-=======
-import { Box, IconButton } from '@mui/material'
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
 import { HiOutlineSearch, HiX } from 'react-icons/hi'
 
 type InputSearchProps={
