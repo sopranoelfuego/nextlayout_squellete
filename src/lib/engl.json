@@ -6,6 +6,9 @@
     "credit":"Credits",
     "rembourssement":"Refundings",
     "settings":"Settings",
+    "create":"Create",
+    "cancel":"Cancel",
+
     "err_message":"Something went wrong!",
     "ressayer":"Try again",
     "req-field":"required field",

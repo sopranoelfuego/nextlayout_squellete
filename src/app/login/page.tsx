@@ -12,40 +12,44 @@ import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useFormik } from "formik";
 // HiOutlineEye,HiOutlineEyeOff
-import Image from 'next/image'
-import Link from 'next/link'
-
+import Image from "next/image";
+import Link from "next/link";
+import joi from "joi";
+import Button from "@mui/material/Button";
 const Login = () => {
   const intl = useIntl();
   const [showPassword, setshowPassword] = useState(false);
+  const [erros, setErros] = useState<{ email: string; password: string }>({
+    email: intl.formatMessage({ id: "req-field" }),
+    password: intl.formatMessage({ id: "req-field" }),
+  });
   const handleChangeShowPassword = () => setshowPassword((prev) => !prev);
 
-  // const validationSchema = object({
-  //   email: string().required(`${intl.formatMessage({ id: "req-field" })}`),
-  //   password: string().required(`${intl.formatMessage({ id: "req-field" })}`),
-  // });
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       alert(JSON.stringify(values, null, 2));
       try {
-         const res = await fetch(`http://192.168.40.53:8081/gp-com/api/v1/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: values?.email,
-            password: values?.password,
-          }),
-        });
-        console.log("res:",res)
-        
+        const res = await fetch(
+          `http://192.168.40.53:8081/gp-com/api/v1/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: values?.email,
+              password: values?.password,
+            }),
+          }
+        );
+        console.log("res:", res);
       } catch (error) {
-        console.log("error:",error)
+        console.log("error:", error);
       }
     },
   });
@@ -145,6 +149,12 @@ const Login = () => {
               id="outlined-size-small"
               size="small"
               {...formik.getFieldProps("email")}
+              error={formik.touched.email && formik.values.email === ""}
+              helperText={
+                formik.touched.email &&
+                formik.values.email === "" &&
+                erros.email
+              }
               fullWidth
               sx={{ margin: "0.9rem  0" }}
             />
@@ -154,6 +164,12 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               size="small"
               {...formik.getFieldProps("password")}
+              error={formik.touched.password && formik.values.password === ""}
+              helperText={
+                formik.touched.password &&
+                formik.values.password === "" &&
+                erros.password
+              }
               fullWidth
               InputProps={{
                 endAdornment: (
@@ -164,9 +180,14 @@ const Login = () => {
               }}
             />
             <Box sx={{ width: "100%" }}>
-              <button className="w-full bg-mainColor py-2 font-bold hover:bg-inherit border rounded-md hover:border-mainColor transition-all duration-500 hover:text-mainColor text-white">
+              <Button  disabled={!formik.dirty || !Boolean(formik.values.email) || !Boolean(formik.values.password) } variant="outlined" sx={{borderColor:"#055E68",color:"#055E68",backgroundColor:"#055E68",':hover':{
+                color:"#055E68",
+                borderColor:"#055E68"
+                
+              }}}  fullWidth>
                 <FormattedMessage id="login" />
-              </button>
+              </Button>
+             
               <p className="opacity-75 align-middle">forget password</p>
               <Stack
                 direction="row"
@@ -176,7 +197,7 @@ const Login = () => {
                 alignItems="center"
               >
                 <Link href={"/timeline"}>Don&#39;t have a account ?</Link>
-                <button className="w-fit rounded-md  bg-inherit py-1 font-bold px-9 hover:bg-inherit border-2 border-md border-mainColor  transition-all duration-500 text-mainColor ">
+                <button className="w-fit rounded-md  bg-mainColor text-white py-1 font-bold px-9 hover:bg-inherit border border-md border-mainColor  transition-all duration-500 hover:text-mainColor ">
                   create new
                 </button>
               </Stack>
