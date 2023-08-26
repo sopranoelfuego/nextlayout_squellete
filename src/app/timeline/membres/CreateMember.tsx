@@ -10,12 +10,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
+import { MemberType } from "@/types";
 
 type CreateMemberProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  member:MemberType
 };
-export default function CreateMember({ open, setOpen }: CreateMemberProps) {
+export default function CreateMember({ open, setOpen,member }: CreateMemberProps) {
   //   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
   const [errors, setErrors] = useState({
@@ -67,33 +69,53 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
     setOpen(false);
   };
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues: {
-      nom: "",
-      prenom: "",
-      contact: "",
-      email: "",
-      password: "",
+      id:member.id,
+      nom: member.nom,
+      prenom: member.prenom,
+      contact: member.contact,
+      email: member.email,
+      password: member.password,
     },
-    onSubmit:  () => {
-      if(validationSchema()){
-        alert(formik.values)
+    onSubmit: async (values) => {
+      if (validationSchema()) {
+        setErrors({
+          nom: "",
+          prenom: "",
+          contact: "",
+          email: "",
+          password: "",
+        });
+
+        try {
+          await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          });
+        } catch (error) {
+          alert(`error:${error}`);
+        }
 
         console.log(formik.values);
       }
     },
   });
 
-  const handleCloseDialog =()=>{
-    formik.resetForm()
+  const handleCloseDialog = () => {
+    formik.resetForm();
     setErrors({
-        nom: "",
+      nom: "",
       prenom: "",
       contact: "",
       email: "",
       password: "",
-    })
-      handleClose()
-  }
+    });
+    handleClose();
+  };
   return (
     <Dialog
       open={open}
@@ -106,7 +128,7 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}>Nom</InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}><FormattedMessage id="nom"/></InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -117,18 +139,18 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}>Prenom</InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}><FormattedMessage id="prenom"/></InputLabel>
               <TextField
                 fullWidth
                 id="nom"
                 {...formik.getFieldProps("prenom")}
                 error={Boolean(errors.prenom)}
-                helperText={errors.prenom}
+                helperText={formik.touched.prenom && errors.prenom}
                 size="small"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}>Contact</InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}><FormattedMessage id="contact"/></InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -176,8 +198,9 @@ export default function CreateMember({ open, setOpen }: CreateMemberProps) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button  type="submit" disabled={!formik.dirty}>
-            <FormattedMessage id="create" />
+          <Button type="submit" disabled={!formik.dirty}>
+            {member.id?<FormattedMessage id="edit" />:<FormattedMessage id="create" />}
+            
           </Button>
           <Button onClick={handleCloseDialog} autoFocus color="error">
             <FormattedMessage id="cancel" />

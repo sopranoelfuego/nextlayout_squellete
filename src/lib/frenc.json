@@ -2,6 +2,8 @@
     "login":"Se connecter",
     "dashboard":"Tableau de bord",
     "member":"Membres",
+    "actions":"actions",
+
     "cotisation":"Cotisations",
     "credit":"Crédits",
     "rembourssement":"Rembourssements",
@@ -10,6 +12,13 @@
     "ressayer":"Ressayer",
     "create":"Créer",
     "cancel":"Anuler",
+    "edit":"modifier",
+    "nom":"nom",
+    "prenom":"prénom",
+    "contact":"contact",
+    "no-data-display":"pas de donnés a afficher",
+
+
 
     "req-field":"ce champ est requis",
     "encaissements":"encaissements",

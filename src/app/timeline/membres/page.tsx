@@ -15,7 +15,7 @@ interface ListOfMembersProps {
 const loadMembers = async ({ page, size, direction }: ISearchParams) => {
   console.log("enter again",page,size)
    const res = await fetch(
-      `${process.env.ROOT_API}/membres?page:${page}&size:${size}&direction:${direction}&sortBy=nom`,{cache:"no-cache"}
+      `${process.env.NEXT_PUBLIC_ROOT_API}/membres?page:${page}&size:${size}&direction:${direction}&sortBy=nom`,{cache:"no-cache"}
     );
     return res.json();
 };

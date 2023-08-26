@@ -21,6 +21,7 @@ import { HiArchive, HiPencil } from "react-icons/hi";
 import { MemberType } from "@/types";
 import CreateMember from "@/app/timeline/membres/CreateMember";
 import { useRouter } from "next/navigation";
+import { FormattedMessage } from "react-intl";
 
 
 
@@ -68,9 +69,10 @@ const ListOfMembers = ({
    const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
   const router=useRouter()
-  const [member, setMember] = useState({
+  const [member, setMember] = useState<MemberType>({
     id: "",
     nom: "",
+    prenom:"",
     email: "",
     contact: "",
     password: "",
@@ -79,8 +81,17 @@ const ListOfMembers = ({
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
   const handleClickOpenCreateDialog = (member?:MemberType) => {
+    console.log("member:",member)
+    setMember({
+    id: "",
+    nom: "",
+    prenom:"",
+    email: "",
+    contact: "",
+    password: "",
+  })
     if(member)
-    setMember(()=>member)
+    setMember({nom:member.nom,prenom:member.prenom,contact:member.contact,id:member.id,email:member.email,password:member.password})
     setOpen(true)
   };
 
@@ -105,11 +116,11 @@ const ListOfMembers = ({
         <Table>
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell>nom</StyledTableCell>
-              <StyledTableCell align="center">prenom</StyledTableCell>
-              <StyledTableCell align="center">contact</StyledTableCell>
+              <StyledTableCell><FormattedMessage id="nom"/></StyledTableCell>
+              <StyledTableCell align="center"><FormattedMessage id="prenom"/></StyledTableCell>
+              <StyledTableCell align="center"><FormattedMessage id="contact"/></StyledTableCell>
               <StyledTableCell align="center">email</StyledTableCell>
-              <StyledTableCell align="center">actions</StyledTableCell>
+              <StyledTableCell align="center"><FormattedMessage id="actions"/></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -127,7 +138,7 @@ const ListOfMembers = ({
                       justifyContent="center"
                       alignItems="center"
                     >
-                      <IconButton>
+                      <IconButton onClick={()=>handleClickOpenCreateDialog(m)}>
                         <HiPencil fontSize={20} color="black" />
                       </IconButton>
                       <IconButton>
@@ -161,7 +172,7 @@ const ListOfMembers = ({
         />
 
     </Box>
-      <CreateMember open={open} setOpen={setOpen} />
+      <CreateMember member={member} open={open} setOpen={setOpen} />
 
         </>
   );

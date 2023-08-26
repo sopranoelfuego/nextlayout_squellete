@@ -2,13 +2,20 @@
     "login":"Kwikonegita",
     "dashboard":"Icinjiriro",
     "member":"Abanywanyi",
+    "contact":"numero",
+    "actions":"ivyogukora",
+
     "cotisation":"Intererano",
     "credit":"Ingurane",
     "rembourssement":"Ivyiyishura",
     "settings":"Ubuhinga",
     "create":"Emeza",
+    "nom":"izina",
+    "prenom":"amatazirano",
     "cancel":"Gusubirinyuma",
-
+    "no-data-display":"nta cokwerekana",
+    
+    "edit":"subiriza",
     "err_message":"muradutunga ivyo mwasavye ntibishoboye kuboneka",
     "ressayer":"Gerageza kandi",
     "req-field":"musabwa kuheraheza uyumwanya",
