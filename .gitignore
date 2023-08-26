@@ -11,11 +11,8 @@
 # next.js
 /.next/
 /out/
-<<<<<<< HEAD
 .env
-=======
-
->>>>>>> bec97b11628c2faddebb1d98d28b2f219618e956
+/delete
 # production
 /build
 
