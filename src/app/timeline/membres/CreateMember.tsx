@@ -87,8 +87,20 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
           email: "",
           password: "",
         });
-
+    if(member.id)
         try {
+          await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          });
+
+        } catch (error) {
+          alert(`error:${error}`);
+        }
+     else   try {
           await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres`, {
             method: "POST",
             headers: {
@@ -96,6 +108,7 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
             },
             body: JSON.stringify(values),
           });
+
         } catch (error) {
           alert(`error:${error}`);
         }

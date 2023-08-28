@@ -82,6 +82,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
         flex: 1,
         textAlign: "center",
         display: "flex",
+        color:"#252528",
         justifyContent: matches ? "space-between" : "flex-end",
         padding: " 1rem",
         alignItems: "center",
@@ -157,9 +158,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
           alignItems: "center",
           gap: "0.5rem",
           position: "relative",
-          opacity: "0.7",
           ":hover": {
-            opacity: "1",
             cursor: "pointer",
           },
         }}
@@ -167,7 +166,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
         <HiOutlineUserCircle fontSize={27} />
         <Typography
           fontWeight="700"
-          sx={{ display: matches ? "none" : "inline-flex" }}
+          sx={{ display: matches ? "none" : "inline-flex" ,opacity:"0.8",color:"#252528"}}
         >
           eric ndikukazi
         </Typography>
@@ -192,20 +191,21 @@ const handleChangeLangue=(l:Ilanguage)=>{
             display: displayMenu ? "inline-block" : "none",
           }}
         >
-          <ListItem disablePadding>
-            <ListItemButton onClick={()=>router.push("/login")}>
-              <ListItemIcon>
-                <HiLogout fontSize={20} />
-              </ListItemIcon>
-              <ListItemText primary="logout" />
-            </ListItemButton>
-          </ListItem>
+      
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <HiUser fontSize={20} />
               </ListItemIcon>
               <ListItemText primary="profile" />
+            </ListItemButton>
+          </ListItem>
+              <ListItem disablePadding>
+            <ListItemButton onClick={()=>router.push("/login")}>
+              <ListItemIcon>
+                <HiLogout fontSize={20} />
+              </ListItemIcon>
+              <ListItemText primary="logout" />
             </ListItemButton>
           </ListItem>
         </List>

@@ -25,7 +25,7 @@ const SidebarItem = ({
   const  pathname  = usePathname();
   const isActive = pathname === item.href;
   return (
-    <Tooltip title={`${item?.linkName?.toString()}`}>
+    // <Tooltip title={`${item?.linkName?.toString()}`}>
       <Link href={item.href} >
         <Stack direction={expand || displayMenuDrawer?"row":"column"} width={expand?"100%":"auto"} spacing={2}   sx={{display:"flex",opacity:isActive?"1":"0.8",color:isActive?'#055E68':'inherit',transition:"all ease 400ms",justifyContents:"center",alignItems:"center",":hover":{
           opacity:"1"
@@ -33,7 +33,7 @@ const SidebarItem = ({
           {item?.icon} <Typography sx={{display:expand ?'inline-flex':'none',textAlign:"center",fontWeight:"bold",fontSize:"14px"}} gutterBottom={false} >{item.linkName}</Typography>
         </Stack>
       </Link>
-    </Tooltip>
+    // {/* </Tooltip> */}
   );
 };
 

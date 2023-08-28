@@ -67,7 +67,8 @@ function Sidebar({ displayMenuDrawer, setDisplayMenuDrawer }: SidebarProps) {
             <Typography
               sx={{
                 fontWeight: "700",
-                display: expand ? "inline-flex" : "none",
+                display: expand ? "inline-flex" : "none",opacity:"0.8",
+                color:"#252528"
               }}
             >
               Ziganya
