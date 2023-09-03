@@ -18,10 +18,10 @@ import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { HiArchive, HiPencil } from "react-icons/hi";
-import { MemberType } from "@/types";
 import CreateMember from "@/app/timeline/membres/CreateMember";
 import { useRouter } from "next/navigation";
 import { FormattedMessage } from "react-intl";
+import { MemberType } from "../../../../types";
 
 
 
@@ -152,7 +152,7 @@ const ListOfMembers = ({
             {members?.result?.content === 0 && (
               <StyledTableRow>
                 <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
-                  <Typography fontSize="bold">pas de donner</Typography>
+                  <Typography fontSize ="bold">pas de donner</Typography>
                 </StyledTableCell>
               </StyledTableRow>
             )}

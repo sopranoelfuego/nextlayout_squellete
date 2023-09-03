@@ -44,7 +44,7 @@ export default function Home() {
   ];
   return (
     <Box sx={{ minHeight: "100%" ,padding:{xs:"auto",sm:" 0 3rem"} }}>
-      <Grid container justifyContent="center" marginTop={{xs:"0.5rem",sm:"1rem"}} spacing="1rem" >
+      <Grid container justifyContent="center" marginTop={{xs:"0.5rem",sm:"1rem"}} spacing="1rem"  >
         {sumarizes.map((s) => (
           <Grid
             item

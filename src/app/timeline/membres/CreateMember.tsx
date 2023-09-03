@@ -10,8 +10,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
-import { MemberType } from "@/types";
 
+import onHandleSubmit from "@/app/actions/serverActionMember"
+import { MemberType } from "../../../../types";
 type CreateMemberProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,6 +69,7 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
   const handleClose = () => {
     setOpen(false);
   };
+
   const formik = useFormik({
     enableReinitialize:true,
     initialValues: {
@@ -78,44 +80,11 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
       email: member.email,
       password: member.password,
     },
-    onSubmit: async (values) => {
-      if (validationSchema()) {
-        setErrors({
-          nom: "",
-          prenom: "",
-          contact: "",
-          email: "",
-          password: "",
-        });
-    if(member.id)
-        try {
-          await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-
-        } catch (error) {
-          alert(`error:${error}`);
-        }
-     else   try {
-          await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-
-        } catch (error) {
-          alert(`error:${error}`);
-        }
-
-        console.log(formik.values);
-      }
-    },
+    onSubmit:async(values,resetForm)=>{
+      if(validationSchema())
+       await onHandleSubmit({values,member,cb:resetForm})
+    }
+    
   });
 
   const handleCloseDialog = () => {

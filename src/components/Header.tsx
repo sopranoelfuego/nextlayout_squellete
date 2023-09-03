@@ -23,6 +23,7 @@ import {
   HiUser,
 } from "react-icons/hi";
 import { LangueContext } from "./contexts/langueContext";
+import { match } from "assert";
 /* backgroundMain:#055E68 */
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
@@ -107,9 +108,9 @@ const handleChangeLangue=(l:Ilanguage)=>{
             <Avatar
               alt="Remy Sharp"
               src={language.flag}
-              sx={{ width: 23, height: 23 }}
+              sx={{ width: matches?20:23, height: matches?20:23 }}
             />
-            <Typography fontSize="12px" fontWeight="700" sx={{opacity:"0.8"}}>
+            <Typography fontSize={matches?"10px":"12px"} fontWeight="700" sx={{opacity:"0.8"}}>
               {language.name}
             </Typography>
           </Stack>

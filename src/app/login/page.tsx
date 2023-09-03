@@ -14,7 +14,6 @@ import { useFormik } from "formik";
 // HiOutlineEye,HiOutlineEyeOff
 import Image from "next/image";
 import Link from "next/link";
-import joi from "joi";
 import Button from "@mui/material/Button";
 const Login = () => {
   const intl = useIntl();
@@ -107,7 +106,7 @@ const Login = () => {
           </Typography>
         </Box>
         <Divider orientation="vertical" variant="middle" flexItem />
-        <form className="h-full w-full flex-1" onSubmit={formik.handleSubmit}>
+        <form className="h-full w-full minw flex-1" onSubmit={formik.handleSubmit}>
           <Stack
             direction="column"
             spacing={{ xs: 1, sm: 2 }}
@@ -118,6 +117,7 @@ const Login = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "flex-start",
+              // minWidth:"500px",
               padding: "1rem 2rem",
             }}
           >
@@ -197,7 +197,7 @@ const Login = () => {
                 alignItems="center"
               >
                 <Link href={"/timeline"}>Don&#39;t have a account ?</Link>
-                <button className="w-fit rounded-md  bg-mainColor text-white py-1 font-bold px-9 hover:bg-inherit border border-md border-mainColor  transition-all duration-500 hover:text-mainColor ">
+                <button className="w-fit rounded-md  bg-mainColor whitespace-nowrap text-white py-1 font-bold px-9 hover:bg-inherit border border-md border-mainColor  transition-all duration-500 hover:text-mainColor ">
                   create new
                 </button>
               </Stack>

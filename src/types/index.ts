@@ -1,11 +1,5 @@
-export type MemberType={
-    id: "",
-    nom: "",
-    prenom: "",
-    email: "",
-    contact: "",
-    password: "",
-}
+import { MemberType } from "../../types"
+
 export type MemberData={
     result:{content:MemberType[]}
 }

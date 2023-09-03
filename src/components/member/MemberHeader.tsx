@@ -6,6 +6,7 @@ import { HiOutlineUserAdd, HiOutlineRefresh } from "react-icons/hi";
 import InputSearchComponent from "../common/InputSearchComponent";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FormattedMessage } from "react-intl";
 
 type AppProps = {
   value: string;
@@ -42,7 +43,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
          href={`/timeline/membres?page=${0}&size=${10}`}
           className="py-2 border-mainColor border-solid border bg-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
-          <HiOutlineRefresh fontSize={16} /> actualiser
+          <HiOutlineRefresh fontSize={16} /> <FormattedMessage id="relaod"/>
         </Link>
         <button
           onClick={() => handleClickOpenCreateDialog()}
