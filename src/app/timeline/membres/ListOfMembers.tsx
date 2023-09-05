@@ -149,7 +149,7 @@ const ListOfMembers = ({
                 </StyledTableRow>
               );
             })}
-            {members?.result?.content === 0 && (
+            {!members?.result?.content || (members?.result?.content?.length() === 0) && (
               <StyledTableRow>
                 <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                   <Typography fontSize ="bold">pas de donner</Typography>
@@ -162,9 +162,9 @@ const ListOfMembers = ({
               <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={members?.result?.totalPages}
-          rowsPerPage={members?.result?.size}
-          page={members?.result?.number}
+          count={members?.result?.totalPages || 0}
+          rowsPerPage={members?.result?.size || 0}
+          page={members?.result?.number || 0}
           // onPageChange={handleChangePage}
           onPageChange={()=>console.log("chanage page")}
           // onRowsPerPageChange={handleChangeRowsPerPage}

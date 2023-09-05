@@ -31,10 +31,9 @@ const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
       try {
         const res = await fetch(
-          `http://192.168.40.53:8081/gp-com/api/v1/login`,
+          `http://192.168.40.66:8081/gp-com/api/v1/authenticate`,
           {
             method: "POST",
             headers: {
@@ -46,7 +45,6 @@ const Login = () => {
             }),
           }
         );
-        console.log("res:", res);
       } catch (error) {
         console.log("error:", error);
       }
@@ -180,7 +178,7 @@ const Login = () => {
               }}
             />
             <Box sx={{ width: "100%" }}>
-              <Button  disabled={!formik.dirty || !Boolean(formik.values.email) || !Boolean(formik.values.password) } variant="outlined" sx={{borderColor:"#055E68",color:"#055E68",backgroundColor:"#055E68",':hover':{
+              <Button type="submit"  disabled={!formik.dirty || !Boolean(formik.values.email) || !Boolean(formik.values.password) } variant="outlined" sx={{borderColor:"#055E68",color:"#055E68",backgroundColor:"#055E68",':hover':{
                 color:"#055E68",
                 borderColor:"#055E68"
                 

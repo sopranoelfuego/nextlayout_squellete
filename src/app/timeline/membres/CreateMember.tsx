@@ -11,8 +11,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { HiUser,HiUserAdd,HiCash } from "react-icons/hi";
+
 import onHandleSubmit from "@/app/actions/serverActionMember"
 import { MemberType } from "../../../../types";
+import  Stack  from "@mui/material/Stack";
+import  Typography  from "@mui/material/Typography";
 type CreateMemberProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -167,16 +171,30 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
                 size="small"
               />
             </Grid>
-            {/* <Grid item xs={12} >
-            <InputLabel sx={{ fontWeight: "bold" }}>confirm password</InputLabel>
-            <TextField
-              fullWidth
-              id="nom"
-              name="password_confirm"
-              type="text"
-              size="small"
-            />
-          </Grid> */}
+            <Grid item xs={12} display="flex" gap="1rem" flexDirection="row">
+           <Stack className="transition-all duration-500" sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:" 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
+            <HiUserAdd size={20}/>
+            <Typography>
+
+            admin
+            </Typography>
+           </Stack>
+           <Stack  sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:"0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
+            <HiUser size={20} />
+             <Typography>
+
+            user
+            </Typography>
+           </Stack>
+           <Stack  sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:"0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
+           <HiCash size={20}/>
+            <Typography>
+
+              tresorier
+            </Typography>
+          
+           </Stack>
+          </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
