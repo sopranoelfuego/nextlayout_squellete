@@ -13,7 +13,6 @@ export default async function handleSubmit({
   member,
   cb
 }: ISubmitProps) {
-  
     
     if (member.id)
       try {

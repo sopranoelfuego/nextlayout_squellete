@@ -7,6 +7,8 @@ import { LanguageContextProvider } from "@/components/contexts/langueContext";
 import TraductionProvider from "@/lib/Traduction";
 import { SessionProvider } from "next-auth/react"
 // import TraductionProvider from "@/app/lib/Traduction"
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +26,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionProvider >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+
         <ExpandContextProvider>
           <LanguageContextProvider>
             <TraductionProvider>{children}</TraductionProvider>
           </LanguageContextProvider>
         </ExpandContextProvider>
+          </LocalizationProvider>
         </SessionProvider>
       </body>
     </html>

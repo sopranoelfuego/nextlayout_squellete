@@ -12,7 +12,6 @@ import Stack from "@mui/material/Stack"
 import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
 import TableBody from "@mui/material/TableBody"
-import MemberHeader from "@/components/member/MemberHeader";
 import TablePagination from '@mui/material/TablePagination';
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -21,9 +20,12 @@ import { HiArchive, HiPencil } from "react-icons/hi";
 import CreateMember from "@/app/timeline/membres/CreateMember";
 import { useRouter } from "next/navigation";
 import { FormattedMessage } from "react-intl";
-import { MemberType } from "../../../../types";
-
-
+import { CotisationType } from "../../../../types";
+import ContibutionHeader from "./ContributionHeader";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from "dayjs";
 
 // import { notFound } from 'next/navigation'
 
@@ -57,54 +59,93 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     borderRight: "0.5px solid #ccc",
   },
 }));
-
-// { members }: { members: MemberType[] }
-interface ListOfMembersProps {
-  members: any;
+/**
+ *   id?:number | string,
+  montant: number,
+  codeTransaction: string,
+  dateCotisation: string,
+  membreId: number | string
+ * */ 
+// { contributions }: { contributions: MemberType[] }
+interface ListOfContributionsProps {
+  contributions: any;
 }
-
-const ListOfMembers = ({
-  members,
-}: ListOfMembersProps) => {
+const top100Films = [
+    { label: "The Shawshank Redemption", year: 1994 },
+    { label: "The Godfather", year: 1972 },
+    { label: "The Godfather: Part II", year: 1974 },
+    { label: "The Dark Knight", year: 2008 },
+    { label: "12 Angry Men", year: 1957 },
+    { label: "Schindler's List", year: 1993 },
+    { label: "Pulp Fiction", year: 1994 }
+];
+const ListOfContributions = ({
+  contributions,
+}: ListOfContributionsProps) => {
    const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
-  const [member, setMember] = useState<MemberType>({
-    id: "",
-    nom: "",
-    prenom:"",
-    email: "",
-    contact: "",
-    password: "",
-    role:"USER"
+  const [contribution, setContribution] = useState<CotisationType>({
+   id:"",
+  montant: 0,
+  codeTransaction: "",
+  dateCotisation: "",
+  membreId: ""
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
-  const handleClickOpenCreateDialog = (member?:MemberType) => {
-    console.log("member:",member)
-    setMember({
-    id: "",
-    nom: "",
-    prenom:"",
-    email: "",
-    contact: "",
-    password: "",
-    role:"USER"
+  const handleClickOpenCreateDialog = (contribution?:CotisationType) => {
+    setContribution({
+     id:"",
+  montant: 0,
+  codeTransaction: "",
+  dateCotisation: "",
+  membreId: ""
   })
-    if(member)
-    setMember({nom:member.nom,prenom:member.prenom,contact:member.contact,id:member.id,email:member.email,password:member.password,role:member.role})
+    if(contribution)
+    setContribution({montant:contribution.montant,codeTransaction:contribution.codeTransaction,dateCotisation:contribution.dateCotisation,id:contribution.id,membreId:contribution.membreId})
     setOpen(true)
   };
 
   return (
     <>
-     <MemberHeader
+     <ContibutionHeader
 
-        handleChange={handleChange}
-        handleClear={handleClear}
-        value={filterValue}
-        handleClickOpenCreateDialog={handleClickOpenCreateDialog}
+        // handleChange={handleChange}
+        // handleClear={handleClear}
+        // value={filterValue}
+        // handleClickOpenCreateDialog={handleClickOpenCreateDialog}
       />
+      {/* FILTERING */}
+      <Box sx={{display:"flex",flexDirection:{xs:"column",sm:"row"},justifyContent:"end",gap:{xs:"1rem",sm:"2rem"},backgroundColor:"white",marginTop:"0.8rem"}}>
+ <Stack direction="row" sx={{alignItems:"center"}} spacing={{xs:1,sm:2}}>
+      <Typography fontWeight="600" color="#252528" >
+
+         <FormattedMessage id="member"/>
+      </Typography>
+      <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={top100Films}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Membres" size="small"/>}
+    />
+    </Stack>
+ <Stack direction="row" sx={{alignItems:"center"}} spacing={{xs:1,sm:2}}>
+      <Typography fontWeight="600" color="#252528" >
+
+         <FormattedMessage id="Du"/>
+      </Typography>
+    <DatePicker label="Uncontrolled picker"  defaultValue={dayjs('2022-04-17')} />
+    </Stack>
+ <Stack direction="row" sx={{alignItems:"center"}} spacing={{xs:1,sm:2}}>
+      <Typography fontWeight="600" color="#252528" >
+
+         <FormattedMessage id="Au"/>
+      </Typography>
+    <DatePicker label="Uncontrolled picker"  defaultValue={dayjs('2022-04-17')} />
+    </Stack>
+      </Box>
     <Box
       sx={{
         backgroundColor: `background.paper`,
@@ -117,21 +158,20 @@ const ListOfMembers = ({
         <Table>
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell><FormattedMessage id="nom"/></StyledTableCell>
-              <StyledTableCell align="center"><FormattedMessage id="prenom"/></StyledTableCell>
-              <StyledTableCell align="center"><FormattedMessage id="contact"/></StyledTableCell>
-              <StyledTableCell align="center">email</StyledTableCell>
+              <StyledTableCell><FormattedMessage id="member"/></StyledTableCell>
+              <StyledTableCell align="center"><FormattedMessage id="montant"/></StyledTableCell>
+              <StyledTableCell align="center"><FormattedMessage id="dateCotisation"/></StyledTableCell>
               <StyledTableCell align="center"><FormattedMessage id="actions"/></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {members?.result?.content?.map((m: MemberType) => {
+         
+            {contributions?.result?.content?.map((m: CotisationType) => {
               return (
                 <StyledTableRow key={m.id}>
-                  <StyledTableCell>{m?.nom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.prenom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.contact}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.email}</StyledTableCell>
+                  <StyledTableCell>{m?.membreId}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.montant}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.dateCotisation}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Stack
                       direction={{ xs: "column", sm: "row" }}
@@ -150,7 +190,7 @@ const ListOfMembers = ({
                 </StyledTableRow>
               );
             })}
-            {!members?.result?.content || (members?.result?.content?.length() === 0) && (
+            {!contributions?.result?.content || (contributions?.result?.content?.length() === 0) && (
               <StyledTableRow>
                 <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                   <Typography fontSize ="bold">pas de donner</Typography>
@@ -163,9 +203,9 @@ const ListOfMembers = ({
               <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={members?.result?.totalPages || 0}
-          rowsPerPage={members?.result?.size || 0}
-          page={members?.result?.number || 0}
+          count={contributions?.result?.totalPages || 0}
+          rowsPerPage={contributions?.result?.size || 0}
+          page={contributions?.result?.number || 0}
           // onPageChange={handleChangePage}
           onPageChange={()=>console.log("chanage page")}
           // onRowsPerPageChange={handleChangeRowsPerPage}
@@ -173,10 +213,10 @@ const ListOfMembers = ({
         />
 
     </Box>
-      <CreateMember member={member} open={open} setOpen={setOpen} />
+      {/* <CreateMember contribution={contribution} open={open} setOpen={setOpen} /> */}
 
         </>
   );
 };
 
-export default ListOfMembers;
+export default ListOfContributions;
