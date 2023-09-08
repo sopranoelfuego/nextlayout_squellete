@@ -2,7 +2,12 @@
     "login":"Se connecter",
     "dashboard":"Tableau de bord",
     "member":"Membres",
+    "single_member":"Membre",
+    "Du":"Du",
+    "Au":"Au",
     "actions":"actions",
+    "new_member":"ajouter un nouveau membre",
+    "new_cotisation":"ajouter une nouvelle cotisation",
 
     "cotisation":"Cotisations",
     "credit":"Crédits",
@@ -15,6 +20,8 @@
     "edit":"modifier",
     "nom":"nom",
     "prenom":"prénom",
+    "search":"rechercher",
+
 "relaod":"actualiser",
 
     "contact":"contact",

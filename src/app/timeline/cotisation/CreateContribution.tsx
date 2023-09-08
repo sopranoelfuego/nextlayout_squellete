@@ -22,7 +22,7 @@ type CreateMemberProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   member:MemberType
 };
-export default function CreateMember({ open, setOpen,member }: CreateMemberProps) {
+export default function CreateContribution({ open, setOpen,member }: CreateMemberProps) {
   //   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
   const [errors, setErrors] = useState({

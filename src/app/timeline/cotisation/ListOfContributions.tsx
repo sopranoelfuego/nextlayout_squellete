@@ -26,14 +26,17 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from "dayjs";
+import { HiSearch } from "react-icons/hi";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
+import CreateContribution from "./CreateContribution";
 
 // import { notFound } from 'next/navigation'
 
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    color: "white",
-    backgroundColor: "#055E68",
+    color: "color",
+    backgroundColor: "#b9cad2",
     fontSize: 14,
     fontWeight: "bold",
     border: "0.5px solid #fff",
@@ -59,14 +62,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     borderRight: "0.5px solid #ccc",
   },
 }));
-/**
- *   id?:number | string,
-  montant: number,
-  codeTransaction: string,
-  dateCotisation: string,
-  membreId: number | string
- * */ 
-// { contributions }: { contributions: MemberType[] }
+
 interface ListOfContributionsProps {
   contributions: any;
 }
@@ -117,34 +113,41 @@ const ListOfContributions = ({
         // handleClickOpenCreateDialog={handleClickOpenCreateDialog}
       />
       {/* FILTERING */}
-      <Box sx={{display:"flex",flexDirection:{xs:"column",sm:"row"},justifyContent:"end",gap:{xs:"1rem",sm:"2rem"},backgroundColor:"white",marginTop:"0.8rem"}}>
- <Stack direction="row" sx={{alignItems:"center"}} spacing={{xs:1,sm:2}}>
+      <Box sx={{display:"flex",padding:"1rem",alignItems:"center",flexDirection:{xs:"column",sm:"row"},justifyContent:"end",gap:{xs:"1rem",sm:"2rem"},backgroundColor:"white",marginTop:"0.8rem"}}>
+  <Stack direction={{xs:"column",sm:"column",md:"row"}} alignItems={{xs:"flex-start",sm:"center"}} sx={{justifyContent:{xs:"flex-start",sm:"center"},width:{xs:"100%",sm:"auto"}}} spacing={{xs:1,sm:2}}>
       <Typography fontWeight="600" color="#252528" >
 
-         <FormattedMessage id="member"/>
+         <FormattedMessage id="single_member"/>
       </Typography>
       <Autocomplete
       disablePortal
       id="combo-box-demo"
       options={top100Films}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Membres" size="small"/>}
+      sx={{ Maxwidth: 300,minWidth:200,width:{xs:"100%",sm:"auto"} }}
+      renderInput={(params) => <TextField {...params} label="Membre" fullWidth size="small"/>}
     />
     </Stack>
- <Stack direction="row" sx={{alignItems:"center"}} spacing={{xs:1,sm:2}}>
+    <Stack direction={{xs:"column",sm:"column",md:"row"}}  alignItems={{xs:"flex-start",sm:"center"}} sx={{justifyContent:{xs:"flex-start",sm:"center"},width:{xs:"100%",sm:"auto"}}} spacing={{xs:1,sm:2}}>
       <Typography fontWeight="600" color="#252528" >
 
          <FormattedMessage id="Du"/>
       </Typography>
-    <DatePicker label="Uncontrolled picker"  defaultValue={dayjs('2022-04-17')} />
+      
+    <DatePicker  sx={{width:{xs:"100%",sm:"auto"}}}  defaultValue={dayjs('2022-04-17')} />
     </Stack>
- <Stack direction="row" sx={{alignItems:"center"}} spacing={{xs:1,sm:2}}>
+ <Stack direction={{xs:"column",sm:"column",md:"row"}} alignItems={{xs:"flex-start",sm:"center"}} sx={{justifyContent:{xs:"flex-start",sm:"center"},width:{xs:"100%",sm:"auto"}}} spacing={{xs:1,sm:2}}>
       <Typography fontWeight="600" color="#252528" >
 
          <FormattedMessage id="Au"/>
       </Typography>
-    <DatePicker label="Uncontrolled picker"  defaultValue={dayjs('2022-04-17')} />
+    <DatePicker sx={{width:{xs:"100%",sm:"auto"}}}  defaultValue={dayjs('2022-04-17')} />
     </Stack>
+     <button
+         
+          className="py-2 max-w-xs w-full  border-mainColor border-solid border bg-white hover:bg-mainColor hover:text-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1    font-semibold transition-all  "
+        >
+          <HiSearch fontSize={18} /> <FormattedMessage id="search"/>
+        </button>
       </Box>
     <Box
       sx={{
@@ -158,7 +161,7 @@ const ListOfContributions = ({
         <Table>
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell><FormattedMessage id="member"/></StyledTableCell>
+              <StyledTableCell><FormattedMessage id="single_member"/></StyledTableCell>
               <StyledTableCell align="center"><FormattedMessage id="montant"/></StyledTableCell>
               <StyledTableCell align="center"><FormattedMessage id="dateCotisation"/></StyledTableCell>
               <StyledTableCell align="center"><FormattedMessage id="actions"/></StyledTableCell>
@@ -213,7 +216,7 @@ const ListOfContributions = ({
         />
 
     </Box>
-      {/* <CreateMember contribution={contribution} open={open} setOpen={setOpen} /> */}
+      {/* <CreateContribution contribution={contribution} open={open} setOpen={setOpen} /> */}
 
         </>
   );

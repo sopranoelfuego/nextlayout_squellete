@@ -2,8 +2,13 @@
     "login":"Kwikonegita",
     "dashboard":"Icinjiriro",
     "member":"Abanywanyi",
+     "single_member":"Umunywanyi",
+    "Du":"Kuva",
+    "Au":"gushika",
     "contact":"numero",
     "actions":"ivyogukora",
+    "new_member":"kwinjiza munywanyi mushasha",
+    "new_cotisation":"injiza intererano",
 
     "cotisation":"Intererano",
     "credit":"Ingurane",
@@ -12,6 +17,7 @@
     "create":"Emeza",
     "nom":"izina",
     "prenom":"amatazirano",
+    "search":"rondera",
 "relaod":"gusubiramwo",
 
     "cancel":"Gusubirinyuma",

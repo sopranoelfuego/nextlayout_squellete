@@ -30,8 +30,8 @@ import { MemberType } from "../../../../types";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
-    color: "white",
-    backgroundColor: "#055E68",
+    color: "color",
+    backgroundColor: "#b9cad2",
     fontSize: 14,
     fontWeight: "bold",
     border: "0.5px solid #fff",
@@ -150,7 +150,7 @@ const ListOfMembers = ({
                 </StyledTableRow>
               );
             })}
-            {!members?.result?.content || (members?.result?.content?.length() === 0) && (
+            {(members?.result?.content?.length() === 0) && (
               <StyledTableRow>
                 <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                   <Typography fontSize ="bold">pas de donner</Typography>

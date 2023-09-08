@@ -191,7 +191,7 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
               />
             </Grid>
             <Grid item xs={12} display="flex" gap="1rem" flexDirection="row">
-           <Stack onClick={()=>formik.setFieldValue("role","ADMIN")} className="transition-all duration-500" sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:" 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
+           <Stack  onClick={()=>formik.setFieldValue("role","ADMIN")} className="transition-all duration-500" sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:" 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
             <HiUserAdd size={20}/>
             <Typography>
 
