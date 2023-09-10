@@ -22,6 +22,7 @@ import CreateMember from "@/app/timeline/membres/CreateMember";
 import { useRouter } from "next/navigation";
 import { FormattedMessage } from "react-intl";
 import { MemberType } from "../../../../types";
+import DeleteDialog from "@/components/common/DeleteDialogue";
 
 
 
@@ -62,12 +63,33 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 interface ListOfMembersProps {
   members: any;
 }
-
+const membersTest=[
+  {
+    id:1,
+      nom: "string",
+  prenom: "string",
+  contact: "999342",
+  email: "string",
+  password: "string",
+  role: "USER"
+  },
+  {
+    id:2,
+      nom: "string",
+  prenom: "string",
+  contact: "999342",
+  email: "string",
+  password: "string",
+  role: "USER"
+  }
+]
 const ListOfMembers = ({
   members,
 }: ListOfMembersProps) => {
    const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [member, setMember] = useState<MemberType>({
     id: "",
     nom: "",
@@ -80,8 +102,13 @@ const ListOfMembers = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
+  const handleDeleteMember=(m:MemberType)=>{
+    if(m)
+    setMember(m)
+    setOpenDeleteModal(prev=>!prev)
+
+  }
   const handleClickOpenCreateDialog = (member?:MemberType) => {
-    console.log("member:",member)
     setMember({
     id: "",
     nom: "",
@@ -121,11 +148,12 @@ const ListOfMembers = ({
               <StyledTableCell align="center"><FormattedMessage id="prenom"/></StyledTableCell>
               <StyledTableCell align="center"><FormattedMessage id="contact"/></StyledTableCell>
               <StyledTableCell align="center">email</StyledTableCell>
+              <StyledTableCell align="center">role</StyledTableCell>
               <StyledTableCell align="center"><FormattedMessage id="actions"/></StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {members?.result?.content?.map((m: MemberType) => {
+            {/* {members?.result?.content?.map((m: MemberType) => {
               return (
                 <StyledTableRow key={m.id}>
                   <StyledTableCell>{m?.nom}</StyledTableCell>
@@ -149,11 +177,37 @@ const ListOfMembers = ({
                   </StyledTableCell>
                 </StyledTableRow>
               );
+            })} */}
+            {membersTest?.map((m: MemberType) => {
+              return (
+                <StyledTableRow key={m.id}>
+                  <StyledTableCell>{m?.nom}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.prenom}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.contact}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.email}</StyledTableCell>
+                  <StyledTableCell align="center">{m?.role}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <IconButton onClick={()=>handleClickOpenCreateDialog(m)}>
+                        <HiPencil fontSize={17}  />
+                      </IconButton>
+                      <IconButton sx={{':hover':{color:"red"}}} onClick={()=>handleDeleteMember(m)}>
+                        <HiArchive fontSize={17}  />
+                      </IconButton>
+                    </Stack>
+                  </StyledTableCell>
+                </StyledTableRow>
+              );
             })}
             {(members?.result?.content?.length() === 0) && (
               <StyledTableRow>
                 <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
-                  <Typography fontSize ="bold">pas de donner</Typography>
+                  <Typography fontSize ="bold"><FormattedMessage id="no-data-display"/></Typography>
                 </StyledTableCell>
               </StyledTableRow>
             )}
@@ -174,6 +228,7 @@ const ListOfMembers = ({
 
     </Box>
       <CreateMember member={member} open={open} setOpen={setOpen} />
+      <DeleteDialog open={openDeleteModal} deleting={deleting} handleClose={()=>setOpenDeleteModal(prev=>!prev)} handleDelete={()=>console.log("deleted")} />
 
         </>
   );

@@ -14,8 +14,8 @@
     "create":"Create",
     "search":"search",
     "cancel":"Cancel",
-    "nom":"lastname",
-    "prenom":"firstname",
+    "nom":"last name",
+    "prenom":"first name",
     "contact":"contact",
     "no-data-display":"no data to display",
      "new_member":"add new member",
@@ -26,6 +26,10 @@
     "req-field":"required field",
     "encaissements":"Receipts",
     "edit":"edit",
+    "delete-req":"yes, delete it",
+    "delete-message-desc":"Dear user, we inform you that this action is irreversible... please think twice.",
+        
+    "delete-message":"Do you really want to remove it ?",
     "decaissements":"disbursement"
     
 

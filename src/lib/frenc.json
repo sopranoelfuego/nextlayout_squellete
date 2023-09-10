@@ -16,11 +16,16 @@
     "err_message":"Quelque chose n'a pas marché !",
     "ressayer":"Ressayer",
     "create":"Créer",
-    "cancel":"Anuler",
+    "cancel":"Annuler",
     "edit":"modifier",
     "nom":"nom",
     "prenom":"prénom",
     "search":"rechercher",
+    "delete-req":"oui, supprimez-le",
+    "delete-message-desc":"Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
+
+
+    "delete-message":"Voulez-vous vraiment le supprimer ?",
 
 "relaod":"actualiser",
 
