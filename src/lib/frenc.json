@@ -22,6 +22,8 @@
     "prenom":"prénom",
     "search":"rechercher",
     "delete-req":"oui, supprimez-le",
+    "wrong-cred":"e-mail ou mot de passe incorrect",
+
     "delete-message-desc":"Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
 
 

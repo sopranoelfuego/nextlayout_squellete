@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
 
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -15,9 +16,15 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import {useRouter} from "next/navigation"
 const Login = () => {
   const intl = useIntl();
   const [showPassword, setshowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const [wrongCredentials, setWrongCredentials] = useState(false);
+  const router=useRouter()
+  
   const [erros, setErros] = useState<{ email: string; password: string }>({
     email: intl.formatMessage({ id: "req-field" }),
     password: intl.formatMessage({ id: "req-field" }),
@@ -31,6 +38,9 @@ const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
+      setIsLoading(false)
+        setWrongCredentials(true)
+
       try {
         const res = await fetch(
           `http://192.168.40.66:8081/gp-com/api/v1/authenticate`,
@@ -40,13 +50,23 @@ const Login = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              username: values?.email,
+              email: values?.email,
               password: values?.password,
             }),
           }
         );
+        const data=await res.json()
+        console.log("data here:",data)
+        setIsLoading(false)
+        router.push('/timeline')
+        
       } catch (error) {
-        console.log("error:", error);
+        setWrongCredentials(true)
+        setIsLoading(false)
+        if(error)
+        console.log(Object.keys(error))
+        
+        // console.log("error:", error);
       }
     },
   });
@@ -141,6 +161,7 @@ const Login = () => {
             <p className="font-semibold opacity-80">
               Please login to your account
             </p>
+            {wrongCredentials && <Alert severity="error"><FormattedMessage id="wrong-cred"/></Alert>}
 
             <TextField
               label="username"
@@ -178,15 +199,16 @@ const Login = () => {
               }}
             />
             <Box sx={{ width: "100%" }}>
-              <Button type="submit"  disabled={!formik.dirty || !Boolean(formik.values.email) || !Boolean(formik.values.password) } variant="outlined" sx={{borderColor:"#055E68",color:"#055E68",backgroundColor:"#055E68",':hover':{
+              <Button type="submit"  disabled={!formik.dirty || !Boolean(formik.values.email) || !Boolean(formik.values.password) || isLoading } variant="outlined" sx={{borderColor:"#055E68",color:"#055E68",backgroundColor:"#055E68",':hover':{
                 color:"#055E68",
                 borderColor:"#055E68"
                 
               }}}  fullWidth>
                 <FormattedMessage id="login" />
               </Button>
+             <Link href={"/"}  > <small className=" align-middle font-semibold opacity-75 hover:opacity-100 transition-all duration-500 underline">forget password</small></Link>
              
-              <p className="opacity-75 align-middle">forget password</p>
+             
               <Stack
                 direction="row"
                 justifyContent="flex-end"

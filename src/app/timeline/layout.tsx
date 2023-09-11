@@ -47,7 +47,7 @@ export default function RootLayout({
               fontWeight="800"
               position="absolute"
               bottom="10px"
-              left="50%"
+              left="40%"
             >
               made with &#10084; by eric and douce
             </Typography>

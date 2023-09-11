@@ -89,9 +89,9 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
       if(validationSchema())
       try {
         await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`,
+          `${process.env.NEXT_PUBLIC_ROOT_API}/register`,
           {
-            method: "PUT",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
