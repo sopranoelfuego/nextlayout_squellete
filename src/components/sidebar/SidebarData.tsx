@@ -3,7 +3,7 @@ import {
     HiOutlineCog,
     HiOutlineHome,
     HiOutlineUsers,
-    HiOutlineShoppingCart,
+    HiOutlineCash,
     HiOutlineCurrencyEuro,
     HiOutlineViewGrid,
 } from "react-icons/hi";
@@ -45,7 +45,7 @@ export const sidebarData:SidebarItemType[] = [
     {
         href: "/timeline/remboursement",
         linkName: <FormattedMessage id="rembourssement"/>,
-        icon: <HiOutlineShoppingCart size={20} />,
+        icon: <HiOutlineCash size={20} />,
         priveleges: ["SuperAdmin", "Admin", "StockManager", "Salesman"],
     },
     {

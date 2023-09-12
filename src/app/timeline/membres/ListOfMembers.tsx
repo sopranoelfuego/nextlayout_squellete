@@ -178,7 +178,7 @@ const ListOfMembers = ({
                 </StyledTableRow>
               );
             })} */}
-            {members?.result?.content?.map((m: MemberType) => {
+            {membersTest?.map((m: MemberType) => {
               return (
                 <StyledTableRow key={m.id}>
                   <StyledTableCell>{m?.nom}</StyledTableCell>

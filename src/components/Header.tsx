@@ -17,13 +17,13 @@ import { useRouter } from 'next/navigation'
 import {
   HiChevronDown,
   HiChevronLeft,
-  HiLogout,
+  HiOutlineLogout,
   HiMenuAlt1,
   HiOutlineUserCircle,
-  HiUser,
+  HiOutlineIdentification,
 } from "react-icons/hi";
 import { LangueContext } from "./contexts/langueContext";
-import { match } from "assert";
+;
 /* backgroundMain:#055E68 */
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
@@ -196,7 +196,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <HiUser fontSize={20} />
+                <HiOutlineIdentification fontSize={20} />
               </ListItemIcon>
               <ListItemText primary="profile" />
             </ListItemButton>
@@ -204,7 +204,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
               <ListItem disablePadding>
             <ListItemButton onClick={()=>router.push("/login")}>
               <ListItemIcon>
-                <HiLogout fontSize={20} />
+                <HiOutlineLogout fontSize={20} />
               </ListItemIcon>
               <ListItemText primary="logout" />
             </ListItemButton>

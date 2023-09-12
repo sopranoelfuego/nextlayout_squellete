@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { signIn } from "next-auth/react"
+
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -17,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import {useRouter} from "next/navigation"
+import { Fascinate_Inline } from "next/font/google";
 const Login = () => {
   const intl = useIntl();
   const [showPassword, setshowPassword] = useState(false);
@@ -38,8 +41,10 @@ const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      setIsLoading(false)
-        setWrongCredentials(true)
+      setIsLoading(true)
+        setWrongCredentials(false)
+        signIn("credentials",values)
+        
 
       try {
         const res = await fetch(
@@ -56,15 +61,13 @@ const Login = () => {
           }
         );
         const data=await res.json()
-        console.log("data here:",data)
         setIsLoading(false)
         router.push('/timeline')
         
       } catch (error) {
         setWrongCredentials(true)
         setIsLoading(false)
-        if(error)
-        console.log(Object.keys(error))
+        
         
         // console.log("error:", error);
       }

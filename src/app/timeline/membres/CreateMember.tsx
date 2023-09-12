@@ -10,19 +10,25 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
-import { HiUser,HiUserAdd,HiCash } from "react-icons/hi";
+import { HiUser, HiUserAdd, HiCash } from "react-icons/hi";
 
-import onHandleSubmit from "@/app/actions/serverActionMember"
+import onHandleSubmit from "@/app/actions/serverActionMember";
 import { MemberType } from "../../../../types";
-import  Stack  from "@mui/material/Stack";
-import  Typography  from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 type CreateMemberProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  member:MemberType
+  member: MemberType;
 };
-export default function CreateMember({ open, setOpen,member }: CreateMemberProps) {
+export default function CreateMember({
+  open,
+  setOpen,
+  member,
+}: CreateMemberProps) {
   //   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
   const [errors, setErrors] = useState({
@@ -75,39 +81,34 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
   };
 
   const formik = useFormik({
-    enableReinitialize:true,
+    enableReinitialize: true,
     initialValues: {
-      id:member.id,
+      id: member.id,
       nom: member.nom,
       prenom: member.prenom,
       contact: member.contact,
       email: member.email,
       password: member.password,
-      role:member.role
+      role: member.role,
     },
-    onSubmit:async(values,resetForm)=>{
-      if(validationSchema())
-      try {
-        await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_API}/register`,
-          {
+    onSubmit: async (values, resetForm) => {
+      if (validationSchema())
+        try {
+          await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
-          }
-        );
-        // cb()
-        // revalidateTag('members')
-      } catch (error) {
-        alert(`error:${error}`);
-      }
+          });
+          // cb()
+          // revalidateTag('members')
+        } catch (error) {
+          alert(`error:${error}`);
+        }
       //  await onHandleSubmit({values,member,cb:resetForm})
-    }
-    
+    },
   });
-
 
   const handleCloseDialog = () => {
     formik.resetForm();
@@ -117,7 +118,6 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
       contact: "",
       email: "",
       password: "",
-      
     });
     handleClose();
   };
@@ -133,7 +133,9 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}><FormattedMessage id="nom"/></InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}>
+                <FormattedMessage id="nom" />
+              </InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -144,7 +146,9 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}><FormattedMessage id="prenom"/></InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}>
+                <FormattedMessage id="prenom" />
+              </InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -155,15 +159,18 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}><FormattedMessage id="contact"/></InputLabel>
-              <TextField
-                fullWidth
-                id="nom"
+              <InputLabel sx={{ fontWeight: "bold" }}>
+                <FormattedMessage id="contact" />
+              </InputLabel>
+            
+              <PhoneInput
+                country={"us"}
+
+                inputStyle={{width:"100%"}}
                 {...formik.getFieldProps("contact")}
-                error={Boolean(errors.contact)}
-                helperText={errors.contact}
-                size="small"
-                type="tel"
+                onChange={(phone) => {
+                  formik.setFieldValue("contact",phone)
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -191,35 +198,71 @@ export default function CreateMember({ open, setOpen,member }: CreateMemberProps
               />
             </Grid>
             <Grid item xs={12} display="flex" gap="1rem" flexDirection="row">
-           <Stack  onClick={()=>formik.setFieldValue("role","ADMIN")} className="transition-all duration-500" sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:" 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
-            <HiUserAdd size={20}/>
-            <Typography>
-
-            admin
-            </Typography>
-           </Stack>
-           <Stack onClick={()=>formik.setFieldValue("role","USER")}  sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:"0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
-            <HiUser size={20} />
-             <Typography>
-
-            user
-            </Typography>
-           </Stack>
-           <Stack onClick={()=>formik.setFieldValue("role","TRESORIER")}  sx={{width:"100%",borderRadius:"5px",':hover':{cursor:"pointer",backgroundColor:"#62A388"},backgroundColor:"white",boxShadow:"0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",paddingY:"1rem",textAlign:"center",justifyContent:"center",alignItems:"center"}}>
-           <HiCash size={20}/>
-            <Typography>
-
-              tresorier
-            </Typography>
-          
-           </Stack>
-          </Grid>
+              <Stack
+                onClick={() => formik.setFieldValue("role", "ADMIN")}
+                className="transition-all duration-500"
+                sx={{
+                  width: "100%",
+                  borderRadius: "5px",
+                  ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
+                  backgroundColor: "white",
+                  boxShadow:
+                    " 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
+                  paddingY: "1rem",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <HiUserAdd size={20} />
+                <Typography>admin</Typography>
+              </Stack>
+              <Stack
+                onClick={() => formik.setFieldValue("role", "USER")}
+                sx={{
+                  width: "100%",
+                  borderRadius: "5px",
+                  ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
+                  backgroundColor: "white",
+                  boxShadow:
+                    "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
+                  paddingY: "1rem",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <HiUser size={20} />
+                <Typography>user</Typography>
+              </Stack>
+              <Stack
+                onClick={() => formik.setFieldValue("role", "TRESORIER")}
+                sx={{
+                  width: "100%",
+                  borderRadius: "5px",
+                  ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
+                  backgroundColor: "white",
+                  boxShadow:
+                    "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
+                  paddingY: "1rem",
+                  textAlign: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <HiCash size={20} />
+                <Typography>tresorier</Typography>
+              </Stack>
+            </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
           <Button type="submit" disabled={!formik.dirty}>
-            {member.id?<FormattedMessage id="edit" />:<FormattedMessage id="create" />}
-            
+            {member.id ? (
+              <FormattedMessage id="edit" />
+            ) : (
+              <FormattedMessage id="create" />
+            )}
           </Button>
           <Button onClick={handleCloseDialog} autoFocus color="error">
             <FormattedMessage id="cancel" />
