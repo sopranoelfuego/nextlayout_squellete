@@ -1,19 +1,18 @@
-'use client'
-import React,{useState} from "react";
+"use client";
+import React, { useState } from "react";
 
-
-import Box from "@mui/material/Box"
-import TableCell from "@mui/material/TableCell"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
-import styled from "@mui/material/styles/styled"
-import tableCellClasses from "@mui/material/TableCell/tableCellClasses"
-import Stack from "@mui/material/Stack"
-import IconButton from "@mui/material/IconButton"
-import Typography from "@mui/material/Typography"
-import TableBody from "@mui/material/TableBody"
+import Box from "@mui/material/Box";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import styled from "@mui/material/styles/styled";
+import tableCellClasses from "@mui/material/TableCell/tableCellClasses";
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import TableBody from "@mui/material/TableBody";
 import MemberHeader from "@/components/member/MemberHeader";
-import TablePagination from '@mui/material/TablePagination';
+import TablePagination from "@mui/material/TablePagination";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
@@ -24,10 +23,7 @@ import { FormattedMessage } from "react-intl";
 import { MemberType } from "../../../../types";
 import DeleteDialog from "@/components/common/DeleteDialogue";
 
-
-
 // import { notFound } from 'next/navigation'
-
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -63,97 +59,108 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 interface ListOfMembersProps {
   members: any;
 }
-const membersTest=[
+const membersTest = [
   {
-    id:1,
-      nom: "string",
-  prenom: "string",
-  contact: "999342",
-  email: "string",
-  password: "string",
-  role: "USER"
+    id: 1,
+    nom: "string",
+    prenom: "string",
+    contact: "999342",
+    email: "string",
+    password: "string",
+    role: "ADMIN",
   },
   {
-    id:2,
-      nom: "string",
-  prenom: "string",
-  contact: "999342",
-  email: "string",
-  password: "string",
-  role: "USER"
-  }
-]
-const ListOfMembers = ({
-  members,
-}: ListOfMembersProps) => {
-   const [open, setOpen] = useState<boolean>(false);
+    id: 2,
+    nom: "string",
+    prenom: "string",
+    contact: "999342",
+    email: "string",
+    password: "string",
+    role: "USER",
+  },
+];
+const ListOfMembers = ({ members }: ListOfMembersProps) => {
+  const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const [deleting, setDeleting] = useState(false)
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [member, setMember] = useState<MemberType>({
     id: "",
     nom: "",
-    prenom:"",
+    prenom: "",
     email: "",
     contact: "",
     password: "",
-    role:"USER"
+    role: "USER",
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
-  const handleDeleteMember=(m:MemberType)=>{
-    if(m)
-    setMember(m)
-    setOpenDeleteModal(prev=>!prev)
-
-  }
-  const handleClickOpenCreateDialog = (member?:MemberType) => {
+  const handleDeleteMember = (m: MemberType) => {
+    if (m) setMember(m);
+    setOpenDeleteModal((prev) => !prev);
+  };
+  const handleClickOpenCreateDialog = (member?: MemberType) => {
     setMember({
-    id: "",
-    nom: "",
-    prenom:"",
-    email: "",
-    contact: "",
-    password: "",
-    role:"USER"
-  })
-    if(member)
-    setMember({nom:member.nom,prenom:member.prenom,contact:member.contact,id:member.id,email:member.email,password:member.password,role:member.role})
-    setOpen(true)
+      id: "",
+      nom: "",
+      prenom: "",
+      email: "",
+      contact: "",
+      password: "",
+      role: "USER",
+    });
+    if (member)
+      setMember({
+        nom: member.nom,
+        prenom: member.prenom,
+        contact: member.contact,
+        id: member.id,
+        email: member.email,
+        password: member.password,
+        role: member.role,
+      });
+    setOpen(true);
   };
 
   return (
     <>
-     <MemberHeader
-
+      <MemberHeader
         handleChange={handleChange}
         handleClear={handleClear}
         value={filterValue}
         handleClickOpenCreateDialog={handleClickOpenCreateDialog}
       />
-    <Box
-      sx={{
-        backgroundColor: `background.paper`,
-        height: "100%",
-        width: "100%",
-        marginTop: "10px",
-      }}
-    >
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell><FormattedMessage id="nom"/></StyledTableCell>
-              <StyledTableCell align="center"><FormattedMessage id="prenom"/></StyledTableCell>
-              <StyledTableCell align="center"><FormattedMessage id="contact"/></StyledTableCell>
-              <StyledTableCell align="center">email</StyledTableCell>
-              <StyledTableCell align="center">role</StyledTableCell>
-              <StyledTableCell align="center"><FormattedMessage id="actions"/></StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {/* {members?.result?.content?.map((m: MemberType) => {
+      <Box
+        sx={{
+          backgroundColor: `background.paper`,
+          height: "100%",
+          width: "100%",
+          marginTop: "10px",
+        }}
+      >
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <StyledTableRow>
+                <StyledTableCell>
+                  <FormattedMessage id="nom" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="prenom" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="contact" />
+                </StyledTableCell>
+                <StyledTableCell align="center">email</StyledTableCell>
+                <StyledTableCell align="center">role</StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="actions" />
+                </StyledTableCell>
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {/* {members?.result?.content?.map((m: MemberType) => {
               return (
                 <StyledTableRow key={m.id}>
                   <StyledTableCell>{m?.nom}</StyledTableCell>
@@ -178,59 +185,72 @@ const ListOfMembers = ({
                 </StyledTableRow>
               );
             })} */}
-            {membersTest?.map((m: MemberType) => {
-              return (
-                <StyledTableRow key={m.id}>
-                  <StyledTableCell>{m?.nom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.prenom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.contact}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.email}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.role}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Stack
-                      direction={{ xs: "column", sm: "row" }}
-                      
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <IconButton onClick={()=>handleClickOpenCreateDialog(m)}>
-                        <HiPencil fontSize={17}  />
-                      </IconButton>
-                      <IconButton sx={{':hover':{color:"red"}}} onClick={()=>handleDeleteMember(m)}>
-                        <HiArchive fontSize={17}  />
-                      </IconButton>
-                    </Stack>
+              {membersTest?.map((m: MemberType) => {
+                return (
+                  <StyledTableRow key={m.id}>
+                    <StyledTableCell>{m?.nom}</StyledTableCell>
+                    <StyledTableCell align="center">
+                      {m?.prenom}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {m?.contact}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">{m?.email}</StyledTableCell>
+                    <StyledTableCell align="center">{m?.role}</StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Stack
+                        direction={{ xs: "column", sm: "row" }}
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <IconButton
+                          onClick={() => handleClickOpenCreateDialog(m)}
+                        >
+                          <HiPencil fontSize={17} />
+                        </IconButton>
+                        <IconButton
+                          sx={{ ":hover": { color: "red" } }}
+                          onClick={() => handleDeleteMember(m)}
+                        >
+                          <HiArchive fontSize={17} />
+                        </IconButton>
+                      </Stack>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+              {members?.result?.content?.length() === 0 && (
+                <StyledTableRow>
+                  <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
+                    <Typography fontSize="bold">
+                      <FormattedMessage id="no-data-display" />
+                    </Typography>
                   </StyledTableCell>
                 </StyledTableRow>
-              );
-            })}
-            {(members?.result?.content?.length() === 0) && (
-              <StyledTableRow>
-                <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
-                  <Typography fontSize ="bold"><FormattedMessage id="no-data-display"/></Typography>
-                </StyledTableCell>
-              </StyledTableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-              <TablePagination
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={members?.result?.totalPages || 0}
           rowsPerPage={members?.result?.size || 0}
           page={members?.result?.number || 0}
           // onPageChange={handleChangePage}
-          onPageChange={()=>console.log("chanage page")}
+          onPageChange={() => console.log("chanage page")}
           // onRowsPerPageChange={handleChangeRowsPerPage}
-          onRowsPerPageChange={()=>console.log("chanage rows")}
+          onRowsPerPageChange={() => console.log("chanage rows")}
         />
-
-    </Box>
+      </Box>
       <CreateMember member={member} open={open} setOpen={setOpen} />
-      <DeleteDialog open={openDeleteModal} deleting={deleting} handleClose={()=>setOpenDeleteModal(prev=>!prev)} handleDelete={()=>console.log("deleted")} />
-
-        </>
+      <DeleteDialog
+        open={openDeleteModal}
+        deleting={deleting}
+        handleClose={() => setOpenDeleteModal((prev) => !prev)}
+        handleDelete={() => console.log("deleted")}
+      />
+    </>
   );
 };
 

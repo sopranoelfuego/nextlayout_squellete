@@ -205,7 +205,7 @@ export default function CreateMember({
                   width: "100%",
                   borderRadius: "5px",
                   ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
-                  backgroundColor: "white",
+                  backgroundColor: formik.values.role === 'ADMIN'?'#62A388':"white",
                   boxShadow:
                     " 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",
@@ -223,7 +223,7 @@ export default function CreateMember({
                   width: "100%",
                   borderRadius: "5px",
                   ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
-                  backgroundColor: "white",
+                  backgroundColor: formik.values.role === 'USER'?'#62A388':"white",
                   boxShadow:
                     "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",
@@ -240,8 +240,8 @@ export default function CreateMember({
                 sx={{
                   width: "100%",
                   borderRadius: "5px",
-                  ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
-                  backgroundColor: "white",
+                  ":hover": { cursor: "pointer", backgroundColor:   "#62A388" },
+                  backgroundColor: formik.values.role === 'TRESORERIER'?'#62A388':"white",
                   boxShadow:
                     "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",
