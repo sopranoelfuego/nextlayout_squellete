@@ -165,7 +165,6 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
           </Typography>
           <DatePicker
           sx={{width:"100%"}}
-          
             defaultValue={dayjs("2022-04-17")}
           />
         </Grid>
