@@ -66,7 +66,7 @@ const Login = () => {
         
       } catch (error) {
         setWrongCredentials(true)
-        handleOpenAlert("error")
+        handleOpenAlert("error","network error")
         setIsLoading(false)
         
         // console.log("error:", error);

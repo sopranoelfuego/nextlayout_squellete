@@ -11,7 +11,7 @@ export default function MuiSnackBar() {
   return (
     <Snackbar  anchorOrigin={{ vertical:"top", horizontal:"right" }} open={dialog.open} autoHideDuration={6000} onClose={handleCloseAlert}>
       <Alert onClose={handleCloseAlert} severity={dialog.severity} sx={{ width: "100%" }}>
-        This is a success message!
+        {dialog.message}
       </Alert>
     </Snackbar>
   );
