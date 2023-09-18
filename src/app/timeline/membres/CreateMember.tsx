@@ -94,7 +94,8 @@ export default function CreateMember({
     onSubmit: async (values, resetForm) => {
       if (validationSchema())
         try {
-          await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/register`, {
+      // http://192.168.40.66:8081/gp-com/api/v1/register
+          await fetch(`http://192.168.40.66:8081/gp-com/api/v1/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -134,7 +135,7 @@ export default function CreateMember({
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <InputLabel sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="nom" />
+                <FormattedMessage id="nom" description="izina" defaultMessage="heheheh" />
               </InputLabel>
               <TextField
                 fullWidth
