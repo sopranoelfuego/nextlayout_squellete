@@ -23,6 +23,7 @@ import {
   HiOutlineIdentification,
 } from "react-icons/hi";
 import { LangueContext } from "./contexts/langueContext";
+import { AuthContext } from "./contexts/authContext";
 ;
 /* backgroundMain:#055E68 */
 /* blackMain:#343434 */
@@ -60,6 +61,8 @@ function Header({
 }: HeaderProps) {
   const router=useRouter()
   const {changeLangue,langue} = useContext(LangueContext)
+  const {user,signOut} = useContext(AuthContext)
+  console.log("user in header:",user)
   const [displayMenu, setDisplayMenu] = useState(false);
   const [displayLang, setDisplayLang] = useState(false)
   const matches = useMediaQuery("(max-width:700px)");
@@ -169,7 +172,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
           fontWeight="700"
           sx={{ display: matches ? "none" : "inline-flex" ,opacity:"0.8",color:"#252528"}}
         >
-          eric ndikukazi
+          {user?.nom}
         </Typography>
         <IconButton
           onClick={() => setDisplayMenu((prev: boolean) => !prev)}
@@ -202,7 +205,10 @@ const handleChangeLangue=(l:Ilanguage)=>{
             </ListItemButton>
           </ListItem>
               <ListItem disablePadding>
-            <ListItemButton onClick={()=>router.push("/login")}>
+            <ListItemButton onClick={()=>{
+              signOut()
+              router.push("/login")
+              }}>
               <ListItemIcon>
                 <HiOutlineLogout fontSize={20} />
               </ListItemIcon>

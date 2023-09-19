@@ -19,10 +19,7 @@ export default function Home() {
     <Box >
       
       <Login/>
-      {/* <Button variant="outlined" color="primary" size="small" href="/timeline">
-        {" "}
-        go straigth to the home page
-      </Button> */}
+      
     </Box>
   );
 }

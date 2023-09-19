@@ -19,8 +19,12 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import {useRouter} from "next/navigation"
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
+import jwtDecode from "jwt-decode";
+import { AuthContext } from "@/components/contexts/authContext";
+
 const Login = () => {
   const intl = useIntl();
+  const {initiateUserSession}=useContext(AuthContext)
   const [showPassword, setshowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {handleOpenAlert} = useContext(SnackAlertContext)
@@ -60,12 +64,16 @@ const Login = () => {
             }),
           }
         );
+        
         const data=await res.json()
+       
         setIsLoading(false)
+        initiateUserSession(data?.result?.accessToken)
         router.push('/timeline')
         
       } catch (error) {
         setWrongCredentials(true)
+        
         handleOpenAlert("error","network error")
         setIsLoading(false)
         

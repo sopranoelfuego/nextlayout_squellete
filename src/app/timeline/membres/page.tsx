@@ -31,9 +31,11 @@ export default async function Home({
     [key: string]: string | string[] | undefined | "ASC" | "DESC";
   };
 }) {
-  const session = await getServerSession(authOptions);
+  const userStorage=window.localStorage.getItem("user")
+
+  // const session = await getServerSession(authOptions);
  
-  if (!session) redirect("/login");
+  if (!userStorage) redirect("/login");
   const page =
     typeof searchParams?.page === "string" ? Number(searchParams?.page) : 0;
   const size =

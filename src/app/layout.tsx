@@ -12,6 +12,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import SnackAlertContextProvider from "@/components/contexts/snackAlertContext";
 import MuiSnackBar from "@/components/common/MuiSnackBar";
+import AuthContextProvider from "@/components/contexts/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,14 +31,16 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <ExpandContextProvider>
-              <SnackAlertContextProvider>
-                <LanguageContextProvider>
-                  <TraductionProvider>{children}</TraductionProvider>
-                </LanguageContextProvider>
-                <MuiSnackBar/>
-              </SnackAlertContextProvider>
-            </ExpandContextProvider>
+            <AuthContextProvider>
+              <ExpandContextProvider>
+                <SnackAlertContextProvider>
+                  <LanguageContextProvider>
+                    <TraductionProvider>{children}</TraductionProvider>
+                  </LanguageContextProvider>
+                  <MuiSnackBar />
+                </SnackAlertContextProvider>
+              </ExpandContextProvider>
+            </AuthContextProvider>
           </LocalizationProvider>
         </SessionProvider>
       </body>

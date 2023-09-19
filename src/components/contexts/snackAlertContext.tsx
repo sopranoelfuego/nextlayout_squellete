@@ -34,6 +34,7 @@ export default function SnackAlertContextProvider({children}:{children:React.Rea
     setDialog(dialog=>({...dialog, open: false }));
 
   };
+
   const value=useMemo(() => ({dialog,handleCloseAlert,handleOpenAlert}), [dialog])
 
   return <SnackAlertContext.Provider value={value} >
