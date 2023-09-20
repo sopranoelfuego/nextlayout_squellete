@@ -1,44 +1,42 @@
 {
-    "login":"Kwikonegita",
-    "dashboard":"Icinjiriro",
-    "member":"Abanywanyi",
-     "single_member":"Umunywanyi",
-    "Du":"Kuva",
-    "Au":"gushika",
-    "contact":"numero",
-    "actions":"ivyogukora",
-    "new_member":"kwinjiza munywanyi mushasha",
-    "new_cotisation":"injiza intererano",
-    "delete-req":"ego,futa",
-    "delete-message":"mureje komushaka gufuta ni ntasubigwamwo  ?",
-    "wrong-cred":"ibibaranga kabanga birimwo ikosa",
+  "login": "Kwikonegita",
+  "dashboard": "Icinjiriro",
+  "member": "Abanywanyi",
+  "single_member": "Umunywanyi",
+  "Du": "Kuva",
+  "Au": "Gushika",
+  "contact": "Inomero",
+  "actions": "Ivyogukora",
+  "new_member": "kwinjiza munywanyi mushasha",
+  "new_cotisation": "Guterera",
+  "delete-req": "ego,futa",
+  "delete-message": "muremeje komushaka gufuta ni ntasubigwamwo  ?",
+  "wrong-cred": "Suzume neza ibibaranga ko bihuye nivyo mwshizemwo",
 
-    "delete-message-desc":"Munywanyi igikogwa cifuta ningingo ntasubigwamwo ,emeza musi mukwemeza iri futwa ",
+  "delete-message-desc": "Munywanyi igikogwa cifuta ningingo ntasubigwamwo ,emeza musi mukwemeza iri futwa ",
 
+  "cotisation": "Intererano",
+  "credit": "Ingurane",
+  "rembourssement": "Ivyiyishura",
+  "settings": "Ubuhinga",
+  "create": "Emeza",
+  "nom": "Izina",
+  "prenom": "Amatazirano",
+  "search": "Rondera",
+  "relaod": "Gusubiramwo",
+  "password": "code kabanga",
+  "email": "Izina ryo kurubuga",
 
+  "cancel": "Gusubirinyuma",
+  "no-data-display": "nta cokwerekana",
 
-    "cotisation":"Intererano",
-    "credit":"Ingurane",
-    "rembourssement":"Ivyiyishura",
-    "settings":"Ubuhinga",
-    "create":"Emeza",
-    "nom":"izina",
-    "prenom":"amatazirano",
-    "search":"rondera",
-"relaod":"gusubiramwo",
-
-    "cancel":"Gusubirinyuma",
-    "no-data-display":"nta cokwerekana",
-    
-    "edit":"subiriza",
-    "err_message":"muradutunga ivyo mwasavye ntibishoboye kuboneka",
-    "ressayer":"Gerageza kandi",
-    "req-field":"musabwa kuheraheza uyumwanya",
-    "encaissements":"ayinjiye",
-    "decaissements":"ayasohotse"
-
-
-
-    
-
+  "edit": "subiriza",
+  "err_message": "muradutunga ivyo mwasavye ntibishoboye kuboneka",
+  "ressayer": "Gerageza kandi",
+  "req-field": "musabwa kuheraheza uyumwanya",
+  "encaissements": "ayinjiye",
+  "decaissements": "ayasohotse",
+  "role": "Ivyajejwe",
+  "ajout": "Injiza Umunywanyi",
+  "creation": "Andika Umunywanyi"
 }

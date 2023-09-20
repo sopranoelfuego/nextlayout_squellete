@@ -1,50 +1,42 @@
 {
-    "login":"Se connecter",
-    "dashboard":"Tableau de bord",
-    "member":"Membres",
-    "single_member":"Membre",
-    "Du":"Du",
-    "Au":"Au",
-    "actions":"actions",
-    "new_member":"ajouter un nouveau membre",
-    "new_cotisation":"ajouter une nouvelle cotisation",
+  "login": "Se connecter",
+  "dashboard": "Tableau de bord",
+  "member": "Membres",
+  "single_member": "Membre",
+  "Du": "Du",
+  "Au": "Au",
+  "actions": "actions",
+  "new_member": "Ajouter",
+  "new_cotisation": "Ajouter",
 
-    "cotisation":"Cotisations",
-    "credit":"Crédits",
-    "rembourssement":"Rembourssements",
-    "settings":"Paramètres",
-    "err_message":"Quelque chose n'a pas marché !",
-    "ressayer":"Ressayer",
-    "create":"Créer",
-    "cancel":"Annuler",
-    "edit":"modifier",
-    "nom":"nom",
-    "prenom":"prénom",
-    "search":"rechercher",
-    "delete-req":"oui, supprimez-le",
-    "wrong-cred":"e-mail ou mot de passe incorrect",
+  "cotisation": "Cotisations",
+  "credit": "Crédits",
+  "rembourssement": "Remboursements",
+  "settings": "Paramètres",
+  "err_message": "Quelque chose n'a pas marché !",
+  "ressayer": "Ressayer",
+  "create": "Créer",
+  "cancel": "Annuler",
+  "edit": "modifier",
+  "nom": "nom",
+  "prenom": "prénom",
+  "search": "rechercher",
+  "delete-req": "oui, supprimez-le",
+  "wrong-cred": "e-mail ou mot de passe incorrect",
 
-    "delete-message-desc":"Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
+  "delete-message-desc": "Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
 
+  "delete-message": "Voulez-vous vraiment le supprimer ?",
 
-    "delete-message":"Voulez-vous vraiment le supprimer ?",
+  "relaod": "actualiser",
 
-"relaod":"actualiser",
+  "contact": "contact",
+  "no-data-display": "pas de donnés a afficher",
 
-    "contact":"contact",
-    "no-data-display":"pas de donnés a afficher",
-
-
-
-    "req-field":"ce champ est requis",
-    "encaissements":"encaissements",
-    "decaissements":"decaissements"
-
-
-
-
-
-
-
-
+  "req-field": "ce champ est requis",
+  "encaissements": "encaissements",
+  "decaissements": "decaissements",
+  "role": "rôle",
+  "ajout": "Ajouter",
+  "creation": "Creer un membre"
 }

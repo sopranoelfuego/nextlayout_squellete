@@ -186,7 +186,7 @@ const Login = () => {
                 formik.values.email === "" &&
                 erros.email
               }
-              placeholder="eg:jhondoe@gmail.com"
+              placeholder="eg:newvision@gmail.com"
               fullWidth
               sx={{ margin: "0.9rem  0" }}
             />

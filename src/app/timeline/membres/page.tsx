@@ -14,15 +14,18 @@ interface ListOfMembersProps {
 }
 
 const loadMembers = async ({ page, size, direction }: ISearchParams) => {
-   const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ROOT_API}/membres?page:${page}&size:${size}&direction:${direction}&sortBy=nom`,{cache:"no-cache",next:{
-        tags:["members"]
-      }}
-    );
-    if(!res.ok)return
-    return res.json();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_ROOT_API}/membres?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,
+    {
+      cache: "no-cache",
+      next: {
+        tags: ["members"],
+      },
+    }
+  );
+  if (!res.ok) return;
+  return res.json();
 };
-
 
 export default async function Home({
   searchParams,
@@ -31,11 +34,12 @@ export default async function Home({
     [key: string]: string | string[] | undefined | "ASC" | "DESC";
   };
 }) {
-  const userStorage=window.localStorage.getItem("user")
+  if (typeof window !== "undefined") {
+    const userStorage = localStorage.getItem("user");
 
-  // const session = await getServerSession(authOptions);
- 
-  if (!userStorage) redirect("/login");
+    // const session = await getServerSession(authOptions);
+    if (!userStorage) redirect("/login");
+  }
   const page =
     typeof searchParams?.page === "string" ? Number(searchParams?.page) : 0;
   const size =

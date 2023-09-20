@@ -38,6 +38,41 @@ export default function CreateMember({
     email: "",
     password: "",
   });
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      id: member.id,
+      nom: member.nom,
+      prenom: member.prenom,
+      contact: member.contact,
+      email: member.email,
+      password: member.password,
+      role: member.role,
+    },
+    onSubmit: async (values, resetForm) => {
+      if (validationSchema())
+        try {
+          // http://localhost:8081/gp-com/api/v1/register
+          await fetch(`http://localhost:8081/gp-com/api/v1/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          });
+          // cb()
+          // revalidateTag('members')
+        } catch (error) {
+          alert(`error:${error}`);
+        }
+      //  await onHandleSubmit({values,member,cb:resetForm})
+    },
+  });
   const validationSchema = () => {
     if (formik.values.nom.trim() === "") {
       setErrors((_) => ({
@@ -67,7 +102,7 @@ export default function CreateMember({
       }));
       return false;
     }
-    if (formik.values.password.trim() === "") {
+    if (formik.values.password?.trim() === "") {
       setErrors((_) => ({
         ...errors,
         password: intl.formatMessage({ id: "req-field" }),
@@ -76,41 +111,6 @@ export default function CreateMember({
     }
     return true;
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const formik = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      id: member.id,
-      nom: member.nom,
-      prenom: member.prenom,
-      contact: member.contact,
-      email: member.email,
-      password: member.password,
-      role: member.role,
-    },
-    onSubmit: async (values, resetForm) => {
-      if (validationSchema())
-        try {
-      // http://192.168.40.66:8081/gp-com/api/v1/register
-          await fetch(`http://192.168.40.66:8081/gp-com/api/v1/register`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-          // cb()
-          // revalidateTag('members')
-        } catch (error) {
-          alert(`error:${error}`);
-        }
-      //  await onHandleSubmit({values,member,cb:resetForm})
-    },
-  });
-
   const handleCloseDialog = () => {
     formik.resetForm();
     setErrors({
@@ -129,13 +129,19 @@ export default function CreateMember({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{"Creér un membre"}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">
+        <FormattedMessage id="creation" />
+      </DialogTitle>
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <InputLabel sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="nom" description="izina" defaultMessage="heheheh" />
+                <FormattedMessage
+                  id="nom"
+                  description="izina"
+                  defaultMessage="heheheh"
+                />
               </InputLabel>
               <TextField
                 fullWidth
@@ -163,19 +169,20 @@ export default function CreateMember({
               <InputLabel sx={{ fontWeight: "bold" }}>
                 <FormattedMessage id="contact" />
               </InputLabel>
-            
+
               <PhoneInput
                 country={"us"}
-
-                inputStyle={{width:"100%"}}
+                inputStyle={{ width: "100%" }}
                 {...formik.getFieldProps("contact")}
                 onChange={(phone) => {
-                  formik.setFieldValue("contact",phone)
+                  formik.setFieldValue("contact", phone);
                 }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}>Email</InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}>
+                <FormattedMessage id="email" />
+              </InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -187,7 +194,9 @@ export default function CreateMember({
               />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel sx={{ fontWeight: "bold" }}>Password</InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}>
+                <FormattedMessage id="password" />
+              </InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -206,7 +215,8 @@ export default function CreateMember({
                   width: "100%",
                   borderRadius: "5px",
                   ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
-                  backgroundColor: formik.values.role === 'ADMIN'?'#62A388':"white",
+                  backgroundColor:
+                    formik.values.role === "ADMIN" ? "#62A388" : "white",
                   boxShadow:
                     " 0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",
@@ -224,7 +234,8 @@ export default function CreateMember({
                   width: "100%",
                   borderRadius: "5px",
                   ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
-                  backgroundColor: formik.values.role === 'USER'?'#62A388':"white",
+                  backgroundColor:
+                    formik.values.role === "USER" ? "#62A388" : "white",
                   boxShadow:
                     "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",
@@ -241,8 +252,9 @@ export default function CreateMember({
                 sx={{
                   width: "100%",
                   borderRadius: "5px",
-                  ":hover": { cursor: "pointer", backgroundColor:   "#62A388" },
-                  backgroundColor: formik.values.role === 'TRESORERIER'?'#62A388':"white",
+                  ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
+                  backgroundColor:
+                    formik.values.role === "TRESORERIER" ? "#62A388" : "white",
                   boxShadow:
                     "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",

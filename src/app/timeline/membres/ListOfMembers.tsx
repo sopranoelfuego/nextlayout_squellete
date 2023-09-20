@@ -153,7 +153,9 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                   <FormattedMessage id="contact" />
                 </StyledTableCell>
                 <StyledTableCell align="center">email</StyledTableCell>
-                <StyledTableCell align="center">role</StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="role" />
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
                 </StyledTableCell>
@@ -185,7 +187,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                 </StyledTableRow>
               );
             })} */}
-              {membersTest?.map((m: MemberType) => {
+              {members?.result?.content?.map((m: MemberType) => {
                 return (
                   <StyledTableRow key={m.id}>
                     <StyledTableCell>{m?.nom}</StyledTableCell>
@@ -219,7 +221,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                   </StyledTableRow>
                 );
               })}
-              {members?.result?.content?.length() === 0 && (
+              {members?.result?.content === 0 && (
                 <StyledTableRow>
                   <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
