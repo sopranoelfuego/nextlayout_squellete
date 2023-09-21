@@ -194,6 +194,7 @@
 //     name: "MuiAutocomplete",
 //     slot: "PopupIndicator",
 //     overridesResolver: ({ ownerState }, styles) => ({
+//         // @ts-ignore
 //         ...styles.popupIndicator,
 //         ...(ownerState.popupOpen && styles.popupIndicatorOpen)
 //     })

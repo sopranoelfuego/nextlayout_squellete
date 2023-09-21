@@ -1,8 +1,10 @@
 
+import React from 'react'
 
-const Index=({children}:{children:React.ReactNode})=>{
-    return <div>
-        {children}
-    </div>
+function layout({children}:{children:React.ReactNode}) {
+  return (
+    <div>{children}</div>
+  )
 }
-export default Index
+
+export default layout

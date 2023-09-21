@@ -19,27 +19,41 @@ export const authOptions: NextAuthOptions = {
      async  authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
 
-        const res = await fetch(`http://192.168.40.53:8081/gp-com/api/v1/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: credentials?.email,
+        
+        const res = await fetch(
+          `http://192.168.40.66:8081/gp-com/api/v1/authenticate`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               username: credentials?.email,
             password: credentials?.password,
-          }),
-        });
+            }),
+          }
+        );
         
         // const user = await res.json();
         console.log("credentials:",res)
-        return res
-        // const user={email:"eric@gmail.com",password:"123"}
+          const data=await  res.json()
 
-        // if (credentials?.email === user.email && user?.password === credentials?.password) {
-        //   return user;
-        // } else {
-        //   return null;
-        // }
+
+        if (data) {
+          return data;
+        } else {
+          return null;
+        }
+        {
+  // "success": true,
+  // "message": "Operation reussie",
+  // "result": {
+  //   "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlcmljQGdtYWlsLmNvbSIsImlhdCI6MTY5NDUzNDQyMiwiZXhwIjoxNjk0NTM1ODYyfQ.igHAd1acIzhlGdYxGystF1ahHthH0Fxmq8V4be6ZIG8",
+  //   "membre": null
+  // }
+ 
+}
+       
       },
     }),
   ],

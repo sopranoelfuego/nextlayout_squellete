@@ -17,12 +17,14 @@ import { useRouter } from 'next/navigation'
 import {
   HiChevronDown,
   HiChevronLeft,
-  HiLogout,
+  HiOutlineLogout,
   HiMenuAlt1,
   HiOutlineUserCircle,
-  HiUser,
+  HiOutlineIdentification,
 } from "react-icons/hi";
 import { LangueContext } from "./contexts/langueContext";
+import { AuthContext } from "./contexts/authContext";
+;
 /* backgroundMain:#055E68 */
 /* blackMain:#343434 */
 /* greenMain:#62A388 */
@@ -59,6 +61,7 @@ function Header({
 }: HeaderProps) {
   const router=useRouter()
   const {changeLangue,langue} = useContext(LangueContext)
+  const {user,signOut} = useContext(AuthContext)
   const [displayMenu, setDisplayMenu] = useState(false);
   const [displayLang, setDisplayLang] = useState(false)
   const matches = useMediaQuery("(max-width:700px)");
@@ -82,6 +85,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
         flex: 1,
         textAlign: "center",
         display: "flex",
+        color:"#252528",
         justifyContent: matches ? "space-between" : "flex-end",
         padding: " 1rem",
         alignItems: "center",
@@ -106,9 +110,9 @@ const handleChangeLangue=(l:Ilanguage)=>{
             <Avatar
               alt="Remy Sharp"
               src={language.flag}
-              sx={{ width: 23, height: 23 }}
+              sx={{ width: matches?20:23, height: matches?20:23 }}
             />
-            <Typography fontSize="12px" fontWeight="700" sx={{opacity:"0.8"}}>
+            <Typography fontSize={matches?"10px":"12px"} fontWeight="700" sx={{opacity:"0.8"}}>
               {language.name}
             </Typography>
           </Stack>
@@ -157,9 +161,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
           alignItems: "center",
           gap: "0.5rem",
           position: "relative",
-          opacity: "0.7",
           ":hover": {
-            opacity: "1",
             cursor: "pointer",
           },
         }}
@@ -167,9 +169,9 @@ const handleChangeLangue=(l:Ilanguage)=>{
         <HiOutlineUserCircle fontSize={27} />
         <Typography
           fontWeight="700"
-          sx={{ display: matches ? "none" : "inline-flex" }}
+          sx={{ display: matches ? "none" : "inline-flex" ,opacity:"0.8",color:"#252528"}}
         >
-          eric ndikukazi
+          {user?.nom}
         </Typography>
         <IconButton
           onClick={() => setDisplayMenu((prev: boolean) => !prev)}
@@ -192,20 +194,24 @@ const handleChangeLangue=(l:Ilanguage)=>{
             display: displayMenu ? "inline-block" : "none",
           }}
         >
-          <ListItem disablePadding>
-            <ListItemButton onClick={()=>router.push("/login")}>
-              <ListItemIcon>
-                <HiLogout fontSize={20} />
-              </ListItemIcon>
-              <ListItemText primary="logout" />
-            </ListItemButton>
-          </ListItem>
+      
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <HiUser fontSize={20} />
+                <HiOutlineIdentification fontSize={20} />
               </ListItemIcon>
               <ListItemText primary="profile" />
+            </ListItemButton>
+          </ListItem>
+              <ListItem disablePadding>
+            <ListItemButton onClick={()=>{
+              signOut()
+              router.push("/login")
+              }}>
+              <ListItemIcon>
+                <HiOutlineLogout fontSize={20} />
+              </ListItemIcon>
+              <ListItemText primary="logout" />
             </ListItemButton>
           </ListItem>
         </List>

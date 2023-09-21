@@ -1,6 +1,6 @@
 "use client";
 
-import React,{useState} from "react"
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar";
 import PageHeader from "@/components/PageHeader";
+import { usePathname } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,19 +21,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [displayMenuDrawer, setDisplayMenuDrawer] = useState<boolean>(false)
+  const pathname = usePathname();
+  const [displayMenuDrawer, setDisplayMenuDrawer] = useState<boolean>(false);
   return (
-    <Box sx={{ display: "flex", alignItems: "flex-start",position:"relative" }}>
-      <Sidebar displayMenuDrawer={displayMenuDrawer} setDisplayMenuDrawer={setDisplayMenuDrawer}/>
+    <Box
+      sx={{ display: "flex", alignItems: "flex-start", position: "relative" }}
+    >
+      <Sidebar
+        displayMenuDrawer={displayMenuDrawer}
+        setDisplayMenuDrawer={setDisplayMenuDrawer}
+      />
       <Stack direction="column" display="flex" width="100%">
-        <Header displayMenuDrawer={displayMenuDrawer} handleChangeDisplayMenuDrawer={setDisplayMenuDrawer} />
-        <Box width="100%" sx={{padding:"1rem"}}>
+        <Header
+          displayMenuDrawer={displayMenuDrawer}
+          handleChangeDisplayMenuDrawer={setDisplayMenuDrawer}
+        />
+        <Box width="100%" sx={{ padding: "1rem" }}>
           <PageHeader />
           {children}
-          <Typography fontSize="13px" textAlign="center"  color="#055E68"  fontWeight="800" position="absolute" bottom="10px"  left="50%">
-            
-          made with &#10084; by eric and douce
-          </Typography>
+          {pathname?.split("/").pop() === "timeline" && (
+            <Typography
+              fontSize="13px"
+              textAlign="center"
+              color="#055E68"
+              fontWeight="800"
+              position="absolute"
+              bottom="10px"
+              left="50%"
+            >
+              made with &#10084; by eric and douce
+            </Typography>
+          )}
         </Box>
       </Stack>
     </Box>
