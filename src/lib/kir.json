@@ -43,10 +43,32 @@
     "ressayer":"Gerageza kandi",
     "req-field":"musabwa kuheraheza uyumwanya",
     "encaissements":"ayinjiye",
-    "decaissements":"ayasohotse"
+    "decaissements":"ayasohotse",
 
+  "delete-message-desc": "Munywanyi igikogwa cifuta ningingo ntasubigwamwo ,emeza musi mukwemeza iri futwa ",
 
+  "cotisation": "Intererano",
+  "credit": "Ingurane",
+  "rembourssement": "Ivyiyishura",
+  "settings": "Ubuhinga",
+  "create": "Emeza",
+  "nom": "Izina",
+  "prenom": "Amatazirano",
+  "search": "Rondera",
+  "relaod": "Gusubiramwo",
+  "password": "code kabanga",
+  "email": "Izina ryo kurubuga",
 
-    
+  "cancel": "Gusubirinyuma",
+  "no-data-display": "nta cokwerekana",
 
+  "edit": "subiriza",
+  "err_message": "muradutunga ivyo mwasavye ntibishoboye kuboneka",
+  "ressayer": "Gerageza kandi",
+  "req-field": "musabwa kuheraheza uyumwanya",
+  "encaissements": "ayinjiye",
+  "decaissements": "ayasohotse",
+  "role": "Ivyajejwe",
+  "ajout": "Injiza Umunywanyi",
+  "creation": "Andika Umunywanyi"
 }

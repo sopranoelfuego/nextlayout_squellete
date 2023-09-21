@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useIntl } from "react-intl";
+import { AuthContext } from "@/components/contexts/authContext";
 
 import { useRouter } from "next/navigation";
 
@@ -14,6 +15,8 @@ interface ISumarize {
   date: string;
 }
 export default function Home() {
+  
+
   const intl = useIntl();
 
   const router = useRouter();

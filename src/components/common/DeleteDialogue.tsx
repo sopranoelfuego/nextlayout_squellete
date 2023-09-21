@@ -7,7 +7,10 @@ import DialogContent  from "@mui/material/DialogContent"
 import DialogTitle  from "@mui/material/DialogTitle"
 import DialogContentText  from "@mui/material/DialogContentText"
 import { FormattedMessage } from "react-intl"
+<<<<<<< HEAD
 import { HiOutlineArchive, HiOutlineX } from "react-icons/hi"
+=======
+>>>>>>> 5ac9b21f06147c28b6096e8a8b5a9038acb811cd
 
 interface DeleteProps {
   open: boolean;
@@ -34,7 +37,11 @@ const DeleteDialog = ({
         <Button
           variant="outlined"
           color="error"
+<<<<<<< HEAD
           startIcon={deleting ? <CircularProgress size="1rem" /> : <HiOutlineArchive size={23} />}
+=======
+          startIcon={deleting ? <CircularProgress size="1rem" /> : null}
+>>>>>>> 5ac9b21f06147c28b6096e8a8b5a9038acb811cd
           disabled={deleting}
           onClick={handleDelete}
           // style={{ backgroundColor: "red" }}
@@ -45,7 +52,10 @@ const DeleteDialog = ({
         <Button
           onClick={() => handleClose()}
           disabled={deleting}
+<<<<<<< HEAD
           startIcon={<HiOutlineX size={23} />}
+=======
+>>>>>>> 5ac9b21f06147c28b6096e8a8b5a9038acb811cd
           variant="outlined"
         >
           <FormattedMessage id="cancel"/>

@@ -1,7 +1,6 @@
-
-"use client"
-import React,{useState} from "react";
-import Box  from "@mui/material/Box";
+"use client";
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
 import { HiOutlineUserAdd, HiOutlineRefresh } from "react-icons/hi";
 import InputSearchComponent from "../common/InputSearchComponent";
 import { useRouter } from "next/navigation";
@@ -11,13 +10,13 @@ import { FormattedMessage } from "react-intl";
 type AppProps = {
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleClickOpenCreateDialog: ()=>void;
+  handleClickOpenCreateDialog: () => void;
   handleClear?: () => void;
 };
 function MemberHeader({ handleClickOpenCreateDialog,   }: AppProps) {
   const router=useRouter()
   const [filterValue, setFilterValue] = useState<string>("");
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   return (
     <Box
@@ -33,7 +32,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
       }}
     >
       <InputSearchComponent
-        handleClear={()=>console.log("clear")}
+        handleClear={() => console.log("clear")}
         value={filterValue}
         handleChange={handleChange}
       />
@@ -49,7 +48,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
           onClick={() => handleClickOpenCreateDialog()}
           className="py-2  hover:border-mainColor whitespace-nowrap  opacity-75 hover:opacity-100 px-3 bg-mainColor rounded text-white flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
-          <HiOutlineUserAdd fontSize={16} /> nouveau membre
+          <HiOutlineUserAdd fontSize={16} /> <FormattedMessage id="ajout" />
         </button>
       </Box>
     </Box>

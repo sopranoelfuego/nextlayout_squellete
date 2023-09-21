@@ -45,13 +45,36 @@
 
     "req-field":"ce champ est requis",
     "encaissements":"encaissements",
-    "decaissements":"decaissements"
+    "decaissements":"decaissements",
 
+  "cotisation": "Cotisations",
+  "credit": "Crédits",
+  "rembourssement": "Remboursements",
+  "settings": "Paramètres",
+  "err_message": "Quelque chose n'a pas marché !",
+  "ressayer": "Ressayer",
+  "create": "Créer",
+  "cancel": "Annuler",
+  "edit": "modifier",
+  "nom": "nom",
+  "prenom": "prénom",
+  "search": "rechercher",
+  "delete-req": "oui, supprimez-le",
+  "wrong-cred": "e-mail ou mot de passe incorrect",
 
+  "delete-message-desc": "Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
 
+  "delete-message": "Voulez-vous vraiment le supprimer ?",
 
+  "relaod": "actualiser",
 
+  "contact": "contact",
+  "no-data-display": "pas de donnés a afficher",
 
-
-
+  "req-field": "ce champ est requis",
+  "encaissements": "encaissements",
+  "decaissements": "decaissements",
+  "role": "rôle",
+  "ajout": "Ajouter",
+  "creation": "Creer un membre"
 }

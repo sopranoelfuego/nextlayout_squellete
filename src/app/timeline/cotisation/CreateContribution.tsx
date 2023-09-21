@@ -61,7 +61,7 @@ export default function CreateContribution({ open, setOpen,member }: CreateMembe
       }));
       return false;
     }
-    if (formik.values.password.trim() === "") {
+    if (formik.values.password?.trim() === "") {
       setErrors((_) => ({
         ...errors,
         password: intl.formatMessage({ id: "req-field" }),
