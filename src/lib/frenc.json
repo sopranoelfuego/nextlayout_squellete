@@ -8,6 +8,8 @@
     "actions":"actions",
   "trans-code":"code transaction",
   "montant":"amout",
+  "create-contr": "Create contribution",
+
 
     "new_member":"ajouter un nouveau membre",
     "new_cotisation":"ajouter une nouvelle cotisation",

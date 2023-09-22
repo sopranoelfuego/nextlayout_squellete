@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
@@ -18,7 +18,6 @@ import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { HiOutlineArchive, HiOutlinePencil } from "react-icons/hi";
 import CreateMember from "@/app/timeline/membres/CreateMember";
-import { revalidateTag } from "next/cache";
 
 import { useRouter } from "next/navigation";
 import { FormattedMessage } from "react-intl";
@@ -26,7 +25,6 @@ import { MemberType } from "../../../../types";
 import DeleteDialog from "@/components/common/DeleteDialogue";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
-
 // import { notFound } from 'next/navigation'
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -63,32 +61,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 interface ListOfMembersProps {
   members: any;
 }
-// const membersTest = [
-//   {
-//     id: 1,
-//     nom: "string",
-//     prenom: "string",
-//     contact: "999342",
-//     email: "string",
-//     password: "string",
-//     role: "ADMIN",
-//   },
-//   {
-//     id: 2,
-//     nom: "string",
-//     prenom: "string",
-//     contact: "999342",
-//     email: "string",
-//     password: "string",
-//     role: "USER",
-//   },
-// ];
+
 const ListOfMembers = ({ members }: ListOfMembersProps) => {
-
-  const {handleOpenAlert} = useContext(SnackAlertContext)
-  const {user} = useContext(AuthContext)
-  
-
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+  const { user } = useContext(AuthContext);
+  const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
@@ -132,28 +109,27 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
       });
     setOpen(true);
   };
-  const handleOnDelete= ()=>{
-    
-    setDeleting(true)
-    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`,{
-        method:"DELETE",
-        headers:{
-          "Autorisation":`Bearer ${user.token}`
-        }
-      }).then((res)=>res.json())
-      .then(res=>{
+  const handleOnDelete = () => {
+    setDeleting(true);
+    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`, {
+      method: "DELETE",
+      headers: {
+        Autorisation: `Bearer ${user.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setDeleting(false);
+        setOpenDeleteModal((prev) => !prev);
+        router.push("/timeline/membres?page=0&size=10");
 
-        console.log("res:",res.data)
-        setDeleting(false)
-        setOpenDeleteModal((prev) => !prev)
-        revalidateTag("members");
-        handleOpenAlert("succes",<FormattedMessage id="succes-del"/>)
-      }).catch(error=>{
-        setDeleting(false)
-        console.log("error acure:",error)})
-        handleOpenAlert("error",<FormattedMessage id="delet-failed"/>)
-
-  }
+        handleOpenAlert("succes", <FormattedMessage id="succes-del" />);
+      })
+      .catch((error) => {
+        setDeleting(false);
+        handleOpenAlert("error", <FormattedMessage id="delet-failed" />);
+      });
+  };
 
   return (
     <>
@@ -192,7 +168,6 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              
               {members?.result?.content?.map((m: MemberType) => {
                 return (
                   <StyledTableRow key={m.id}>
@@ -227,7 +202,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                   </StyledTableRow>
                 );
               })}
-              {!members?.result?.content  && (
+              {!members?.result?.content && (
                 <StyledTableRow>
                   <StyledTableCell colSpan={6} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
@@ -256,7 +231,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
         open={openDeleteModal}
         deleting={deleting}
         handleClose={() => setOpenDeleteModal((prev) => !prev)}
-        handleDelete={ handleOnDelete}
+        handleDelete={handleOnDelete}
       />
     </>
   );

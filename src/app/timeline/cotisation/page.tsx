@@ -1,21 +1,32 @@
 import React from "react";
 // import Box from "@mui/material/Box";
-import ListOfMembers from "@/app/timeline/membres/ListOfMembers";
+import ListOfContributions from "@/app/timeline/cotisation/ListOfContributions";
 import { ISearchParams } from "@/types";
 
 import { redirect } from "next/navigation";
 import { IUser, MemberType } from "../../../../types";
 // import { redirect } from "next/dist/server/api-utils";
 
-interface ListOfMembersProps {
-  members: any;
+interface ListOfCotisationsProps {
+  contributions: any;
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
-
-const loadMembers = async ({ page, size, direction ,token}: ISearchParams ) => {
-  // http://192.168.20.63:8081/gp-com/api/v1/cotisations
+// "montant":10000,
+//   "codeTransaction":"732456456546456546",
+//   "membreId":1
+const loadContributions = async ({ page, size, direction ,token}: ISearchParams ) => {
+  // const res = await fetch(
+  //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
+  //         cache:"no-cache",next:{
+  //         tags:["cotisations"]
+  //       },
+  //       headers:{
+  //         "Authorization":`Bearer ${token}`
+  //       }
+  //     }
+  //     );
   const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
+        `http://192.168.20.63:8081/gp-com/api/v1/cotisations`,{
           cache:"no-cache",next:{
           tags:["cotisations"]
         },
@@ -59,12 +70,14 @@ export default async function Home({
   const direction =
     searchParams?.direction === "DESC" ? searchParams?.direction : "ASC";
 
-  const members: ListOfMembersProps = await loadMembers({
+  const contributions: ListOfCotisationsProps = await loadContributions({
     page,
     size,
     direction,
     token:userStorage?.token!
   });
+  console.log("data:",contributions)
 
-  return <ListOfMembers members={members} />;
+
+  return <ListOfContributions contributions={contributions} />;
 }

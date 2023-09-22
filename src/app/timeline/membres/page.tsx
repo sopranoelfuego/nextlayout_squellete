@@ -2,8 +2,7 @@ import React from "react";
 // import Box from "@mui/material/Box";
 import ListOfMembers from "@/app/timeline/membres/ListOfMembers";
 import { ISearchParams } from "@/types";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+
 import { redirect } from "next/navigation";
 import { IUser, MemberType } from "../../../../types";
 // import { redirect } from "next/dist/server/api-utils";

@@ -1,8 +1,9 @@
 'use client' // Error components must be Client Components
  
+import { SnackAlertContext } from '@/components/contexts/snackAlertContext';
 import  Box  from '@mui/material/Box'
 import  Stack  from '@mui/material/Stack'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
  import { HiOutlineRefresh } from "react-icons/hi";
 
 import { FormattedMessage } from 'react-intl';
@@ -13,9 +14,12 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("error here:",error)
+    
   }, [error])
  
   return (

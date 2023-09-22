@@ -39,7 +39,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
       {/* CREATE NEW MEMBER BOTTOM */}
       <Box sx={{display:"flex",justifyContents:"center",alignItems:"center",flexDirection:{xs:"column",sm:"row"},width:{xs:"100%",sm:"auto"},gap:{xs:1,sm:2}}}>
         <Link
-         href={`/timeline/membres?page=${0}&size=${10}`}
+         href={`/timeline/cotisation?page=${0}&size=${10}`}
           className="py-2 border-mainColor border-solid border bg-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
           <HiOutlineRefresh fontSize={16} /> <FormattedMessage id="relaod"/>
