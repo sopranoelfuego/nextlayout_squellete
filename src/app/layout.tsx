@@ -1,4 +1,3 @@
-"use client";
 import { ExpandContextProvider } from "@/components/contexts/expandNavBarContext";
 import "./globals.css";
 import type { Metadata } from "next";
