@@ -35,9 +35,11 @@ export default function RootLayout({
               <ExpandContextProvider>
                 <SnackAlertContextProvider>
                   <LanguageContextProvider>
-                    <TraductionProvider>{children}</TraductionProvider>
+                    <TraductionProvider>
+                      {children}
+                    <MuiSnackBar />
+                      </TraductionProvider>
                   </LanguageContextProvider>
-                  <MuiSnackBar />
                 </SnackAlertContextProvider>
               </ExpandContextProvider>
             </AuthContextProvider>

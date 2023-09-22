@@ -62,7 +62,6 @@ function Header({
   const router=useRouter()
   const {changeLangue,langue} = useContext(LangueContext)
   const {user,signOut} = useContext(AuthContext)
-  console.log("user in header:",user)
   const [displayMenu, setDisplayMenu] = useState(false);
   const [displayLang, setDisplayLang] = useState(false)
   const matches = useMediaQuery("(max-width:700px)");

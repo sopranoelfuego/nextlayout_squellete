@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
@@ -16,12 +16,16 @@ import TablePagination from "@mui/material/TablePagination";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import { HiArchive, HiPencil } from "react-icons/hi";
+import { HiOutlineArchive, HiOutlinePencil } from "react-icons/hi";
 import CreateMember from "@/app/timeline/membres/CreateMember";
+import { revalidateTag } from "next/cache";
+
 import { useRouter } from "next/navigation";
 import { FormattedMessage } from "react-intl";
 import { MemberType } from "../../../../types";
 import DeleteDialog from "@/components/common/DeleteDialogue";
+import { AuthContext } from "@/components/contexts/authContext";
+import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 
 // import { notFound } from 'next/navigation'
 
@@ -59,27 +63,33 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 interface ListOfMembersProps {
   members: any;
 }
-const membersTest = [
-  {
-    id: 1,
-    nom: "string",
-    prenom: "string",
-    contact: "999342",
-    email: "string",
-    password: "string",
-    role: "ADMIN",
-  },
-  {
-    id: 2,
-    nom: "string",
-    prenom: "string",
-    contact: "999342",
-    email: "string",
-    password: "string",
-    role: "USER",
-  },
-];
+// const membersTest = [
+//   {
+//     id: 1,
+//     nom: "string",
+//     prenom: "string",
+//     contact: "999342",
+//     email: "string",
+//     password: "string",
+//     role: "ADMIN",
+//   },
+//   {
+//     id: 2,
+//     nom: "string",
+//     prenom: "string",
+//     contact: "999342",
+//     email: "string",
+//     password: "string",
+//     role: "USER",
+//   },
+// ];
 const ListOfMembers = ({ members }: ListOfMembersProps) => {
+
+  const {handleOpenAlert} = useContext(SnackAlertContext)
+  const {user} = useContext(AuthContext)
+  
+
+
   const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -122,6 +132,28 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
       });
     setOpen(true);
   };
+  const handleOnDelete= ()=>{
+    
+    setDeleting(true)
+    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`,{
+        method:"DELETE",
+        headers:{
+          "Autorisation":`Bearer ${user.token}`
+        }
+      }).then((res)=>res.json())
+      .then(res=>{
+
+        console.log("res:",res.data)
+        setDeleting(false)
+        setOpenDeleteModal((prev) => !prev)
+        revalidateTag("members");
+        handleOpenAlert("succes",<FormattedMessage id="succes-del"/>)
+      }).catch(error=>{
+        setDeleting(false)
+        console.log("error acure:",error)})
+        handleOpenAlert("error",<FormattedMessage id="delet-failed"/>)
+
+  }
 
   return (
     <>
@@ -153,40 +185,14 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                   <FormattedMessage id="contact" />
                 </StyledTableCell>
                 <StyledTableCell align="center">email</StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="role" />
-                </StyledTableCell>
+                <StyledTableCell align="center">role</StyledTableCell>
                 <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {/* {members?.result?.content?.map((m: MemberType) => {
-              return (
-                <StyledTableRow key={m.id}>
-                  <StyledTableCell>{m?.nom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.prenom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.contact}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.email}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Stack
-                      direction={{ xs: "column", sm: "row" }}
-                      spacing={{ xs: 1, sm: 2 }}
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <IconButton onClick={()=>handleClickOpenCreateDialog(m)}>
-                        <HiPencil fontSize={20} color="black" />
-                      </IconButton>
-                      <IconButton>
-                        <HiArchive fontSize={20} color="black" />
-                      </IconButton>
-                    </Stack>
-                  </StyledTableCell>
-                </StyledTableRow>
-              );
-            })} */}
+              
               {members?.result?.content?.map((m: MemberType) => {
                 return (
                   <StyledTableRow key={m.id}>
@@ -208,22 +214,22 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                         <IconButton
                           onClick={() => handleClickOpenCreateDialog(m)}
                         >
-                          <HiPencil fontSize={17} />
+                          <HiOutlinePencil fontSize={17} />
                         </IconButton>
                         <IconButton
                           sx={{ ":hover": { color: "red" } }}
                           onClick={() => handleDeleteMember(m)}
                         >
-                          <HiArchive fontSize={17} />
+                          <HiOutlineArchive fontSize={17} />
                         </IconButton>
                       </Stack>
                     </StyledTableCell>
                   </StyledTableRow>
                 );
               })}
-              {members?.result?.content === 0 && (
+              {!members?.result?.content  && (
                 <StyledTableRow>
-                  <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
+                  <StyledTableCell colSpan={6} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
                       <FormattedMessage id="no-data-display" />
                     </Typography>
@@ -250,7 +256,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
         open={openDeleteModal}
         deleting={deleting}
         handleClose={() => setOpenDeleteModal((prev) => !prev)}
-        handleDelete={() => console.log("deleted")}
+        handleDelete={ handleOnDelete}
       />
     </>
   );

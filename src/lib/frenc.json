@@ -1,13 +1,54 @@
 {
-  "login": "Se connecter",
-  "dashboard": "Tableau de bord",
-  "member": "Membres",
-  "single_member": "Membre",
-  "Du": "Du",
-  "Au": "Au",
-  "actions": "actions",
-  "new_member": "Ajouter",
-  "new_cotisation": "Ajouter",
+    "login":"Se connecter",
+    "dashboard":"Tableau de bord",
+    "member":"Membres",
+    "single_member":"Membre",
+    "Du":"Du",
+    "Au":"Au",
+    "actions":"actions",
+  "trans-code":"code transaction",
+  "montant":"amout",
+
+    "new_member":"ajouter un nouveau membre",
+    "new_cotisation":"ajouter une nouvelle cotisation",
+
+     "operation-failed":"opération echouée!!",
+
+  "succes-del":"supprimer avec success ",
+  "create-succ":"créer avec success ",
+  "edit-succ":"modifier avec success",
+  
+  "delet-failed":"error de suppression",
+    "rembourssement":"Rembourssements",
+    "settings":"Paramètres",
+    "err_message":"Quelque chose n'a pas marché !",
+    "ressayer":"Ressayer",
+    "create":"Créer",
+    "cancel":"Annuler",
+    "edit":"modifier",
+    "nom":"nom",
+  "contact-length":"la longueur du contact doit être d'au moins 11 chiffres",
+
+    "prenom":"prénom",
+    "search":"rechercher",
+    "delete-req":"oui, supprimez-le",
+    "wrong-cred":"e-mail ou mot de passe incorrect",
+
+    "delete-message-desc":"Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
+
+
+    "delete-message":"Voulez-vous vraiment le supprimer ?",
+
+"relaod":"actualiser",
+
+    "contact":"contact",
+    "no-data-display":"pas de donnés a afficher",
+
+
+
+    "req-field":"ce champ est requis",
+    "encaissements":"encaissements",
+    "decaissements":"decaissements",
 
   "cotisation": "Cotisations",
   "credit": "Crédits",

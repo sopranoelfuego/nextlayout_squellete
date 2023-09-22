@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,10 +8,12 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { useRouter } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 import { HiUser, HiUserAdd, HiCash } from "react-icons/hi";
 
@@ -19,6 +21,8 @@ import onHandleSubmit from "@/app/actions/serverActionMember";
 import { MemberType } from "../../../../types";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { AuthContext } from "@/components/contexts/authContext";
+import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 type CreateMemberProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,49 +33,19 @@ export default function CreateMember({
   setOpen,
   member,
 }: CreateMemberProps) {
+  const router = useRouter();
   //   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
+  const { user } = useContext(AuthContext);
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+
+  const [creating, setCreating] = useState(false);
   const [errors, setErrors] = useState({
     nom: "",
     prenom: "",
     contact: "",
     email: "",
     password: "",
-  });
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const formik = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      id: member.id,
-      nom: member.nom,
-      prenom: member.prenom,
-      contact: member.contact,
-      email: member.email,
-      password: member.password,
-      role: member.role,
-    },
-    onSubmit: async (values, resetForm) => {
-      if (validationSchema())
-        try {
-          // http://localhost:8081/gp-com/api/v1/register
-          await fetch(`http://localhost:8081/gp-com/api/v1/register`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-          // cb()
-          // revalidateTag('members')
-        } catch (error) {
-          alert(`error:${error}`);
-        }
-      //  await onHandleSubmit({values,member,cb:resetForm})
-    },
   });
   const validationSchema = () => {
     if (formik.values.nom.trim() === "") {
@@ -95,6 +69,14 @@ export default function CreateMember({
       }));
       return false;
     }
+    if (formik.values.contact.trim()?.length <= 10) {
+      console.log("error contact", formik.values.contact.trim()?.length);
+      setErrors((_) => ({
+        ...errors,
+        contact: intl.formatMessage({ id: "contact-length" }),
+      }));
+      return false;
+    }
     if (formik.values.email.trim() === "") {
       setErrors((_) => ({
         ...errors,
@@ -111,6 +93,79 @@ export default function CreateMember({
     }
     return true;
   };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = async (
+    values: typeof member,
+    resetForm: FormikHelpers<{
+      id: string | number | undefined;
+      nom: string;
+      prenom: string;
+      contact: string;
+      email: string;
+      password: string | undefined;
+      role: string;
+    }>
+  ) => {
+    let res: any = "";
+
+    setCreating(true);
+    try {
+      if (member.id)
+        res = await fetch(
+          `${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+            body: JSON.stringify(values),
+          }
+        );
+      else
+        res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(values),
+        });
+      // cb()
+      await res.json();
+      setCreating(false);
+      resetForm.resetForm();
+
+      member.id
+        ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
+        : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
+      handleCloseDialog();
+      router.push("/timeline/membres?page=0&size=10");
+    } catch (error) {
+      setCreating(false);
+      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+    }
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      id: member.id,
+      nom: member.nom,
+      prenom: member.prenom,
+      contact: member.contact,
+      email: member.email,
+      password: member.password,
+      role: member.role,
+    },
+    onSubmit: async (values, resetForm) => {
+      if (validationSchema()) await handleSubmit(values, resetForm);
+    },
+  });
+
   const handleCloseDialog = () => {
     formik.resetForm();
     setErrors({
@@ -129,9 +184,7 @@ export default function CreateMember({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        <FormattedMessage id="creation" />
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{"Creér un membre"}</DialogTitle>
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
           <Grid container spacing={1}>
@@ -175,14 +228,15 @@ export default function CreateMember({
                 inputStyle={{ width: "100%" }}
                 {...formik.getFieldProps("contact")}
                 onChange={(phone) => {
-                  formik.setFieldValue("contact", phone);
+                  formik.setFieldValue("contact", "+" + phone);
                 }}
               />
+              <small className="text-red-800">
+                {formik.values.contact && formik.errors.contact}
+              </small>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="email" />
-              </InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}>Email</InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -194,9 +248,7 @@ export default function CreateMember({
               />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="password" />
-              </InputLabel>
+              <InputLabel sx={{ fontWeight: "bold" }}>Password</InputLabel>
               <TextField
                 fullWidth
                 id="nom"
@@ -270,14 +322,19 @@ export default function CreateMember({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button type="submit" disabled={!formik.dirty}>
+          <Button type="submit" disabled={!formik.dirty || creating}>
             {member.id ? (
               <FormattedMessage id="edit" />
             ) : (
               <FormattedMessage id="create" />
             )}
           </Button>
-          <Button onClick={handleCloseDialog} autoFocus color="error">
+          <Button
+            onClick={handleCloseDialog}
+            disabled={!formik.dirty || creating}
+            autoFocus
+            color="error"
+          >
             <FormattedMessage id="cancel" />
           </Button>
         </DialogActions>

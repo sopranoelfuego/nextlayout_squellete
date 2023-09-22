@@ -10,13 +10,13 @@ import Link from "next/link";
 import { FormattedMessage } from "react-intl";
 
 type AppProps = {
-  value: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+
   handleClickOpenCreateDialog: ()=>void;
   handleClear?: () => void;
 };
 
-export default function ContributionHeader() {
+export default function ContributionHeader({handleClickOpenCreateDialog}:AppProps) {
   const router=useRouter()
   const [filterValue, setFilterValue] = useState<string>("");
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -45,7 +45,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
           <HiOutlineRefresh fontSize={16} /> <FormattedMessage id="relaod"/>
         </Link>
         <button
-        //   onClick={() => handleClickOpenCreateDialog()}
+          onClick={() => handleClickOpenCreateDialog()}
           className="py-2  hover:border-mainColor whitespace-nowrap  opacity-75 hover:opacity-100 px-3 bg-mainColor rounded text-white flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
           <HiOutlineUserAdd fontSize={16} /> <FormattedMessage id="new_cotisation"/>

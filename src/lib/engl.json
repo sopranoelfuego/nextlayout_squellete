@@ -16,10 +16,18 @@
   "cancel": "Cancel",
   "nom": "last name",
   "prenom": "first name",
+  "succes-del":"successfull deleted",
+  "create-succ":"successfull created",
+  "edit-succ":"successfull edited",
+  "delet-failed":"deletion failed",
   "contact": "contact",
+  "montant":"amount",
+  "trans-code":"transaction code",
+  "contact-length":"contact length must be at least 11 digits",
   "no-data-display": "no data to display",
-  "new_member": "Add",
-  "new_cotisation": "Add",
+  "new_member": "add new member",
+  "operation-failed":"operation failed !!",
+  "new_cotisation": "add new contribution",
   "relaod": "reload",
   "err_message": "Something went wrong!",
   "ressayer": "Try again",
@@ -31,7 +39,5 @@
   "delete-message-desc": "Dear user, we inform you that this action is irreversible... please think twice.",
 
   "delete-message": "Do you really want to remove it ?",
-  "decaissements": "disbursement",
-  "ajout": "Add",
-  "creation": "Add new member"
+  "decaissements": "disbursement"
 }

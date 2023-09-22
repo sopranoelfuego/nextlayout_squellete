@@ -1,11 +1,11 @@
 "use client";
 
-import { useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useIntl } from "react-intl";
 import { AuthContext } from "@/components/contexts/authContext";
+
 import { useRouter } from "next/navigation";
 
 interface ISumarize {
@@ -15,10 +15,16 @@ interface ISumarize {
   date: string;
 }
 export default function Home() {
-  const router = useRouter();
-  const userStorage=window.localStorage.getItem("user")!
+  
 
   const intl = useIntl();
+
+  const router = useRouter();
+  if (typeof window !== "undefined") {
+    const userStorage = localStorage.getItem("user");
+    if (!userStorage) return router.push("/login");
+  }
+
   const sumarizes: ISumarize[] = [
     {
       id: 1,
@@ -48,7 +54,6 @@ export default function Home() {
       date: "01 janv 2019 - 01 Dec 2019",
     },
   ];
-  if (!userStorage) return router.push("/login");
   return (
     <Box sx={{ minHeight: "100%", padding: { xs: "auto", sm: " 0 3rem" } }}>
       <Grid

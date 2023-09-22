@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -9,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
-import signIn from "next-auth"
+import signIn from "next-auth";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useFormik } from "formik";
@@ -17,27 +17,26 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@mui/material/Button";
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 import jwtDecode from "jwt-decode";
 import { AuthContext } from "@/components/contexts/authContext";
 
 const Login = () => {
   const intl = useIntl();
-  const {initiateUserSession}=useContext(AuthContext)
+  const { initiateUserSession } = useContext(AuthContext);
   const [showPassword, setshowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const {handleOpenAlert} = useContext(SnackAlertContext)
-  
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+
   const [wrongCredentials, setWrongCredentials] = useState(false);
-  const router=useRouter()
-  
+  const router = useRouter();
+
   const [erros, setErros] = useState<{ email: string; password: string }>({
     email: intl.formatMessage({ id: "req-field" }),
     password: intl.formatMessage({ id: "req-field" }),
   });
   const handleChangeShowPassword = () => setshowPassword((prev) => !prev);
-
 
   const formik = useFormik({
     initialValues: {
@@ -45,10 +44,9 @@ const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      setIsLoading(true)
-        setWrongCredentials(false)
-        // signIn("credentials",values)
-        
+      setIsLoading(true);
+      setWrongCredentials(false);
+      // signIn("credentials",values)
 
       try {
         const res = await fetch(
@@ -64,19 +62,18 @@ const Login = () => {
             }),
           }
         );
-        
-        const data=await res.json()
-       
-        setIsLoading(false)
-        initiateUserSession(data?.result?.accessToken)
-        router.push('/timeline')
-        
+
+        const data = await res.json();
+
+        setIsLoading(false);
+        initiateUserSession(data?.result?.accessToken);
+        router.push("/timeline");
       } catch (error) {
-        setWrongCredentials(true)
-        
-        handleOpenAlert("error","network error")
-        setIsLoading(false)
-        
+        setWrongCredentials(true);
+
+        handleOpenAlert("error", "network error");
+        setIsLoading(false);
+
         // console.log("error:", error);
       }
     },
@@ -99,8 +96,8 @@ const Login = () => {
           margin: "auto 0",
           borderRadius: "12px",
           backgroundColor: "white",
-          minHeight: { xs: "100%", sm: "700px" },
-          maxHeight: { xs: "100%", sm: "700px" },
+          minHeight: { xs: "100%", sm: "auto" },
+          maxHeight: { xs: "100%", sm: "600px" },
           height: "100%",
           display: "flex",
           alignItems: "center",
@@ -135,7 +132,10 @@ const Login = () => {
           </Typography>
         </Box>
         <Divider orientation="vertical" variant="middle" flexItem />
-        <form className="h-full w-full minw flex-1" onSubmit={formik.handleSubmit}>
+        <form
+          className="h-full w-full minw flex-1"
+          onSubmit={formik.handleSubmit}
+        >
           <Stack
             direction="column"
             spacing={{ xs: 1, sm: 2 }}
@@ -168,12 +168,18 @@ const Login = () => {
                 src="logo.svg"
                 alt="logo"
               />
-              <h2 className="font-bold text-xl">Welcome to New vision plateform</h2>
+              <h2 className="font-bold text-xl">
+                Welcome to New vision plateform
+              </h2>
             </Box>
             <p className="font-semibold opacity-80">
               Please login to your account
             </p>
-            {wrongCredentials && <Alert severity="error"><FormattedMessage id="wrong-cred"/></Alert>}
+            {wrongCredentials && (
+              <Alert severity="error">
+                <FormattedMessage id="wrong-cred" />
+              </Alert>
+            )}
 
             <TextField
               label="Email"
@@ -186,7 +192,7 @@ const Login = () => {
                 formik.values.email === "" &&
                 erros.email
               }
-              placeholder="eg:newvision@gmail.com"
+              placeholder="eg:jhondoe@gmail.com"
               fullWidth
               sx={{ margin: "0.9rem  0" }}
             />
@@ -212,16 +218,35 @@ const Login = () => {
               }}
             />
             <Box sx={{ width: "100%" }}>
-              <Button type="submit"  disabled={!formik.dirty || !Boolean(formik.values.email) || !Boolean(formik.values.password) || isLoading } variant="outlined" sx={{borderColor:"#055E68",color:"#055E68",backgroundColor:"#055E68",':hover':{
-                color:"#055E68",
-                borderColor:"#055E68"
-                
-              }}}  fullWidth>
+              <Button
+                type="submit"
+                disabled={
+                  !formik.dirty ||
+                  !Boolean(formik.values.email) ||
+                  !Boolean(formik.values.password) ||
+                  isLoading
+                }
+                variant="outlined"
+                sx={{
+                  borderColor: "#055E68",
+                  color: "#055E68",
+                  backgroundColor: "#055E68",
+                  ":hover": {
+                    color: "#055E68",
+                    borderColor: "#055E68",
+                  },
+                }}
+                fullWidth
+              >
                 <FormattedMessage id="login" />
               </Button>
-             <Link href={"/"}  > <small className=" align-middle font-semibold opacity-75 hover:opacity-100 transition-all duration-500 underline">forget password</small></Link>
-             
-             
+              <Link href={"/"}>
+                {" "}
+                <small className="align-middle font-semibold opacity-75 hover:opacity-100 transition-all duration-500 underline">
+                  forget password
+                </small>
+              </Link>
+
               <Stack
                 direction="row"
                 justifyContent="flex-end"
