@@ -192,31 +192,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {/* {members?.result?.content?.map((m: MemberType) => {
-              return (
-                <StyledTableRow key={m.id}>
-                  <StyledTableCell>{m?.nom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.prenom}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.contact}</StyledTableCell>
-                  <StyledTableCell align="center">{m?.email}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Stack
-                      direction={{ xs: "column", sm: "row" }}
-                      spacing={{ xs: 1, sm: 2 }}
-                      justifyContent="center"
-                      alignItems="center"
-                    >
-                      <IconButton onClick={()=>handleClickOpenCreateDialog(m)}>
-                        <HiOutlinePencil fontSize={20} color="black" />
-                      </IconButton>
-                      <IconButton>
-                        <HiArchive fontSize={20} color="black" />
-                      </IconButton>
-                    </Stack>
-                  </StyledTableCell>
-                </StyledTableRow>
-              );
-            })} */}
+              
               {members?.result?.content?.map((m: MemberType) => {
                 return (
                   <StyledTableRow key={m.id}>

@@ -32,7 +32,7 @@ function MemberHeader({ handleClickOpenCreateDialog,   }: AppProps) {
       }}
     >
       <InputSearchComponent
-        handleClear={() => console.log("clear")}
+        handleClear={() => setFilterValue("")}
         value={filterValue}
         handleChange={handleChange}
       />
@@ -48,7 +48,7 @@ function MemberHeader({ handleClickOpenCreateDialog,   }: AppProps) {
           onClick={() => handleClickOpenCreateDialog()}
           className="py-2  hover:border-mainColor whitespace-nowrap  opacity-75 hover:opacity-100 px-3 bg-mainColor rounded text-white flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
-          <HiOutlineUserAdd fontSize={16} /> <FormattedMessage id="ajout" />
+          <HiOutlineUserAdd fontSize={16} /> <FormattedMessage id="new_member" />
         </button>
       </Box>
     </Box>

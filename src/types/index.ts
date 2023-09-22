@@ -8,5 +8,6 @@ export interface ISearchParams{
     page:number
     size:number
     direction:'ASC' | 'DESC' | string
-    sortBy?:string
+    sortBy?:string,
+    token:string
 }

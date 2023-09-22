@@ -8,10 +8,11 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
 
 import { HiUser, HiUserAdd, HiCash } from "react-icons/hi";
@@ -32,10 +33,11 @@ export default function CreateMember({
   setOpen,
   member,
 }: CreateMemberProps) {
+  const router = useRouter();
   //   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
   const { user } = useContext(AuthContext);
-  const {handleOpenAlert} = useContext(SnackAlertContext)
+  const { handleOpenAlert } = useContext(SnackAlertContext);
 
   const [creating, setCreating] = useState(false);
   const [errors, setErrors] = useState({
@@ -95,6 +97,59 @@ export default function CreateMember({
     setOpen(false);
   };
 
+  const handleSubmit = async (
+    values: typeof member,
+    resetForm: FormikHelpers<{
+      id: string | number | undefined;
+      nom: string;
+      prenom: string;
+      contact: string;
+      email: string;
+      password: string | undefined;
+      role: string;
+    }>
+  ) => {
+    let res: any = "";
+
+    setCreating(true);
+    try {
+      if (member.id)
+        res = await fetch(
+          `${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.token}`,
+            },
+            body: JSON.stringify(values),
+          }
+        );
+      else
+        res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(values),
+        });
+      // cb()
+      await res.json();
+      setCreating(false);
+      resetForm.resetForm();
+
+      member.id
+        ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
+        : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
+      handleCloseDialog();
+      router.push("/timeline/membres?page=0&size=10");
+    } catch (error) {
+      setCreating(false);
+      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+    }
+  };
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -107,49 +162,7 @@ export default function CreateMember({
       role: member.role,
     },
     onSubmit: async (values, resetForm) => {
-      if (validationSchema()) {
-        let res: any = "";
-
-        // await onHandleSubmit({values,member,cb:resetForm})
-        setCreating(true);
-        try {
-          // http://192.168.40.66:8081/gp-com/api/v1/register
-          if (member.id)
-          // let endPointUrl=`${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`
-            res = await fetch(
-              `${process.env.NEXT_PUBLIC_ROOT_API}/membres/${member.id}`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${user.token}`,
-                },
-                body: JSON.stringify(values),
-              }
-            );
-          else
-            res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/register`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json", 
-                Authorization: `Bearer ${user.token}`,
-              },
-              body: JSON.stringify(values),
-            });
-          // cb()
-          setCreating(false);
-          const data = res.json();
-          console.log("url:", res);
-          console.log("data:", data);
-          // resetForm()
-         member.id? handleOpenAlert("success",<FormattedMessage id="create-succ"/>):handleOpenAlert("success",<FormattedMessage id="edit-succ"/>)
-          handleCloseDialog()
-          revalidateTag("members");
-        } catch (error) {
-          setCreating(false);
-          alert(`error:${error}`);
-        }
-      }
+      if (validationSchema()) await handleSubmit(values, resetForm);
     },
   });
 
@@ -316,7 +329,12 @@ export default function CreateMember({
               <FormattedMessage id="create" />
             )}
           </Button>
-          <Button onClick={handleCloseDialog} disabled={!formik.dirty || creating} autoFocus color="error">
+          <Button
+            onClick={handleCloseDialog}
+            disabled={!formik.dirty || creating}
+            autoFocus
+            color="error"
+          >
             <FormattedMessage id="cancel" />
           </Button>
         </DialogActions>

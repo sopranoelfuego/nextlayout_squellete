@@ -5,7 +5,7 @@ import { ISearchParams } from "@/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { MemberType } from "../../../../types";
+import { IUser, MemberType } from "../../../../types";
 // import { redirect } from "next/dist/server/api-utils";
 
 interface ListOfMembersProps {
@@ -13,26 +13,19 @@ interface ListOfMembersProps {
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
 
-const loadMembers = async ({ page, size, direction }: ISearchParams) => {
-  let user:any
-  if(typeof window !== "undefined"){
-
-    user=JSON.parse(localStorage.getItem("user")!)
-   
-     const res = await fetch(
+const loadMembers = async ({ page, size, direction ,token}: ISearchParams ) => {
+  const res = await fetch(
         `${process.env.NEXT_PUBLIC_ROOT_API}/membres?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
           cache:"no-cache",next:{
           tags:["members"]
         },
         headers:{
-          "Authorization":`Bearer ${user.token}`
+          "Authorization":`Bearer ${token}`
         }
       }
       );
-      // console.log("res:",res)
       if(!res.ok)return
       return res.json();
-  }
 };
 
 
@@ -43,9 +36,17 @@ export default async function Home({
     [key: string]: string | string[] | undefined | "ASC" | "DESC";
   };
 }) {
+  let userStorage:IUser={
+    id:"",
+    prenom:"",
+    nom:"",
+    email:"",
+    role:"",
+    token:""
+  }
   if(typeof window !== 'undefined'){
 
-    let userStorage=localStorage.getItem("user")
+    userStorage=JSON.parse(localStorage.getItem("user")!)
     if (!userStorage) redirect("/login");
   }
 
@@ -62,6 +63,7 @@ export default async function Home({
     page,
     size,
     direction,
+    token:userStorage?.token!
   });
 
   return <ListOfMembers members={members} />;

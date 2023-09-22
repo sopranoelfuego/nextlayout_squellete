@@ -113,7 +113,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
       // handleChange={handleChange}
       // handleClear={handleClear}
       // value={filterValue}
-      // handleClickOpenCreateDialog={handleClickOpenCreateDialog}
+      handleClickOpenCreateDialog={handleClickOpenCreateDialog}
       />
     
       <Grid
@@ -194,6 +194,9 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                   <FormattedMessage id="montant" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
+                  <FormattedMessage id="trans-code" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
                   <FormattedMessage id="dateCotisation" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
@@ -208,6 +211,9 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                     <StyledTableCell>{m?.membreId}</StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.montant}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {m?.codeTransaction}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.dateCotisation}
@@ -254,7 +260,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
           onRowsPerPageChange={() => console.log("chanage rows")}
         />
       </Box>
-      {/* <CreateContribution contribution={contribution} open={open} setOpen={setOpen} /> */}
+      <CreateContribution cotisation={contribution} open={open} setOpen={setOpen} />
     </>
   );
 };

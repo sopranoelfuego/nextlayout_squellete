@@ -6,11 +6,14 @@
     "Du":"Du",
     "Au":"Au",
     "actions":"actions",
+  "trans-code":"code transaction",
+  "montant":"amout",
+
     "new_member":"ajouter un nouveau membre",
     "new_cotisation":"ajouter une nouvelle cotisation",
 
-    "cotisation":"Cotisations",
-    "credit":"Crédits",
+     "operation-failed":"opération echouée!!",
+
   "succes-del":"supprimer avec success ",
   "create-succ":"créer avec success ",
   "edit-succ":"modifier avec success",
