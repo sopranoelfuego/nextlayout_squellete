@@ -1,56 +1,52 @@
 {
-    "login":"Se connecter",
-    "dashboard":"Tableau de bord",
-    "member":"Membres",
-    "single_member":"Membre",
-    "Du":"Du",
-    "Au":"Au",
-    "actions":"actions",
-  "trans-code":"code transaction",
-  "montant":"amout",
+  "login": "Se connecter",
+  "dashboard": "Tableau de bord",
+  "member": "Membres",
+  "single_member": "Membre",
+  "Du": "Du",
+  "Au": "Au",
+  "actions": "actions",
+  "trans-code": "code transaction",
+  "montant": "amout",
   "create-contr": "Create contribution",
 
+  "new_member": "ajouter un nouveau membre",
+  "new_cotisation": "ajouter une nouvelle cotisation",
 
-    "new_member":"ajouter un nouveau membre",
-    "new_cotisation":"ajouter une nouvelle cotisation",
+  "operation-failed": "opération echouée!!",
 
-     "operation-failed":"opération echouée!!",
+  "succes-del": "supprimer avec success ",
+  "create-succ": "créer avec success ",
+  "edit-succ": "modifier avec success",
 
-  "succes-del":"supprimer avec success ",
-  "create-succ":"créer avec success ",
-  "edit-succ":"modifier avec success",
-  
-  "delet-failed":"error de suppression",
-    "rembourssement":"Rembourssements",
-    "settings":"Paramètres",
-    "err_message":"Quelque chose n'a pas marché !",
-    "ressayer":"Ressayer",
-    "create":"Créer",
-    "cancel":"Annuler",
-    "edit":"modifier",
-    "nom":"nom",
-  "contact-length":"la longueur du contact doit être d'au moins 11 chiffres",
+  "delet-failed": "error de suppression",
+  "rembourssement": "Rembourssements",
+  "settings": "Paramètres",
+  "err_message": "Quelque chose n'a pas marché !",
+  "ressayer": "Ressayer",
+  "create": "Créer",
+  "cancel": "Annuler",
+  "edit": "modifier",
+  "nom": "nom",
+  "contact-length": "la longueur du contact doit être d'au moins 11 chiffres",
 
-    "prenom":"prénom",
-    "search":"rechercher",
-    "delete-req":"oui, supprimez-le",
-    "wrong-cred":"e-mail ou mot de passe incorrect",
+  "prenom": "prénom",
+  "search": "rechercher",
+  "delete-req": "oui, supprimez-le",
+  "wrong-cred": "e-mail ou mot de passe incorrect",
 
-    "delete-message-desc":"Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
+  "delete-message-desc": "Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
 
+  "delete-message": "Voulez-vous vraiment le supprimer ?",
 
-    "delete-message":"Voulez-vous vraiment le supprimer ?",
+  "relaod": "actualiser",
 
-"relaod":"actualiser",
+  "contact": "contact",
+  "no-data-display": "pas de donnés a afficher",
 
-    "contact":"contact",
-    "no-data-display":"pas de donnés a afficher",
-
-
-
-    "req-field":"ce champ est requis",
-    "encaissements":"encaissements",
-    "decaissements":"decaissements",
+  "req-field": "ce champ est requis",
+  "encaissements": "encaissements",
+  "decaissements": "decaissements",
 
   "cotisation": "Cotisations",
   "credit": "Crédits",
@@ -81,5 +77,11 @@
   "decaissements": "decaissements",
   "role": "rôle",
   "ajout": "Ajouter",
-  "creation": "Creer un membre"
+  "creation": "Creer un membre",
+  "putup": "Epargne pour prepare votre passion",
+  "messagee": "Bienvenus encore dans",
+  "welcome": "Bienvenus",
+  "signin": "Connectez-vous en saisissant les informations ci-dessous",
+  "oubli": "Mot de passe oublié ?",
+  "noaccount": "Vous n'avez pas de Compte ?"
 }

@@ -7,6 +7,7 @@ import { useIntl } from "react-intl";
 import { AuthContext } from "@/components/contexts/authContext";
 
 import { useRouter } from "next/navigation";
+import { FormattedMessage } from "react-intl";
 
 interface ISumarize {
   id: number;
@@ -15,8 +16,6 @@ interface ISumarize {
   date: string;
 }
 export default function Home() {
-  
-
   const intl = useIntl();
 
   const router = useRouter();
@@ -50,7 +49,7 @@ export default function Home() {
       id: 4,
       title: `${intl.formatMessage({ id: "credit" })}`,
 
-      number: 2000,
+      number: 20,
       date: "01 janv 2019 - 01 Dec 2019",
     },
   ];
@@ -134,7 +133,7 @@ export default function Home() {
           }}
         >
           {" "}
-          wellcome again to{" "}
+          <FormattedMessage id="messagee" />{" "}
         </Typography>
         <Typography
           maxWidth="40rem"
@@ -143,8 +142,7 @@ export default function Home() {
           fontWeight="600"
           textAlign="center"
         >
-          we aim to change your daily life with this cutting-edge app which will
-          contributions to ease your life by ...
+          <FormattedMessage id="putup" />
         </Typography>
       </Box>
     </Box>
