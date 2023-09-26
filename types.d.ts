@@ -15,5 +15,19 @@ export interface CotisationType {
   montant: number;
   codeTransaction: string;
   dateCotisation?: string;
-  membreId: number ;
+  membreId: number | string ;
+}
+export interface ISettingType{
+  id?:number,
+  montantParAction: number,
+  jourApresCotisation: number,
+  dateDebutCycle: dayjs.Dayjs | null | undefined,
+  dateFinCyle: dayjs.Dayjs | null | undefined,
+  tauxInteret: number
+}
+export interface ICompteSettingType{
+  id?:number,
+   montantActuelle: number,
+  montantEndette: number,
+  interet: number
 }

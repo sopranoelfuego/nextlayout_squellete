@@ -26,7 +26,7 @@ const loadContributions = async ({ page, size, direction ,token}: ISearchParams 
   //     }
   //     );
   const res = await fetch(
-        `http://192.168.20.63:8081/gp-com/api/v1/cotisations`,{
+        `http://localhost:8081/gp-com/api/v1/cotisations`,{
           cache:"no-cache",next:{
           tags:["cotisations"]
         },

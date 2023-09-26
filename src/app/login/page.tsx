@@ -122,7 +122,7 @@ const Login = () => {
           }}
         >
           <Divider flexItem sx={{ color: "white", margin: 0 }}>
-            <h1 className="font-bold text-xl">New vision</h1>
+            <h1 className="font-bold text-xl">New-vision</h1>
           </Divider>
           <Typography
             fontSize="15px"
@@ -169,11 +169,11 @@ const Login = () => {
                 alt="logo"
               />
               <h2 className="font-bold text-xl">
-                Welcome to New vision plateform
+                <FormattedMessage id="welcome" />
               </h2>
             </Box>
             <p className="font-semibold opacity-80">
-              Please login to your account
+              <FormattedMessage id="signin" />
             </p>
             {wrongCredentials && (
               <Alert severity="error">
@@ -243,7 +243,7 @@ const Login = () => {
               <Link href={"/"}>
                 {" "}
                 <small className="align-middle font-semibold opacity-75 hover:opacity-100 transition-all duration-500 underline">
-                  forget password
+                  <FormattedMessage id="oubli" />
                 </small>
               </Link>
 
@@ -254,7 +254,9 @@ const Login = () => {
                 marginTop={{ xs: "1rem", sm: "2rem" }}
                 alignItems="center"
               >
-                <Link href={"/timeline"}>Don&#39;t have a account ?</Link>
+                <Link href={"/timeline"}>
+                  <FormattedMessage id="noaccount" />
+                </Link>
                 <button className="w-fit rounded-md  bg-mainColor whitespace-nowrap text-white py-1 font-bold px-9 hover:bg-inherit border border-md border-mainColor  transition-all duration-500 hover:text-mainColor ">
                   create one
                 </button>

@@ -2,10 +2,9 @@
 
 import React from "react";
 import { redirect } from "next/navigation";
-// import { useRouter } from "next/navigation";
 import DashBoard from "./DashBoard";
 
-const loadData = async () => {
+async function loadData () {
   const res = await fetch(`${process.env.ROOT_API}/dashboard`,{cache:"no-cache"});
   const data = res.json();
   // if(!data.ok)return
@@ -18,8 +17,6 @@ export default async function Home() {
   }
 
    const {response}  = await loadData()
-console.log("response:",response)
-  // return <DashBoard resumee={response}/>;
+  return <DashBoard resumee={response}/>;
 
-  return <>hello</>;
 }

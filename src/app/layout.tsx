@@ -38,8 +38,8 @@ export default function RootLayout({
                   <LanguageContextProvider>
                     <TraductionProvider>
                       {children}
-                    <MuiSnackBar />
-                      </TraductionProvider>
+                      <MuiSnackBar />
+                    </TraductionProvider>
                   </LanguageContextProvider>
                 </SnackAlertContextProvider>
               </ExpandContextProvider>
