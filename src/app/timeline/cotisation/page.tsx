@@ -76,7 +76,6 @@ export default async function Home({
     direction,
     token:userStorage?.token!
   });
-  console.log("data:",contributions)
 
 
   return <ListOfContributions contributions={contributions} />;

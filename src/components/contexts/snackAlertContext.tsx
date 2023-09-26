@@ -1,12 +1,12 @@
 "use client";
-import { SnackbarCloseReason } from "@mui/material";
+// import { SnackbarCloseReason } from "@mui/material";
 import React, { useState,useMemo } from "react";
 
 
 export const SnackAlertContext = React.createContext<{
   dialog: { open: boolean; message:string,severity: "error" | "info" | "warning" | "success" };
   handleOpenAlert: Function;
-  handleCloseAlert: (event: React.SyntheticEvent | Event , reason?: SnackbarCloseReason ) => void;
+  handleCloseAlert: (event: React.SyntheticEvent | Event , reason?:  "timeout" | "clickaway" | "escapeKeyDown" ) => void;
   // (event: React.SyntheticEvent<any> | Event, reason: SnackbarCloseReason) => void
 }>({
   dialog: { open: false, message:"",severity: "info" },
