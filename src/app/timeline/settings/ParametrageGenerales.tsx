@@ -141,10 +141,10 @@ export default function GeneralSettings({
               <StyledTableCell align="center">
                 <DatePicker
                   sx={{ width: "100%" }}
-                  value={formik.values.dateDebutCycle}
-                  onChange={(newValue) =>
-                    formik.setFieldValue("dateDebutCycle", newValue)
-                  }
+                  // value={formik.values.dateDebutCycle}
+                  // onChange={(newValue) =>
+                  //   formik.setFieldValue("dateDebutCycle", newValue)
+                  // }
                   defaultValue={dayjs(Date.now())}
                 />
               </StyledTableCell>
@@ -157,10 +157,10 @@ export default function GeneralSettings({
               <StyledTableCell align="center">
                 <DatePicker
                   sx={{ width: "100%" }}
-                  value={formik.values.dateFinCyle}
-                  onChange={(newValue) =>
-                    formik.setFieldValue("dateFinCyle", newValue)
-                  }
+                  // value={formik.values.dateFinCyle}
+                  // onChange={(newValue) =>
+                  //   formik.setFieldValue("dateFinCyle", newValue)
+                  // }
                   defaultValue={dayjs(Date.now())}
                   
                 />
