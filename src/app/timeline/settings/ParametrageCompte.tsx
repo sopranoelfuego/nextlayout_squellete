@@ -57,7 +57,7 @@ export default function ParametrageComptes({
 
   return (
     <form>
-      <TableContainer component={Paper} sx={{ maxWidth: "100vh" }}>
+      <TableContainer component={Paper} sx={{ maxWidth: "100vh",width:"100%" }}>
         <Table>
           <TableHead>
             <StyledTableRow>

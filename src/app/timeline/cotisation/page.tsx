@@ -60,7 +60,6 @@ export default async function Home({
     userStorage=JSON.parse(localStorage.getItem("user")!)
     if (!userStorage) redirect("/login");
   }
-
   // const session = await getServerSession(authOptions);
  
   const page =
@@ -75,7 +74,9 @@ export default async function Home({
     size,
     direction,
     token:userStorage?.token!
-  });
+  })
+console.log("contrubitions:",contributions)
+
 
 
   return <ListOfContributions contributions={contributions} />;

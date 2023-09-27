@@ -18,11 +18,11 @@ export interface CotisationType {
   membreId: number | string ;
 }
 export interface ISettingType{
-  id?:number,
+  id?:number | string,
   montantParAction: number,
   jourApresCotisation: number,
-  dateDebutCycle: dayjs.Dayjs | null | undefined,
-  dateFinCyle: dayjs.Dayjs | null | undefined,
+  dateDebutCycle: Date ,
+  dateFinCyle: Date,
   tauxInteret: number
 }
 export interface ICompteSettingType{

@@ -43,7 +43,7 @@ function a11yProps(index: number) {
 }
 
 interface ISettingProps{
-
+ 
     settings:ISettingType,
     comptes:ICompteSettingType
 }
@@ -56,7 +56,7 @@ export default function Settings({settings,comptes}:ISettingProps) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%"}}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
