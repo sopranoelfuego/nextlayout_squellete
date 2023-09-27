@@ -56,5 +56,6 @@
   "welcome": "welcome",
   "signin": "Sign in by entering the information below",
   "oubli": "forgot password",
-  "noaccount": "Don't have an account ?"
+  "noaccount": "Don't have an account ?",
+  "createAccount": "Create an account"
 }

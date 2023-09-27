@@ -192,7 +192,7 @@ const Login = () => {
                 formik.values.email === "" &&
                 erros.email
               }
-              placeholder="eg:jhondoe@gmail.com"
+              placeholder=""
               fullWidth
               sx={{ margin: "0.9rem  0" }}
             />
@@ -258,7 +258,7 @@ const Login = () => {
                   <FormattedMessage id="noaccount" />
                 </Link>
                 <button className="w-fit rounded-md  bg-mainColor whitespace-nowrap text-white py-1 font-bold px-9 hover:bg-inherit border border-md border-mainColor  transition-all duration-500 hover:text-mainColor ">
-                  create one
+                  <FormattedMessage id="createAccount" />
                 </button>
               </Stack>
             </Box>

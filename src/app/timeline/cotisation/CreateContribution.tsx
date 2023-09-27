@@ -37,6 +37,7 @@ export default function CreateContribution({
   const { user } = useContext(AuthContext);
 
   const { handleOpenAlert } = useContext(SnackAlertContext);
+    console.log("cotisation:",cotisation)
 
   const [creating, setCreating] = useState(false);
   const [members, setMembers] = useState([]);
@@ -126,19 +127,26 @@ export default function CreateContribution({
           body: JSON.stringify(values),
         });
       // cb()
-      await res.json();
+      const data=await res.json();
       setCreating(false);
       resetForm.resetForm();
+      if(!data?.success){
 
-      cotisation.id
-        ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
-        : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
-      handleCloseDialog();
-      router.push("/timeline/cotisation?page=0&size=10");
+        handleOpenAlert("info",data?.message)
+      }else{
+
+        cotisation.id
+          ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
+          : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
+        handleCloseDialog();
+        router.push("/timeline/cotisation?page=0&size=10");
+      }
+      
+
+   
     } catch (error) {
-      if(error)
-      console.log("error,",Object.keys(error))
-      console.log("error:,",error)
+
+      
       setCreating(false);
       handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
     }

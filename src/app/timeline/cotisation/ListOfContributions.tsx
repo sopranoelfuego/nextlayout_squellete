@@ -90,6 +90,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
   const handleClickOpenCreateDialog = (contribution?: CotisationType) => {
+    console.log("contibution:",contribution)
     setContribution({
       id: "",
       montant: 0,
@@ -103,7 +104,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         codeTransaction: contribution.codeTransaction,
         dateCotisation: contribution.dateCotisation,
         id: contribution.id,
-        membreId: contribution.membreId,
+        membreId: contribution?.membre?.id!,
       });
     setOpen(true);
   };
@@ -210,7 +211,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
               {contributions?.result?.map((m: CotisationType) => {
                 return (
                   <StyledTableRow key={m.id}>
-                    <StyledTableCell>{m?.membreId}</StyledTableCell>
+                    <StyledTableCell>{m?.membre?.fullName}</StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.montant}
                     </StyledTableCell>

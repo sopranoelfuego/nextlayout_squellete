@@ -16,6 +16,7 @@ export interface CotisationType {
   codeTransaction: string;
   dateCotisation?: string;
   membreId: number | string ;
+  membre?:{id:number,fullName:string}
 }
 export interface ISettingType{
   id?:number | string,

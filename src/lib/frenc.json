@@ -6,11 +6,10 @@
   "Du": "Du",
   "Au": "Au",
   "actions": "actions",
-  "montantParAction":"Montant par action",
-  "dateDebutCycle":"Date de début du cycle",
-  "dateFinCyle":"Date de fin de cycle",
+  "montantParAction": "Montant par action",
+  "dateDebutCycle": "Date de début du cycle",
+  "dateFinCyle": "Date de fin de cycle",
 
-  
   "trans-code": "code transaction",
   "montant": "amout",
   "create-contr": "Create contribution",
@@ -37,33 +36,9 @@
   "edit-succ": "modifier avec success",
 
   "delet-failed": "error de suppression",
-  "rembourssement": "Rembourssements",
-  "settings": "Paramètres",
-  "err_message": "Quelque chose n'a pas marché !",
-  "ressayer": "Ressayer",
-  "create": "Créer",
-  "cancel": "Annuler",
-  "edit": "modifier",
-  "nom": "nom",
+  
   "contact-length": "la longueur du contact doit être d'au moins 11 chiffres",
 
-  "prenom": "prénom",
-  "search": "rechercher",
-  "delete-req": "oui, supprimez-le",
-  "wrong-cred": "e-mail ou mot de passe incorrect",
-
-  "delete-message-desc": "Cher utilisateur, nous vous informons que cette action est irréversible... réfléchissez-y à deux fois.",
-
-  "delete-message": "Voulez-vous vraiment le supprimer ?",
-
-  "relaod": "actualiser",
-
-  "contact": "contact",
-  "no-data-display": "pas de donnés a afficher",
-
-  "req-field": "ce champ est requis",
-  "encaissements": "encaissements",
-  "decaissements": "decaissements",
 
   "cotisation": "Cotisations",
   "credit": "Crédits",
@@ -100,5 +75,6 @@
   "welcome": "Bienvenus",
   "signin": "Connectez-vous en saisissant les informations ci-dessous",
   "oubli": "Mot de passe oublié ?",
-  "noaccount": "Vous n'avez pas de Compte ?"
+  "noaccount": "Vous n'avez pas de Compte ?",
+  "createAccount": "Creer un compte"
 }
