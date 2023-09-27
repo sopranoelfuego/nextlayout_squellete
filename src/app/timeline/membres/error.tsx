@@ -29,13 +29,13 @@ export default function Error({
       <p className='text-xs opacity-60 font-semibold ' ><FormattedMessage id="err_message"/></p>
       
       <button
-      className={`bg-mainColor hover:bg-white border hover:border-mainColor transition-all duration-500 hover:text-mainColor  text-xs rounded-full py-2 text-white flex items-center gap-1  justify-center  `}
+      className={`bg-mainColor hover:bg-white border hover:border-mainColor transition-all duration-500 hover:text-mainColor text-sm   rounded-full py-2 text-white flex items-center gap-1  justify-center  `}
         onClick={
-          // Attempt to recover by trying to re-render the segment
+ 
           () => reset()
         }
       >
-       <HiOutlineRefresh fontSize={20}/> <FormattedMessage id="ressayer"/>
+       <HiOutlineRefresh fontSize={20} /> <FormattedMessage id="ressayer"/>
       </button>
       </Stack>
     </Box>

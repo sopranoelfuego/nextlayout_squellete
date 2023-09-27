@@ -1,22 +1,23 @@
 "use client";
+import { useContext, useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "@mui/material/styles/styled";
 import tableCellClasses from "@mui/material/TableCell/tableCellClasses";
 import Button from "@mui/material/Button";
-
 import TableBody from "@mui/material/TableBody";
-
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
 import { ISettingType } from "../../../../types";
 import { FormattedMessage } from "react-intl";
-import { TextField } from "@mui/material";
-import { useFormik } from "formik";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
+import TextField  from "@mui/material/TextField";
+import CircularProgress  from "@mui/material/CircularProgress";
+import { useFormik, FormikHelpers } from "formik";
+import { AuthContext } from "@/components/contexts/authContext";
+import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
+import { useRouter } from "next/navigation";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,23 +54,68 @@ export default function GeneralSettings({
 }: {
   settings: ISettingType;
 }) {
+  console.log("setting:",settings)
+  const { user } = useContext(AuthContext);
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+  const [creating, setCreating] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (
+    values: typeof settings,
+    resetForm: FormikHelpers<{
+      id: number | string;
+      montantParAction: number;
+      jourApresCotisation: number;
+      dateDebutCycle: Date;
+      dateFinCyle: Date;
+      tauxInteret: number;
+    }>
+  ) => {
+    let res: any = "";
+
+    setCreating(true);
+    try {
+      res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/params`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(values),
+      });
+
+      await res.json();
+      setCreating(false);
+      resetForm.resetForm();
+
+      settings.id
+        ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
+        : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
+
+      router.push("/timeline/settings?tab=0");
+    } catch (error) {
+      setCreating(false);
+      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+    }
+  };
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       id: settings?.id || 0,
       montantParAction: settings.montantParAction,
       jourApresCotisation: settings.jourApresCotisation,
-      dateDebutCycle: settings.dateDebutCycle ,
+      dateDebutCycle: settings.dateDebutCycle,
       dateFinCyle: settings.dateFinCyle,
       tauxInteret: settings.tauxInteret,
     },
     onSubmit: async (values, resetForm) => {
+      await handleSubmit(values, resetForm);
       // if (validationSchema()) await handleSubmit(values, resetForm);
     },
   });
 
   return (
-    <form>
+    <form onSubmit={formik.handleSubmit}>
       <TableContainer component={Paper} sx={{ maxWidth: "100vh" }}>
         <Table>
           <TableHead>
@@ -92,11 +138,9 @@ export default function GeneralSettings({
               <StyledTableCell align="center">
                 <TextField
                   fullWidth
-                  id="nom"
+                  id="montantParAction"
                   type="number"
                   {...formik.getFieldProps("montantParAction")}
-                  // error={Boolean(errors.prenom)}
-                  // helperText={formik.touched.prenom && errors.prenom}
                   size="small"
                 />
               </StyledTableCell>
@@ -109,7 +153,7 @@ export default function GeneralSettings({
               <StyledTableCell align="center">
                 <TextField
                   fullWidth
-                  id="nom"
+                  id="jourApresCotisation"
                   type="number"
                   {...formik.getFieldProps("jourApresCotisation")}
                   size="small"
@@ -124,11 +168,9 @@ export default function GeneralSettings({
               <StyledTableCell align="center">
                 <TextField
                   fullWidth
-                  id="nom"
+                  id="tauxInteret"
                   type="number"
                   {...formik.getFieldProps("tauxInteret")}
-                  // error={Boolean(errors.prenom)}
-                  // helperText={formik.touched.prenom && errors.prenom}
                   size="small"
                 />
               </StyledTableCell>
@@ -139,13 +181,13 @@ export default function GeneralSettings({
               </StyledTableCell>
 
               <StyledTableCell align="center">
-                <DatePicker
-                  sx={{ width: "100%" }}
-                  // value={formik.values.dateDebutCycle}
-                  // onChange={(newValue) =>
-                  //   formik.setFieldValue("dateDebutCycle", newValue)
-                  // }
-                  defaultValue={dayjs(Date.now())}
+                <TextField
+                  id="dateDebutCycle"
+                  fullWidth
+                  type="date"
+                  size="small"
+                  {...formik.getFieldProps("dateDebutCycle")}
+                  variant="outlined"
                 />
               </StyledTableCell>
             </StyledTableRow>
@@ -155,14 +197,13 @@ export default function GeneralSettings({
               </StyledTableCell>
 
               <StyledTableCell align="center">
-                <DatePicker
-                  sx={{ width: "100%" }}
-                  // value={formik.values.dateFinCyle}
-                  // onChange={(newValue) =>
-                  //   formik.setFieldValue("dateFinCyle", newValue)
-                  // }
-                  defaultValue={dayjs(Date.now())}
-                  
+                <TextField
+                  id="dateFinCyle"
+                  fullWidth
+                  type="date"
+                  size="small"
+                  {...formik.getFieldProps("dateFinCyle")}
+                  variant="outlined"
                 />
               </StyledTableCell>
             </StyledTableRow>
@@ -173,8 +214,12 @@ export default function GeneralSettings({
                   fullWidth
                   sx={{ textAlign: "center" }}
                   variant="outlined"
+                  disabled={!formik.dirty || creating}
                 >
-                  <FormattedMessage id="edit" />
+                  {
+                    creating?<CircularProgress size={20} color="inherit" />:<FormattedMessage id="edit" />
+                  }
+                  
                 </Button>
               </StyledTableCell>
             </StyledTableRow>
