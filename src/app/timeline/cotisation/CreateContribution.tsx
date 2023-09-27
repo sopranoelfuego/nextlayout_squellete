@@ -96,7 +96,8 @@ export default function CreateContribution({
       id: number | string | undefined;
       montant: number;
       codeTransaction: string;
-      membreId: number;
+      membreId: number | string;
+
     }>
   ) => {
     let res: any = "";
@@ -135,6 +136,9 @@ export default function CreateContribution({
       handleCloseDialog();
       router.push("/timeline/cotisation?page=0&size=10");
     } catch (error) {
+      if(error)
+      console.log("error,",Object.keys(error))
+      console.log("error:,",error)
       setCreating(false);
       handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
     }

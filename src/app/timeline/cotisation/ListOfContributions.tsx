@@ -75,6 +75,8 @@ const top100Films = [
   { label: "Pulp Fiction", year: 1994 },
 ];
 const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
+  console.log("contrubitions:", contributions);
+
   const [open, setOpen] = useState<boolean>(false);
   const [filterValue, setFilterValue] = useState<string>("");
   const [contribution, setContribution] = useState<CotisationType>({
@@ -109,27 +111,21 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   return (
     <>
       <ContibutionHeader
-
-      // handleChange={handleChange}
-      // handleClear={handleClear}
-      // value={filterValue}
-      handleClickOpenCreateDialog={handleClickOpenCreateDialog}
+        // handleChange={handleChange}
+        // handleClear={handleClear}
+        // value={filterValue}
+        handleClickOpenCreateDialog={handleClickOpenCreateDialog}
       />
-    
+
       <Grid
         container
         spacing={1}
-        justifyContent={{xs:"flex-end",md:"flex-end",lg:"center"}}
-        // sx={{
-        //   display: "flex",
-        //   padding: "1rem",
-        //   alignItems: "center",
-        //   flexDirection: { xs: "column", sm: "row" },
-        //   justifyContent: "start",
-        //   gap: { xs: "1rem", sm: "2rem" },
-        //   backgroundColor: "white",
-        //   marginTop: "0.8rem",
-        // }}
+        justifyContent={{ xs: "flex-end", md: "flex-end", lg: "center" }}
+        sx={{
+          marginY:"0.5rem",
+          backgroundColor:"white",
+          width:"100%"
+        }}
       >
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <Typography fontWeight="600" color="#252528">
@@ -153,27 +149,33 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
           <Typography fontWeight="600" color="#252528">
             <FormattedMessage id="Du" />
           </Typography>
-
-          <DatePicker
-           sx={{width:"100%"}}
-            defaultValue={dayjs("2022-04-17")}
+          <TextField
+            id="du"
+            fullWidth
+            type="date"
+            size="small"
+            // {...formik.getFieldProps("dateDebutCycle")}
+            variant="outlined"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <Typography fontWeight="600" color="#252528">
             <FormattedMessage id="Au" />
           </Typography>
-          <DatePicker
-          sx={{width:"100%"}}
-            defaultValue={dayjs("2022-04-17")}
+          <TextField
+            id="au"
+            fullWidth
+            type="date"
+            size="small"
+            // {...formik.getFieldProps("dateDebutCycle")}
+            variant="outlined"
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3 }>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <button className="py-2  w-full mt-4  border-mainColor border-solid border bg-white hover:bg-mainColor hover:text-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1    font-semibold transition-all  ">
-          <HiSearch fontSize={18} /> <FormattedMessage id="search" />
-        </button>
+            <HiSearch fontSize={18} /> <FormattedMessage id="search" />
+          </button>
         </Grid>
-        
       </Grid>
       <Box
         sx={{
@@ -205,7 +207,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {contributions?.result?.content?.map((m: CotisationType) => {
+              {contributions?.result?.map((m: CotisationType) => {
                 return (
                   <StyledTableRow key={m.id}>
                     <StyledTableCell>{m?.membreId}</StyledTableCell>
@@ -238,13 +240,15 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                   </StyledTableRow>
                 );
               })}
-              {!contributions?.result?.content  && (
-                  <StyledTableRow>
-                    <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
-                      <Typography fontSize="bold"><FormattedMessage id="no-data-display"/></Typography>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                )}
+              {!contributions?.result?.content && (
+                <StyledTableRow>
+                  <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
+                    <Typography fontSize="bold">
+                      <FormattedMessage id="no-data-display" />
+                    </Typography>
+                  </StyledTableCell>
+                </StyledTableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -260,7 +264,11 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
           onRowsPerPageChange={() => console.log("chanage rows")}
         />
       </Box>
-      <CreateContribution cotisation={contribution} open={open} setOpen={setOpen} />
+      <CreateContribution
+        cotisation={contribution}
+        open={open}
+        setOpen={setOpen}
+      />
     </>
   );
 };

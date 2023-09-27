@@ -54,7 +54,7 @@ export default function GeneralSettings({
 }: {
   settings: ISettingType;
 }) {
-  console.log("setting:",settings)
+
   const { user } = useContext(AuthContext);
   const { handleOpenAlert } = useContext(SnackAlertContext);
   const [creating, setCreating] = useState(false);
@@ -110,7 +110,6 @@ export default function GeneralSettings({
     },
     onSubmit: async (values, resetForm) => {
       await handleSubmit(values, resetForm);
-      // if (validationSchema()) await handleSubmit(values, resetForm);
     },
   });
 

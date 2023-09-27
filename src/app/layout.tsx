@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { ExpandContextProvider } from "@/components/contexts/expandNavBarContext";
 import "./globals.css";
@@ -14,6 +14,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SnackAlertContextProvider from "@/components/contexts/snackAlertContext";
 import MuiSnackBar from "@/components/common/MuiSnackBar";
 import AuthContextProvider from "@/components/contexts/authContext";
+import * as React from "react";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+// import NextAppDirEmotionCacheProvider from './EmotionCache';
+import theme from "./theme";
+import ThemeRegistry from "./ThemeRegistry";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,22 +36,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <AuthContextProvider>
-              <ExpandContextProvider>
-                <SnackAlertContextProvider>
-                  <LanguageContextProvider>
-                    <TraductionProvider>
-                      {children}
-                      <MuiSnackBar />
-                    </TraductionProvider>
-                  </LanguageContextProvider>
-                </SnackAlertContextProvider>
-              </ExpandContextProvider>
-            </AuthContextProvider>
-          </LocalizationProvider>
-        </SessionProvider>
+        {/* <ThemeRegistry options={{ key: "mui" }}> */}
+          <SessionProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <AuthContextProvider>
+                <ExpandContextProvider>
+                  <SnackAlertContextProvider>
+                    <LanguageContextProvider>
+                      <TraductionProvider>
+                        {children}
+                        <MuiSnackBar />
+                      </TraductionProvider>
+                    </LanguageContextProvider>
+                  </SnackAlertContextProvider>
+                </ExpandContextProvider>
+              </AuthContextProvider>
+            </LocalizationProvider>
+          </SessionProvider>
+        {/* </ThemeRegistry> */}
       </body>
     </html>
   );

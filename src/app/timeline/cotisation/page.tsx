@@ -26,7 +26,7 @@ const loadContributions = async ({ page, size, direction ,token}: ISearchParams 
   //     }
   //     );
   const res = await fetch(
-        `http://localhost:8081/gp-com/api/v1/cotisations`,{
+        `${process.env.ROOT_API}/cotisations`,{
           cache:"no-cache",next:{
           tags:["cotisations"]
         },
@@ -75,7 +75,8 @@ export default async function Home({
     direction,
     token:userStorage?.token!
   })
-console.log("contrubitions:",contributions)
+  console.log("contrubitions:", contributions);
+
 
 
 

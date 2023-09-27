@@ -19,6 +19,8 @@
   "montantEndette":"Montant endette",
   "interet":"Intérêt total",
   "tauxInteret":"Taux d'intérêt",
+   "error-messag":"Ooops!..une erreur s'est produit",
+
   "jourApresCotisation":"Jours à partir desquels les intérêts commencent",
 
 
