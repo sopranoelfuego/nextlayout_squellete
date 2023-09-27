@@ -6,24 +6,19 @@
   "Du": "Du",
   "Au": "Au",
   "actions": "actions",
-  "montantParAction":"Montant par action",
-  "dateDebutCycle":"Date de début du cycle",
-  "dateFinCyle":"Date de fin de cycle",
+  "montantParAction": "Montant par action",
+  "dateDebutCycle": "Date de début du cycle",
+  "dateFinCyle": "Date de fin de cycle",
 
-  
   "trans-code": "code transaction",
   "montant": "amout",
   "create-contr": "Create contribution",
-  "parametre":"paramètre",
-  "montantActuelle":"Montant disponible",
-  "montantEndette":"Montant endette",
-  "interet":"Intérêt total",
-  "tauxInteret":"Taux d'intérêt",
-  "jourApresCotisation":"Jours à partir desquels les intérêts commencent",
-
-
-
-
+  "parametre": "paramètre",
+  "montantActuelle": "Montant disponible",
+  "montantEndette": "Montant endette",
+  "interet": "Intérêt total",
+  "tauxInteret": "Taux d'intérêt",
+  "jourApresCotisation": "Jours à partir desquels les intérêts commencent",
 
   "new_member": "ajouter un nouveau membre",
   "new_cotisation": "ajouter une nouvelle cotisation",
@@ -98,5 +93,6 @@
   "welcome": "Bienvenus",
   "signin": "Connectez-vous en saisissant les informations ci-dessous",
   "oubli": "Mot de passe oublié ?",
-  "noaccount": "Vous n'avez pas de Compte ?"
+  "noaccount": "Vous n'avez pas de Compte ?",
+  "createAccount": "Creer un compte"
 }

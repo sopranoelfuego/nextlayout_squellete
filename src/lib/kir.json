@@ -10,24 +10,20 @@
   "new_member": "kwinjiza munywanyi mushasha",
   "operation-failed": "muradutunga ivyomwakoze ntivyakunze!!",
   "trans-code": "igiharuro kabanga",
-  
+
   "montant": "amahera",
-  "montantParAction":"Amahera yo gukotisa",
-  "dateDebutCycle":"Itariki ntagura mwaka wo kuziganya",
-  "dateFinCyle":"Itariki mpereza mwaka wo kuziganya",
-   
-  "tauxInteret":"Ivyijana vyinyungu kwideni rifashwe",
+  "montantParAction": "Amahera ya buri ntererano",
+  "dateDebutCycle": "Itariki ntagura mwaka wo kuziganya",
+  "dateFinCyle": "Itariki mpereza mwaka wo kuziganya",
 
-  "jourApresCotisation":"Imisi ama intere azoherako",
+  "tauxInteret": "Ivyijana vyinyungu kwideni rifashwe",
 
+  "jourApresCotisation": "Imisi Inyungu zizoherako",
 
   "create-contr": "Iyinjizwa ryagatererano",
-  "parametre":"impinyanyuro",
-  "montantEndette":"Amahera ari mumadeni",
-  "interet":"Inyungu",
-  
-
-  
+  "parametre": "impinyanyuro",
+  "montantEndette": "Amahera ari mumadeni",
+  "interet": "Inyungu",
 
   "new_cotisation": "injiza intererano",
   "delete-req": "ego,futa",
@@ -91,5 +87,6 @@
   "messagee": "Sangwe ikaze kandi muri",
   "welcome": "Sangwe ikaze",
   "signin": "Mwikonegite mu kwuzuza ibi bikurikira",
-  "oubli": "Nta konti mufise ?"
+  "oubli": "Nta konti mufise ?",
+  "createAccount": "Ugurura ikonti"
 }

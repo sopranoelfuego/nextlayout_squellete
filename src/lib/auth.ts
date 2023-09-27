@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
 
         
         const res = await fetch(
-          `http://192.168.40.66:8081/gp-com/api/v1/authenticate`,
+          `http://localhost:8081/gp-com/api/v1/authenticate`,
           {
             method: "POST",
             headers: {
