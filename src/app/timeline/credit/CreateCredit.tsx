@@ -11,27 +11,28 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik, FormikHelpers } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { CotisationType, MemberType } from "../../../../types";
+import { ICreditType, MemberType } from "../../../../types";
+
 import Autocomplete from "@mui/material/Autocomplete";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 import { AuthContext } from "@/components/contexts/authContext";
 import { useRouter } from "next/navigation";
 
-type CreateCotisationProps = {
+type CreateCreditProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  cotisation: CotisationType;
+  credit: ICreditType;
 };
 
 interface IOptionValue {
   id: number;
   title: string;
 }
-export default function CreateContribution({
+export default function CreateCredit({
   open,
   setOpen,
-  cotisation,
-}: CreateCotisationProps) {
+  credit,
+}: CreateCreditProps) {
   const intl = useIntl();
   const { user } = useContext(AuthContext);
 
@@ -42,7 +43,7 @@ export default function CreateContribution({
   const router = useRouter();
   const [errors, setErrors] = useState({
     montant: "",
-    codeTransaction: "",
+    motif: "",
     membreId: "",
   });
   useEffect(() => {
@@ -69,10 +70,10 @@ export default function CreateContribution({
   }, [handleOpenAlert]);
 
   const validationSchema = () => {
-    if (formik.values.codeTransaction.trim() === "") {
+    if (formik.values.motif.trim() === "") {
       setErrors((_) => ({
         ...errors,
-        codeTransaction: intl.formatMessage({ id: "req-field" }),
+        motif: intl.formatMessage({ id: "req-field" }),
       }));
       return false;
     }
@@ -90,22 +91,21 @@ export default function CreateContribution({
     setOpen(false);
   };
   const handleSubmit = async (
-    values: typeof cotisation,
+    values: typeof credit,
     resetForm: FormikHelpers<{
       id: number | string | undefined;
       montant: number;
-      codeTransaction: string;
-      membreId: number | string;
-
+      motif: string;
+      membreId: number;
     }>
   ) => {
     let res: any = "";
 
     setCreating(true);
     try {
-      if (cotisation.id)
+      if (credit.id)
         res = await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/${cotisation.id}`,
+          `${process.env.NEXT_PUBLIC_ROOT_API}/credits/${credit.id}`,
           {
             method: "PUT",
             headers: {
@@ -116,7 +116,7 @@ export default function CreateContribution({
           }
         );
       else
-        res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/cotisations`, {
+        res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/credits`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -125,26 +125,19 @@ export default function CreateContribution({
           body: JSON.stringify(values),
         });
       // cb()
-      const data=await res.json();
+      const data = await res.json();
       setCreating(false);
-      if(!data?.success){
-
-        handleOpenAlert("info",data?.message)
-      }else{
-        resetForm.resetForm();
-
-        cotisation.id
+      if (!data?.success) {
+          handleOpenAlert("info", data?.message);
+      } else {
+          credit.id
           ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
           : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
-        handleCloseDialog();
-        router.push("/timeline/cotisation?page=0&size=10");
+          handleCloseDialog();
+          resetForm.resetForm();
+        router.push("/timeline/credit?page=0&size=10");
       }
-      
-
-   
     } catch (error) {
-
-      
       setCreating(false);
       handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
     }
@@ -153,12 +146,14 @@ export default function CreateContribution({
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: cotisation.id,
-      montant: cotisation.montant,
-      codeTransaction: cotisation.codeTransaction,
-      membreId: cotisation.membreId,
+      id: credit?.id,
+      montant: credit.montant,
+      motif: credit.motif,
+      membreId: credit.membreId,
     },
+
     onSubmit: async (values, resetForm) => {
+      console.log("Values:", values);
       if (validationSchema()) await handleSubmit(values, resetForm);
     },
   });
@@ -167,7 +162,7 @@ export default function CreateContribution({
     formik.resetForm();
     setErrors({
       montant: "",
-      codeTransaction: "",
+      motif: "",
       membreId: "",
     });
     handleClose();
@@ -180,7 +175,7 @@ export default function CreateContribution({
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        <FormattedMessage id="create-contr" />
+        <FormattedMessage id="create-credit" />
       </DialogTitle>
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
@@ -205,7 +200,6 @@ export default function CreateContribution({
                 onChange={(e: any, newValue: IOptionValue) => {
                   formik.setFieldValue("membreId", newValue.id);
                 }}
-                disabled={Boolean(cotisation.id) || creating}
                 aria-required
                 renderInput={(params) => (
                   <TextField {...params} fullWidth size="small" />
@@ -222,31 +216,36 @@ export default function CreateContribution({
                 id="nom"
                 {...formik.getFieldProps("montant")}
                 error={Boolean(errors.montant)}
-                disabled={Boolean(cotisation.id) || creating}
                 helperText={formik.touched.montant && errors.montant}
                 size="small"
               />
             </Grid>
             <Grid item xs={12}>
+              {/* 
+                 montant: 0;
+  motif: string;
+  dateCredit?:  Date;
+  etat?: number;
+  membreId: number;
+  status?: string;
+                 */}
               <InputLabel sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="trans-code" />
+                <FormattedMessage id="motif" />
               </InputLabel>
               <TextField
                 fullWidth
                 id="nom"
-                {...formik.getFieldProps("codeTransaction")}
-                error={Boolean(errors.codeTransaction)}
-                disabled={Boolean(cotisation.id) || creating}
-                helperText={errors.codeTransaction}
+                {...formik.getFieldProps("motif")}
+                error={Boolean(errors.motif)}
+                helperText={errors.motif}
                 size="small"
-                
               />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
           <Button type="submit" disabled={!formik.dirty || creating}>
-            {cotisation.id ? (
+            {credit.id ? (
               <FormattedMessage id="edit" />
             ) : (
               <FormattedMessage id="create" />

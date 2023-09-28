@@ -12,7 +12,21 @@
 
   "trans-code": "code transaction",
   "montant": "amout",
-  "create-contr": "Create contribution",
+  "create-contr": "Créer une cotisation",
+  "create-credit": "Créer un crédit",
+  "en_attente": "en attente",
+  "valid": "validé",
+  "agree":"accepter",
+
+  "valid_info":"valider cette cotisation",
+  "reject_info":"rejeter cette cotisation",
+  "delete":"supprimer",
+  
+  "rejet":"rejetée",
+
+
+
+
   "parametre":"paramètre",
   "montantActuelle":"Montant disponible",
   "montantEndette":"Montant endette",
@@ -60,6 +74,11 @@
   "delete-message": "Voulez-vous vraiment le supprimer ?",
 
   "relaod": "actualiser",
+  "new_credit": "Ajouter un nouveau crédit",
+  "motif":"motif",
+  "status":"status",
+
+
 
   "contact": "contact",
   "no-data-display": "pas de donnés a afficher",

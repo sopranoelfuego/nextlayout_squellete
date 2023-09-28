@@ -33,6 +33,7 @@ const DeleteDialog = ({
       <DialogActions>
         <Button
           variant="outlined"
+          size="small"
           color="error"
           startIcon={deleting ? <CircularProgress size="1rem" /> : <HiOutlineArchive size={23} />}
           disabled={deleting}
@@ -44,6 +45,7 @@ const DeleteDialog = ({
         </Button>
         <Button
           onClick={() => handleClose()}
+          size="small"
           disabled={deleting}
           startIcon={<HiOutlineX size={23} />}
           variant="outlined"

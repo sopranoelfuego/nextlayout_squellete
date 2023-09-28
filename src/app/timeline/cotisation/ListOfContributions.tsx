@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
@@ -11,24 +11,35 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import TableBody from "@mui/material/TableBody";
+import Chip from "@mui/material/Chip";
 import TablePagination from "@mui/material/TablePagination";
 import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import { HiArchive, HiPencil } from "react-icons/hi";
-import CreateMember from "@/app/timeline/membres/CreateMember";
-import { useRouter } from "next/navigation";
+import {
+  HiOutlineCheck,
+  HiOutlineX,
+  HiOutlineTrash,
+  HiOutlinePencil,
+} from "react-icons/hi";
+
 import { FormattedMessage } from "react-intl";
 import { CotisationType } from "../../../../types";
+import { useIntl } from "react-intl";
 import ContibutionHeader from "./ContributionHeader";
+import ValidateOrRejectDialog from "./ValidateOrRejectDialog";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
+
 import { HiSearch } from "react-icons/hi";
-import { DesktopDatePicker } from "@mui/x-date-pickers";
+
 import CreateContribution from "./CreateContribution";
+import { AuthContext } from "@/components/contexts/authContext";
+import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
+import { useRouter } from "next/navigation";
+
+import { Tooltip } from "@mui/material";
 
 // import { notFound } from 'next/navigation'
 
@@ -76,8 +87,18 @@ const top100Films = [
 ];
 const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   console.log("contrubitions:", contributions);
-
+  const router = useRouter();
+  const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
+  const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [type, setType] = useState<"v" | "r">("v");
+
+  const [message, setMessage] = useState<string>("");
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+  const { user } = useContext(AuthContext);
+
   const [filterValue, setFilterValue] = useState<string>("");
   const [contribution, setContribution] = useState<CotisationType>({
     id: "",
@@ -90,7 +111,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
   const handleClickOpenCreateDialog = (contribution?: CotisationType) => {
-    console.log("contibution:",contribution)
+    console.log("contibution:", contribution);
     setContribution({
       id: "",
       montant: 0,
@@ -108,7 +129,77 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
       });
     setOpen(true);
   };
+  const handleOpenValidOrRejectDialog = (
+    contribution?: CotisationType,
+    typeM?: "v" | "r"
+  ) => {
+    if (typeM) {
+      switch (typeM) {
+        case "r": {
+          setTitle("Rejet du contribution");
+          setMessage("voulez-vous vraiment rejeter cette contribution");
+          break;
+        }
+        default: {
+          setTitle("Validation du contribution");
+          setMessage("voulez-vous vraiment valider cette contribution");
+          break;
+        }
+      }
+      setType(typeM);
+    }
 
+    setContribution({
+      id: "",
+      montant: 0,
+      codeTransaction: "",
+      dateCotisation: "",
+      membreId: "",
+    });
+    if (contribution)
+      setContribution({
+        montant: contribution.montant,
+        codeTransaction: contribution.codeTransaction,
+        dateCotisation: contribution.dateCotisation,
+        id: contribution.id,
+        membreId: contribution?.membre?.id!,
+      });
+    setOpenValidOrReject((prev) => !prev);
+  };
+
+  const handleSubmitValidateOrRejectContribution = async () => {
+    let res: any = "";
+
+    setLoading(true);
+    try {
+      if (contribution.id) {
+        const url =
+          type === "v"
+            ? `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/valid/${contribution.id}`
+            : `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/rejet/${contribution.id}`;
+
+        res = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          // body: JSON.stringify(values),
+        });
+
+        const data = await res.json();
+        setLoading(false);
+        if (!data?.success) {
+          handleOpenAlert("info", data?.message);
+        } else {
+          router.push("/timeline/cotisation?page=0&size=10");
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+    }
+  };
   return (
     <>
       <ContibutionHeader
@@ -123,9 +214,9 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         spacing={1}
         justifyContent={{ xs: "flex-end", md: "flex-end", lg: "center" }}
         sx={{
-          marginY:"0.5rem",
-          backgroundColor:"white",
-          width:"100%"
+          marginY: "0.5rem",
+          backgroundColor: "white",
+          width: "100%",
         }}
       >
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -203,6 +294,9 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                   <FormattedMessage id="dateCotisation" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
+                  <FormattedMessage id="status" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
                 </StyledTableCell>
               </StyledTableRow>
@@ -222,26 +316,97 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                       {m?.dateCotisation}
                     </StyledTableCell>
                     <StyledTableCell align="center">
+                      {m?.etat === 0 && (
+                        <Chip
+                          sx={{
+                            height: "auto",
+                            borderRadius: "10px",
+                          }}
+                          variant="outlined"
+                          label={`${intl.formatMessage({ id: "en_attente" })}`}
+                        />
+                      )}
+                      {m?.etat === 1 && (
+                        <Chip
+                          sx={{
+                            height: "auto",
+                            borderRadius: "10px",
+                          }}
+                          color="success"
+                          variant="outlined"
+                          label={`${intl.formatMessage({ id: "valid" })}`}
+                        />
+                      )}
+                      {m?.etat === 2 && (
+                        <Chip
+                          sx={{
+                            height: "auto",
+                            borderRadius: "10px",
+                          }}
+                          color="error"
+                          variant="outlined"
+                          label={`${intl.formatMessage({ id: "rejet" })}`}
+                        />
+                      )}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
                       <Stack
                         direction={{ xs: "column", sm: "row" }}
-                        spacing={{ xs: 1, sm: 2 }}
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <IconButton
-                          onClick={() => handleClickOpenCreateDialog(m)}
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "edit" })}`}
                         >
-                          <HiPencil fontSize={20} color="black" />
-                        </IconButton>
-                        <IconButton>
-                          <HiArchive fontSize={20} color="black" />
-                        </IconButton>
+                          <IconButton
+                            onClick={() => handleClickOpenCreateDialog(m)}
+                          >
+                            <HiOutlinePencil fontSize={17} />
+                          </IconButton>
+                        </Tooltip>
+
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "valid_info" })}`}
+                        >
+                          <IconButton
+                            color="success"
+                            disabled={m?.etat === 1}
+                            onClick={() =>
+                              handleOpenValidOrRejectDialog(m, "v")
+                            }
+                          >
+                            <HiOutlineCheck fontSize={17} />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "reject_info" })}`}
+                        >
+                          <IconButton
+                            color="error"
+                            disabled={m?.etat === 2}
+                            onClick={() =>
+                              handleOpenValidOrRejectDialog(m, "r")
+                            }
+                          >
+                            <HiOutlineX fontSize={17} />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "delete" })}`}
+                        >
+                          <IconButton
+                            color="error"
+                            // onClick={() => handleDeleteMember(m)}
+                          >
+                            <HiOutlineTrash fontSize={17} />
+                          </IconButton>
+                        </Tooltip>
                       </Stack>
                     </StyledTableCell>
                   </StyledTableRow>
                 );
               })}
-              {!contributions?.result?.content && (
+              {!contributions?.result && (
                 <StyledTableRow>
                   <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
@@ -269,6 +434,14 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         cotisation={contribution}
         open={open}
         setOpen={setOpen}
+      />
+      <ValidateOrRejectDialog
+        message={message}
+        title={title}
+        open={openValidOrReject}
+        handleClose={handleOpenValidOrRejectDialog}
+        handleOperation={handleSubmitValidateOrRejectContribution}
+        loading={loading}
       />
     </>
   );

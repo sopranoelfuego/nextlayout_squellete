@@ -15,20 +15,33 @@ export interface CotisationType {
   montant: number;
   codeTransaction: string;
   dateCotisation?: string;
-  membreId: number | string ;
-  membre?:{id:number,fullName:string}
+  membreId: number | string;
+  etat?:number,
+  membre?: { id: number; fullName: string };
 }
-export interface ISettingType{
-  id?:number | string,
-  montantParAction: number,
-  jourApresCotisation: number,
-  dateDebutCycle: Date ,
-  dateFinCyle: Date,
-  tauxInteret: number
+export interface ISettingType {
+  id?: number | string;
+  montantParAction: number;
+  jourApresCotisation: number;
+  dateDebutCycle: Date;
+  dateFinCyle: Date;
+  tauxInteret: number;
 }
-export interface ICompteSettingType{
-  id?:number,
-   montantActuelle: number,
-  montantEndette: number,
-  interet: number
+export interface ICreditType {
+  id?: number | string;
+  montant: number;
+  motif: string;
+  dateCredit?:  string;
+  etat?: number;
+  membreId: number;
+  etat?:number,
+
+  status?: string;
+  membre?: { id: number; fullName: string };
+}
+export interface ICompteSettingType {
+  id?: number;
+  montantActuelle: number;
+  montantEndette: number;
+  interet: number;
 }

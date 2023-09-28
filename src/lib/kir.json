@@ -68,18 +68,27 @@
   "prenom": "Amatazirano",
   "search": "Rondera",
   "relaod": "Gusubiramwo",
+  "motif":"igituma",
+  "rejet":"yanswe",
+  "valid_info":"kwemeza iyi ntererano",
+  "reject_info":"guhakana iyi ntererano",
+  "delete":"gufuta",
+  "agree":"kwemeza",
+
+
+
+  "status":"irihwa",
+  "en_attente": "mwishikiro",
+
+  "valid": "yemejwe",
+
+  
+
   "password": "code kabanga",
   "email": "Izina ryo kurubuga",
 
-  "cancel": "Gusubirinyuma",
-  "no-data-display": "nta cokwerekana",
-
-  "edit": "subiriza",
-  "err_message": "muradutunga ivyo mwasavye ntibishoboye kuboneka",
-  "ressayer": "Gerageza kandi",
-  "req-field": "musabwa kuheraheza uyumwanya",
-  "encaissements": "ayinjiye",
-  "decaissements": "ayasohotse",
+  "new_credit": "Tange ingurane",
+ 
   "role": "Ivyajejwe",
   "ajout": "Injiza Umunywanyi",
   "creation": "Andika Umunywanyi",

@@ -25,6 +25,7 @@ import { MemberType } from "../../../../types";
 import DeleteDialog from "@/components/common/DeleteDialogue";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
+import { Tooltip } from "@mui/material";
 // import { notFound } from 'next/navigation'
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -122,10 +123,9 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
         setDeleting(false);
         setOpenDeleteModal((prev) => !prev);
         router.push("/timeline/membres?page=0&size=10");
-
         handleOpenAlert("succes", <FormattedMessage id="succes-del" />);
       })
-      .catch((error) => {
+      .catch(() => {
         setDeleting(false);
         handleOpenAlert("error", <FormattedMessage id="delet-failed" />);
       });
@@ -186,17 +186,23 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                         justifyContent="center"
                         alignItems="center"
                       >
+                        <Tooltip title="edit">
+
                         <IconButton
                           onClick={() => handleClickOpenCreateDialog(m)}
                         >
                           <HiOutlinePencil fontSize={17} />
                         </IconButton>
+                        </Tooltip>
+                        <Tooltip title="delete">
+
                         <IconButton
-                          sx={{ ":hover": { color: "red" } }}
+                          sx={{color:"red" }}
                           onClick={() => handleDeleteMember(m)}
                         >
                           <HiOutlineArchive fontSize={17} />
                         </IconButton>
+                        </Tooltip>
                       </Stack>
                     </StyledTableCell>
                   </StyledTableRow>
