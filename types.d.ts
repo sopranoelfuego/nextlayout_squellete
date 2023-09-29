@@ -16,7 +16,7 @@ export interface CotisationType {
   codeTransaction: string;
   dateCotisation?: string;
   membreId: number | string;
-  etat?:number,
+  etat?: number;
   membre?: { id: number; fullName: string };
 }
 export interface ISettingType {
@@ -31,10 +31,10 @@ export interface ICreditType {
   id?: number | string;
   montant: number;
   motif: string;
-  dateCredit?:  string;
+  dateCredit?: string;
   etat?: number;
   membreId: number;
-  etat?:number,
+  etat?: number;
 
   status?: string;
   membre?: { id: number; fullName: string };
@@ -46,14 +46,11 @@ export interface ICompteSettingType {
   interet: number;
 }
 export interface IReimbourssementType {
-  id?: number;
-montant: number;
+  id?: string | number | undefined;
+  montant: number;
   codeTransaction: string;
   dateRemboursement?: string;
-  membreId: number | string;
-  etat?:number,
-  getcreditId:number,
-  membre?: { id: number; fullName: string };
-
-  
+  etat?: number;
+  getcreditId: number;
+  credit?: ICreditType;
 }

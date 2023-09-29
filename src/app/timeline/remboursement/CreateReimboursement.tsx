@@ -8,19 +8,21 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Divider from "@mui/material/Divider";
 import { useFormik, FormikHelpers } from "formik";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { CotisationType, MemberType } from "../../../../types";
+import { IReimbourssementType } from "../../../../types";
 import Autocomplete from "@mui/material/Autocomplete";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 import { AuthContext } from "@/components/contexts/authContext";
 import { useRouter } from "next/navigation";
+import { Box, Stack, Typography } from "@mui/material";
 
-type CreateCotisationProps = {
+type CreateReimboursementProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  cotisation: CotisationType;
+  reimboursement: IReimbourssementType;
 };
 
 interface IOptionValue {
@@ -30,43 +32,43 @@ interface IOptionValue {
 export default function CreateContribution({
   open,
   setOpen,
-  cotisation,
-}: CreateCotisationProps) {
+  reimboursement,
+}: CreateReimboursementProps) {
   const intl = useIntl();
   const { user } = useContext(AuthContext);
 
   const { handleOpenAlert } = useContext(SnackAlertContext);
 
   const [creating, setCreating] = useState(false);
-  const [members, setMembers] = useState([]);
+  const [reimboursements, setReimboursements] = useState([]);
   const router = useRouter();
   const [errors, setErrors] = useState({
     montant: "",
     codeTransaction: "",
     membreId: "",
   });
-  useEffect(() => {
-    let isSubscriber: boolean = true;
+  //   useEffect(() => {
+  //     let isSubscriber: boolean = true;
 
-    if (isSubscriber)
-      fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/membres`)
-        .then((res) => res.json())
-        .then((res) => {
-          setMembers(
-            res.result?.content?.map((res: MemberType) => ({
-              id: res.id,
-              title: `${res.nom}` + " " + `${res.prenom}`,
-            }))
-          );
-        })
-        .catch(() =>
-          handleOpenAlert("error", <FormattedMessage id="operation-failed" />)
-        );
+  //     if (isSubscriber)
+  //       fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/remboursements`)
+  //         .then((res) => res.json())
+  //         .then((res) => {
+  //           setReimboursements(
+  //             res.result?.content?.map((res: IReimbourssementType) => ({
+  //               id: res.id,
+  //               title: `${res.}` + " " + `${res.prenom}`,
+  //             }))
+  //           );
+  //         })
+  //         .catch(() =>
+  //           handleOpenAlert("error", <FormattedMessage id="operation-failed" />)
+  //         );
 
-    return () => {
-      isSubscriber = false;
-    };
-  }, [handleOpenAlert]);
+  //     return () => {
+  //       isSubscriber = false;
+  //     };
+  //   }, [handleOpenAlert]);
 
   const validationSchema = () => {
     if (formik.values.codeTransaction.trim() === "") {
@@ -90,22 +92,21 @@ export default function CreateContribution({
     setOpen(false);
   };
   const handleSubmit = async (
-    values: typeof cotisation,
+    values: typeof reimboursement,
     resetForm: FormikHelpers<{
       id: number | string | undefined;
       montant: number;
       codeTransaction: string;
-      membreId: number | string;
-
+      getcreditId: number;
     }>
   ) => {
     let res: any = "";
 
     setCreating(true);
     try {
-      if (cotisation.id)
+      if (reimboursement.id)
         res = await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/${cotisation.id}`,
+          `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/${reimboursement.id}`,
           {
             method: "PUT",
             headers: {
@@ -125,26 +126,20 @@ export default function CreateContribution({
           body: JSON.stringify(values),
         });
       // cb()
-      const data=await res.json();
+      const data = await res.json();
       setCreating(false);
-      if(!data?.success){
-
-        handleOpenAlert("info",data?.message)
-      }else{
+      if (!data?.success) {
+        handleOpenAlert("info", data?.message);
+      } else {
         resetForm.resetForm();
 
-        cotisation.id
+        reimboursement.id
           ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
           : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
         handleCloseDialog();
-        router.push("/timeline/cotisation?page=0&size=10");
+        router.push("/timeline/reimboursement?page=0&size=10");
       }
-      
-
-   
     } catch (error) {
-
-      
       setCreating(false);
       handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
     }
@@ -153,10 +148,10 @@ export default function CreateContribution({
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: cotisation.id,
-      montant: cotisation.montant,
-      codeTransaction: cotisation.codeTransaction,
-      membreId: cotisation.membreId,
+      id: reimboursement?.id,
+      montant: reimboursement?.montant!,
+      codeTransaction: reimboursement.codeTransaction,
+      getcreditId: reimboursement.getcreditId,
     },
     onSubmit: async (values, resetForm) => {
       if (validationSchema()) await handleSubmit(values, resetForm);
@@ -184,10 +179,21 @@ export default function CreateContribution({
       </DialogTitle>
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
+          <Box sx={{display:"flex",justifyContent:"space-between",backgroundColor:"#B9D2D2",padding:"10px",borderRadius:"5px"}}>
+            <Stack>
+              <Typography fontSize={13}>membre:</Typography>
+              <Typography fontWeight="600">Eric MUGABEKAZI</Typography>
+            </Stack>
+              <Divider orientation="vertical" variant="middle" flexItem />
+            <Stack>
+              <Typography>credit:</Typography>
+              <Typography fontWeight="600">3: reason ehyw</Typography>
+            </Stack>
+          </Box>
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <InputLabel sx={{ fontWeight: "bold" }}>
-                <FormattedMessage id="single_member" />
+                <FormattedMessage id="single_credit" />
               </InputLabel>
 
               <Autocomplete
@@ -195,7 +201,7 @@ export default function CreateContribution({
                 loading={creating}
                 id="combo-box-demo"
                 {...formik.getFieldProps("memberId")}
-                options={members}
+                options={reimboursements}
                 getOptionLabel={(option) => option.title}
                 sx={{
                   Maxwidth: 300,
@@ -205,7 +211,7 @@ export default function CreateContribution({
                 onChange={(e: any, newValue: IOptionValue) => {
                   formik.setFieldValue("membreId", newValue.id);
                 }}
-                disabled={Boolean(cotisation.id) || creating}
+                disabled={Boolean(reimboursement.id) || creating}
                 aria-required
                 renderInput={(params) => (
                   <TextField {...params} fullWidth size="small" />
@@ -222,7 +228,7 @@ export default function CreateContribution({
                 id="nom"
                 {...formik.getFieldProps("montant")}
                 error={Boolean(errors.montant)}
-                disabled={Boolean(cotisation.id) || creating}
+                disabled={Boolean(reimboursement.id) || creating}
                 helperText={formik.touched.montant && errors.montant}
                 size="small"
               />
@@ -236,17 +242,16 @@ export default function CreateContribution({
                 id="nom"
                 {...formik.getFieldProps("codeTransaction")}
                 error={Boolean(errors.codeTransaction)}
-                disabled={ creating}
+                disabled={creating}
                 helperText={errors.codeTransaction}
                 size="small"
-                
               />
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
           <Button type="submit" disabled={!formik.dirty || creating}>
-            {cotisation.id ? (
+            {reimboursement.id ? (
               <FormattedMessage id="edit" />
             ) : (
               <FormattedMessage id="create" />

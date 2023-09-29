@@ -25,7 +25,7 @@ import {
 } from "react-icons/hi";
 
 import { FormattedMessage } from "react-intl";
-import { CotisationType } from "../../../../types";
+import { IReimbourssementType } from "../../../../types";
 import { useIntl } from "react-intl";
 import ReimboursementHeader from "./ReimboursementHeader";
 import ValidateOrRejectDialog from "./ValidateOrRejectDialog";
@@ -74,9 +74,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface ListOfContributionsProps {
-  contributions: any;
-}
 const top100Films = [
   { label: "The Shawshank Redemption", year: 1994 },
   { label: "The Godfather", year: 1972 },
@@ -86,12 +83,19 @@ const top100Films = [
   { label: "Schindler's List", year: 1993 },
   { label: "Pulp Fiction", year: 1994 },
 ];
-const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
-  console.log("contrubitions:", contributions);
+
+interface ListOfReimboursementsProps {
+  reimboursements: any;
+}
+
+const ListOfReimboursements = ({
+  reimboursements,
+}: ListOfReimboursementsProps) => {
+  console.log("contrubitions:", reimboursements);
   const router = useRouter();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
-    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -103,80 +107,76 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   const { user } = useContext(AuthContext);
 
   const [filterValue, setFilterValue] = useState<string>("");
-  const [contribution, setContribution] = useState<CotisationType>({
-    id: "",
+  const [reimboursement, setReimboursement] = useState<IReimbourssementType>({
+    id: 0,
     montant: 0,
     codeTransaction: "",
-    dateCotisation: "",
-    membreId: "",
+    getcreditId: 0,
   });
-   const handleDeleteContribution = (contribution?: CotisationType) => {
-     if (contribution)
-      setContribution({
-        montant: contribution.montant,
-        codeTransaction: contribution.codeTransaction,
-        dateCotisation: contribution.dateCotisation,
-        id: contribution.id,
-        membreId: contribution?.membre?.id!,
+  const handleDeleteContribution = (reimboursement?: IReimbourssementType) => {
+    if (reimboursement)
+      setReimboursement({
+        montant: reimboursement.montant,
+        codeTransaction: reimboursement.codeTransaction,
+        id: reimboursement?.id!,
+        getcreditId: reimboursement.getcreditId,
       });
     setOpenDeleteModal((prev) => !prev);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
-  const handleClickOpenCreateDialog = (contribution?: CotisationType) => {
-    console.log("contibution:", contribution);
-    setContribution({
-      id: "",
+  const handleClickOpenCreateDialog = (
+    reimboursement?: IReimbourssementType
+  ) => {
+    console.log("contibution:", reimboursement);
+    setReimboursement({
+      id: 0,
       montant: 0,
       codeTransaction: "",
-      dateCotisation: "",
-      membreId: "",
+      getcreditId: 0,
     });
-    if (contribution)
-      setContribution({
-        montant: contribution.montant,
-        codeTransaction: contribution.codeTransaction,
-        dateCotisation: contribution.dateCotisation,
-        id: contribution.id,
-        membreId: contribution?.membre?.id!,
+    if (reimboursement)
+      setReimboursement({
+        id: reimboursement?.id!,
+        montant: reimboursement.montant,
+        codeTransaction: reimboursement.codeTransaction,
+        getcreditId: reimboursement.getcreditId,
       });
     setOpen(true);
   };
   const handleOpenValidOrRejectDialog = (
-    contribution?: CotisationType,
+    reimboursement?: IReimbourssementType,
     typeM?: "v" | "r"
   ) => {
     if (typeM) {
-      switch (typeM) { 
+      switch (typeM) {
         case "r": {
-          setTitle("Rejet du contribution");
-          setMessage("voulez-vous vraiment rejeter cette contribution");
+          setTitle("Rejet du reimboursement");
+          setMessage("voulez-vous vraiment rejeter cette reimboursement");
           break;
         }
         default: {
-          setTitle("Validation du contribution");
-          setMessage("voulez-vous vraiment valider cette contribution");
+          setTitle("Validation du reimboursement");
+          setMessage("voulez-vous vraiment valider cette reimboursement");
           break;
         }
       }
       setType(typeM);
     }
 
-    setContribution({
-      id: "",
+    setReimboursement({
+      id: 0,
       montant: 0,
       codeTransaction: "",
-      dateCotisation: "",
-      membreId: "",
+      getcreditId: 0,
     });
-    if (contribution)
-      setContribution({
-        montant: contribution.montant,
-        codeTransaction: contribution.codeTransaction,
-        dateCotisation: contribution.dateCotisation,
-        id: contribution.id,
-        membreId: contribution?.membre?.id!,
+    if (reimboursement)
+      setReimboursement({
+        id: reimboursement?.id!,
+        montant: reimboursement.montant,
+        codeTransaction: reimboursement.codeTransaction,
+        getcreditId: reimboursement.getcreditId,
       });
     setOpenValidOrReject((prev) => !prev);
   };
@@ -186,11 +186,11 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
 
     setLoading(true);
     try {
-      if (contribution.id) {
+      if (reimboursement.id) {
         const url =
           type === "v"
-            ? `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/valid/${contribution.id}`
-            : `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/rejet/${contribution.id}`;
+            ? `${process.env.NEXT_PUBLIC_ROOT_API}/remboursements/valid/${reimboursement.id}`
+            : `${process.env.NEXT_PUBLIC_ROOT_API}/remboursements/rejet/${reimboursement.id}`;
 
         res = await fetch(url, {
           method: "PUT",
@@ -216,14 +216,17 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   };
 
   // ===========================HANDLE DELEDE ===========================
-   const handleOnDelete = () => {
+  const handleOnDelete = () => {
     setDeleting(true);
-    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/contributions/${contribution.id}`, {
-      method: "DELETE",
-      headers: {
-        Autorisation: `Bearer ${user.token}`,
-      },
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_ROOT_API}/reimboursement/${reimboursement.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Autorisation: `Bearer ${user.token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         setDeleting(false);
@@ -249,7 +252,8 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
       <Grid
         container
         spacing={1}
-        justifyContent={{ xs: "flex-end", md: "flex-end", lg: "center" }}
+        justifyContent="flex-end"
+        alignItems="end"
         sx={{
           marginY: "0.5rem",
           backgroundColor: "white",
@@ -274,7 +278,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
             )}
           />
         </Grid>
-        
+
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <button className="py-2  w-full mt-4  border-mainColor border-solid border bg-white hover:bg-mainColor hover:text-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1    font-semibold transition-all  ">
             <HiSearch fontSize={18} /> <FormattedMessage id="search" />
@@ -303,7 +307,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                   <FormattedMessage id="trans-code" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <FormattedMessage id="dateCotisation" />
+                  <FormattedMessage id="dateRemboursement" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <FormattedMessage id="status" />
@@ -314,10 +318,10 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {contributions?.result?.map((m: CotisationType) => {
+              {reimboursements?.result?.map((m: IReimbourssementType) => {
                 return (
                   <StyledTableRow key={m.id}>
-                    <StyledTableCell>{m?.membre?.fullName}</StyledTableCell>
+                    <StyledTableCell>{m?.credit?.membre?.fullName}</StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.montant}
                     </StyledTableCell>
@@ -325,7 +329,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                       {m?.codeTransaction}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {m?.dateCotisation}
+                      {m?.dateRemboursement}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.etat === 0 && (
@@ -418,7 +422,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                   </StyledTableRow>
                 );
               })}
-              {!contributions?.result && (
+              {!reimboursements?.result && (
                 <StyledTableRow>
                   <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
@@ -433,9 +437,9 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={contributions?.result?.totalPages || 0}
-          rowsPerPage={contributions?.result?.size || 0}
-          page={contributions?.result?.number || 0}
+          count={reimboursements?.result?.totalPages || 0}
+          rowsPerPage={reimboursements?.result?.size || 0}
+          page={reimboursements?.result?.number || 0}
           // onPageChange={handleChangePage}
           onPageChange={() => console.log("chanage page")}
           // onRowsPerPageChange={handleChangeRowsPerPage}
@@ -443,7 +447,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         />
       </Box>
       <CreateReimboursement
-        cotisation={contribution}
+        reimboursement={reimboursement}
         open={open}
         setOpen={setOpen}
       />
@@ -455,7 +459,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         handleOperation={handleSubmitValidateOrRejectContribution}
         loading={loading}
       />
-       <DeleteDialog
+      <DeleteDialog
         open={openDeleteModal}
         deleting={deleting}
         handleClose={() => setOpenDeleteModal((prev) => !prev)}
@@ -465,4 +469,4 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   );
 };
 
-export default ListOfContributions;
+export default ListOfReimboursements;

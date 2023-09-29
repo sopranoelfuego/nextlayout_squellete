@@ -1,10 +1,13 @@
-"use client"
+"use client";
 
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { FormattedMessage } from "react-intl";
+import Chip from "@mui/material/Chip";
+import { FormattedMessage, useIntl } from "react-intl";
+import { Stack } from "@mui/material";
+import { CotisationType, ICompteSettingType, ICreditType, IReimbourssementType } from "../../../types";
 
 interface ISumarize {
   id: number;
@@ -19,9 +22,9 @@ interface IResume {
   cotisationResponse: [];
 }
 
-export default  function DashBoard({ resumee }: { resumee: IResume }) {
+export default function DashBoard({ resumee }: { resumee: IResume }) {
   //   const { resumee } = await getData();
-  // const intl = useIntl();
+  const intl = useIntl();
   let sumarizes: ISumarize[] = [];
   if (resumee)
     sumarizes = [
@@ -68,50 +71,271 @@ export default  function DashBoard({ resumee }: { resumee: IResume }) {
         marginTop={{ xs: "0.5rem", sm: "1rem" }}
         spacing="1rem"
       >
-        {sumarizes.length !== 0 &&
-          sumarizes.map((s) => (
-            <Grid
-              item
-              xs={6}
-              sm={6}
-              md={3}
-              key={s.id}
-              sx={{
-                borderLeftStyle: "solid",
-                borderColor: "transparent",
-                borderLeftColor: "white",
-                borderWidth: "5px",
-                padding: "1rem",
-                justifySelf: { xs: "left", sm: "center" },
-              }}
+      
+        {/* ======================= RESUMER MEMBRE ======================== */}
+        <Grid
+          item
+          xs={6}
+          sm={6}
+          md={3}
+          sx={{
+            borderLeftStyle: "solid",
+            borderColor: "transparent",
+            borderLeftColor: "white",
+            display: "flex",
+            flexDirection: "column",
+            borderWidth: "5px",
+
+            padding: "1rem",
+            justifySelf: { xs: "left", sm: "center" },
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              fontSize={{ xs: "3rem", sm: "4rem" }}
+              color="#055E68"
+              fontWeight="bold"
+              whiteSpace="nowrap"
             >
-              <Typography
-                fontSize="12px"
-                textTransform="uppercase"
-                fontWeight="800"
-                letterSpacing="1px"
-                sx={{ opacity: "0.6" }}
-              >
-                {s.title}
-              </Typography>
-              <Typography
-                fontSize={{ xs: "2rem", sm: "2.5rem" }}
-                color="#055E68"
-                fontWeight="bold"
-                whiteSpace="nowrap"
-              >
-                {s.number}
-              </Typography>
-              <Typography
-                fontSize="12px"
-                letterSpacing="1px"
-                fontWeight="600"
-                sx={{ opacity: "0.6" }}
-              >
-                {s.date}
-              </Typography>
-            </Grid>
-          ))}
+              {resumee.MembreResponse.length}
+            </Typography>
+          </Box>
+          <Typography
+            fontSize="12px"
+            textTransform="uppercase"
+            fontWeight="800"
+            letterSpacing="1px"
+            sx={{ opacity: "0.6" }}
+          >
+            <FormattedMessage id="member" />
+          </Typography>
+        </Grid>
+
+        {/* ======================= RESUMER COTISATION ======================== */}
+
+        <Grid
+          item
+          xs={6}
+          sm={6}
+          md={3}
+          sx={{
+            borderLeftStyle: "solid",
+            borderColor: "transparent",
+            borderLeftColor: "white",
+            display: "flex",
+            flexDirection: "column",
+            borderWidth: "5px",
+
+            padding: "1rem",
+            justifySelf: { xs: "left", sm: "center" },
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "flex-start",justifyContent:"space-between" }}>
+            <Typography
+              fontSize={{ xs: "3rem", sm: "4rem" }}
+              color="#055E68"
+              fontWeight="bold"
+              whiteSpace="nowrap"
+            >
+              {resumee.cotisationResponse.length}
+            </Typography>
+            {/* ======= CHIPS ================= */}
+            {resumee.cotisationResponse.length >0 ?(<Stack direction={{sm:"column",lg:"row"}} spacing={1}>
+              <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#2d4f85"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.cotisationResponse.filter((c:CotisationType)=>c.etat === 0).length} - ${intl.formatMessage({ id: "en_attente" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+              <Box sx={{ border: "1px #055E68 solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#055E68"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.cotisationResponse.filter((c:CotisationType)=>c.etat === 1).length} - ${intl.formatMessage({ id: "valid" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+              <Box sx={{ border: "1px #82472b solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#82472b"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.cotisationResponse.filter((c:CotisationType)=>c.etat === 2).length} - ${intl.formatMessage({ id: "rejet" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+            </Stack>):null}
+          </Box>
+          <Typography
+            fontSize="12px"
+            textTransform="uppercase"
+            fontWeight="800"
+            letterSpacing="1px"
+            sx={{ opacity: "0.6" }}
+          >
+            <FormattedMessage id="cotisation" />
+          </Typography>
+        </Grid>
+        {/* ======================= RESUMER CREDIT ======================== */}
+
+        <Grid
+          item
+          xs={6}
+          sm={6}
+          md={3}
+          sx={{
+            borderLeftStyle: "solid",
+            borderColor: "transparent",
+            borderLeftColor: "white",
+            display: "flex",
+            flexDirection: "column",
+            borderWidth: "5px",
+
+            padding: "1rem",
+            justifySelf: { xs: "left", sm: "center" },
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "flex-start",justifyContent:"space-between" }}>
+            <Typography
+              fontSize={{ xs: "3rem", sm: "4rem" }}
+              color="#055E68"
+              fontWeight="bold"
+              whiteSpace="nowrap"
+            >
+              {resumee.CreditResponse.length}
+            </Typography>
+            {/* ======= CHIPS ================= */}
+          {resumee.CreditResponse.length >0 ? ( <Stack direction={{sm:"column",lg:"row"}} spacing={1}>
+              <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#2d4f85"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.CreditResponse.filter((c:ICreditType)=>c.etat === 0).length} - ${intl.formatMessage({ id: "en_attente" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+              <Box sx={{ border: "1px #055E68 solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#055E68"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.CreditResponse.filter((c:ICreditType)=>c.etat === 1).length} - ${intl.formatMessage({ id: "valid" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+              <Box sx={{ border: "1px #82472b solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#82472b"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.CreditResponse.filter((c:ICreditType)=>c.etat === 2).length} - ${intl.formatMessage({ id: "rejet" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+            </Stack>):null}
+          </Box>
+          <Typography
+            fontSize="12px"
+            textTransform="uppercase"
+            fontWeight="800"
+            letterSpacing="1px"
+            sx={{ opacity: "0.6" }}
+          >
+            <FormattedMessage id="credit" />
+          </Typography>
+        </Grid>
+        {/* ======================= RESUMER REIMBOURSEMENT ======================== */}
+
+        <Grid
+          item
+          xs={6}
+          sm={6}
+          md={3}
+          sx={{
+            borderLeftStyle: "solid",
+            borderColor: "transparent",
+            borderLeftColor: "white",
+            display: "flex",
+            flexDirection: "column",
+            borderWidth: "5px",
+
+            padding: "1rem",
+            justifySelf: { xs: "left", sm: "center" },
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "flex-start",justifyContent:"space-between" }}>
+            <Typography
+              fontSize={{ xs: "3rem", sm: "4rem" }}
+              color="#055E68"
+              fontWeight="bold"
+              whiteSpace="nowrap"
+            >
+              {resumee.remboursementResponse.length}
+            </Typography>
+            {/* ======= CHIPS ================= */}
+            {resumee.remboursementResponse.length >0 ? (<Stack direction={{sm:"column",lg:"row"}} spacing={1}>
+              <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#2d4f85"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.remboursementResponse.filter((c:IReimbourssementType)=>c.etat === 0).length} - ${intl.formatMessage({ id: "en_attente" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+              <Box sx={{ border: "1px #055E68 solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#055E68"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.remboursementResponse.filter((c:IReimbourssementType)=>c.etat === 1).length} - ${intl.formatMessage({ id: "valid" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+              <Box sx={{ border: "1px #82472b solid", borderRadius: "5px" }}>
+                  <Typography
+                    fontSize="0.8rem"
+                    color="#82472b"
+                    fontWeight="800"
+                    whiteSpace="nowrap"
+                  >
+                    {` ${resumee.remboursementResponse.filter((c:IReimbourssementType)=>c.etat === 2).length} - ${intl.formatMessage({ id: "rejet" })}`}
+                    {/* {s.number} */}
+                  </Typography>
+                </Box>
+            </Stack>):null}
+          </Box>
+          <Typography
+            fontSize="12px"
+            textTransform="uppercase"
+            fontWeight="800"
+            letterSpacing="1px"
+            sx={{ opacity: "0.6" }}
+          >
+            <FormattedMessage id="rembourssement" />
+          </Typography>
+        </Grid>
       </Grid>
       <Box
         sx={{

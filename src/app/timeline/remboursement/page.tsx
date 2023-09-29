@@ -1,17 +1,17 @@
 import React from "react";
-import ListOfReimboursements from "@/app/timeline/cotisation/ListOfContributions";
+import ListOfReimboursements from "./ListOfReimboursements";
 import { ISearchParams } from "@/types";
 
 import { redirect } from "next/navigation";
 import { IUser, MemberType } from "../../../../types";
 
 
-interface ListOfCotisationsProps {
-  contributions: any;
+interface ListOfReimboursements {
+  reimboursements: any;
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
 
-const loadContributions = async ({ page, size, direction ,token}: ISearchParams ) => {
+const loadReimboursements = async ({ page, size, direction ,token}: ISearchParams ) => {
   // const res = await fetch(
   //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -23,9 +23,9 @@ const loadContributions = async ({ page, size, direction ,token}: ISearchParams 
   //     }
   //     );
   const res = await fetch(
-        `${process.env.ROOT_API}/cotisations`,{
+        `${process.env.ROOT_API}/remboursements`,{
           cache:"no-cache",next:{
-          tags:["cotisations"]
+          tags:["remboursements"]
         },
         headers:{
           "Authorization":`Bearer ${token}`
@@ -66,7 +66,7 @@ export default async function Home({
   const direction =
     searchParams?.direction === "DESC" ? searchParams?.direction : "ASC";
 
-  const contributions: ListOfCotisationsProps = await loadContributions({
+  const reimboursements: ListOfReimboursements = await loadReimboursements({
     page,
     size,
     direction,
@@ -77,5 +77,5 @@ export default async function Home({
 
 
 
-  return <ListOfReimboursements contributions={contributions} />;
+  return <ListOfReimboursements reimboursements={reimboursements} />;
 }

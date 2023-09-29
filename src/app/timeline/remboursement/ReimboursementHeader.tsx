@@ -15,7 +15,7 @@ type AppProps = {
   handleClear?: () => void;
 };
 
-export default function ContributionHeader({
+export default function ReimboursementHeader({
   handleClickOpenCreateDialog,
 }: AppProps) {
   const router = useRouter();
