@@ -16,7 +16,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import {  HiOutlineTrash, HiOutlinePencil, HiPencil } from "react-icons/hi";
+import {  HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 
 import { FormattedMessage } from "react-intl";
 import { ICreditType} from "../../../../types";

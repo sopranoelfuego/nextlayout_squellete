@@ -27,14 +27,14 @@ import {
 import { FormattedMessage } from "react-intl";
 import { CotisationType } from "../../../../types";
 import { useIntl } from "react-intl";
-import ContibutionHeader from "./ContributionHeader";
+import ReimboursementHeader from "./ReimboursementHeader";
 import ValidateOrRejectDialog from "./ValidateOrRejectDialog";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 import { HiSearch } from "react-icons/hi";
 
-import CreateContribution from "./CreateContribution";
+import CreateReimboursement from "./CreateReimboursement";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 import { useRouter } from "next/navigation";
@@ -239,7 +239,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
 
   return (
     <>
-      <ContibutionHeader
+      <ReimboursementHeader
         // handleChange={handleChange}
         // handleClear={handleClear}
         // value={filterValue}
@@ -274,32 +274,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
             )}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Typography fontWeight="600" color="#252528">
-            <FormattedMessage id="Du" />
-          </Typography>
-          <TextField
-            id="du"
-            fullWidth
-            type="date"
-            size="small"
-            // {...formik.getFieldProps("dateDebutCycle")}
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Typography fontWeight="600" color="#252528">
-            <FormattedMessage id="Au" />
-          </Typography>
-          <TextField
-            id="au"
-            fullWidth
-            type="date"
-            size="small"
-            // {...formik.getFieldProps("dateDebutCycle")}
-            variant="outlined"
-          />
-        </Grid>
+        
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <button className="py-2  w-full mt-4  border-mainColor border-solid border bg-white hover:bg-mainColor hover:text-white  opacity-75 hover:opacity-100 px-3  rounded text-mainColor flex items-center justify-center gap-1    font-semibold transition-all  ">
             <HiSearch fontSize={18} /> <FormattedMessage id="search" />
@@ -467,7 +442,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
           onRowsPerPageChange={() => console.log("chanage rows")}
         />
       </Box>
-      <CreateContribution
+      <CreateReimboursement
         cotisation={contribution}
         open={open}
         setOpen={setOpen}

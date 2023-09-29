@@ -35,10 +35,9 @@ const DeleteDialog = ({
           variant="outlined"
           size="small"
           color="error"
-          startIcon={deleting ? <CircularProgress size="1rem" /> : <HiOutlineArchive size={23} />}
+          startIcon={deleting ? <CircularProgress size="0.9rem" /> : <HiOutlineArchive size={18} />}
           disabled={deleting}
           onClick={handleDelete}
-          // style={{ backgroundColor: "red" }}
         >
 
           <FormattedMessage id="delete-req"/>
@@ -47,7 +46,7 @@ const DeleteDialog = ({
           onClick={() => handleClose()}
           size="small"
           disabled={deleting}
-          startIcon={<HiOutlineX size={23} />}
+          startIcon={<HiOutlineX size={18} />}
           variant="outlined"
         >
           <FormattedMessage id="cancel"/>

@@ -45,3 +45,15 @@ export interface ICompteSettingType {
   montantEndette: number;
   interet: number;
 }
+export interface IReimbourssementType {
+  id?: number;
+montant: number;
+  codeTransaction: string;
+  dateRemboursement?: string;
+  membreId: number | string;
+  etat?:number,
+  getcreditId:number,
+  membre?: { id: number; fullName: string };
+
+  
+}

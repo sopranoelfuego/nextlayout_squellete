@@ -16,7 +16,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import { HiOutlineArchive, HiOutlinePencil } from "react-icons/hi";
+import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 import CreateMember from "@/app/timeline/membres/CreateMember";
 
 import { useRouter } from "next/navigation";
@@ -197,10 +197,10 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
                         <Tooltip title="delete">
 
                         <IconButton
-                          sx={{color:"red" }}
+                          color="error"
                           onClick={() => handleDeleteMember(m)}
                         >
-                          <HiOutlineArchive fontSize={17} />
+                          <HiOutlineTrash fontSize={17} />
                         </IconButton>
                         </Tooltip>
                       </Stack>
