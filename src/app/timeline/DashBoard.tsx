@@ -140,7 +140,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.cotisationResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-            {resumee.cotisationResponse.length >0 ?(<Stack direction={{sm:"column",lg:"row"}} spacing={1}>
+            {resumee.cotisationResponse.length >0 ?(<Stack direction="column" spacing={1}>
               <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
                   <Typography
                     fontSize="0.8rem"
@@ -215,7 +215,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.CreditResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-          {resumee.CreditResponse.length >0 ? ( <Stack direction={{sm:"column",lg:"row"}} spacing={1}>
+          {resumee.CreditResponse.length >0 ? ( <Stack direction="column" spacing={1}>
               <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
                   <Typography
                     fontSize="0.8rem"
@@ -290,7 +290,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.remboursementResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-            {resumee.remboursementResponse.length >0 ? (<Stack direction={{sm:"column",lg:"row"}} spacing={1}>
+            {resumee.remboursementResponse.length >0 ? (<Stack direction="column" spacing={1}>
               <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
                   <Typography
                     fontSize="0.8rem"
@@ -365,7 +365,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
           }}
         >
           {" "}
-          wellcome again to{" "}
+          wellcome to{" "}
         </Typography>
         <Typography
           maxWidth="40rem"
@@ -374,8 +374,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
           fontWeight="600"
           textAlign="center"
         >
-          we aim to change your daily life with this cutting-edge app which will
-          contributions to ease your life by ...
+         Cotisation - Crédit - Rembourssement
         </Typography>
       </Box>
     </Box>
