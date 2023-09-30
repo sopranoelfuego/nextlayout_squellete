@@ -83,23 +83,28 @@ const Login = () => {
       sx={{
         minWidth: "100%",
         display: "flex",
+        justifyContent:"center",
+
         alignItems: "center",
+        // margin:"0 auto",
         height: "100svh",
-        justifyContent: "center",
+
       }}
     >
       <Box
         sx={{
           width: {xs:"62.5rem",sm:"70svw"},
-          height: {xs:"100svh",sm:"65svh",md:"100%"},
+          // height: {xs:"100svh",sm:"65svh",md:"100%"},
+          height:"80%",
           marginTop: "auto",
           maxWidth: "62.5rem",
-          margin: "auto 0",
+          margin: "0 auto",
           borderRadius: "12px", 
           backgroundColor: "white",
+          overFlow:"hidden",
           // height: {xs:"100svh",sm:"80svh",md:"fit-content"},
           // minHeight: { xs: "90svh", sm: "80svh" },
-          maxHeight: { xs: "100svh",md:"65svh" },
+          // maxHeight: { xs: "100svh",md:"65svh" },
           display: "flex",
           alignItems: "center",
         }}
@@ -134,7 +139,7 @@ const Login = () => {
         </Box>
         <Divider orientation="vertical" variant="middle" flexItem />
         <form
-          className="h-full w-full  flex-1 box-border"
+          className="h-full w-full  flex-1 box-border overflow-hidden"
           onSubmit={formik.handleSubmit}
         >
           <Stack
@@ -179,7 +184,7 @@ const Login = () => {
               <FormattedMessage id="signin" />
             </p>
             {wrongCredentials && (
-              <Alert severity="error">
+              <Alert severity="error" >
                 <FormattedMessage id="wrong-cred" />
               </Alert>
             )}

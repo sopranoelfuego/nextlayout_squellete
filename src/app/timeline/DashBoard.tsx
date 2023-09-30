@@ -343,7 +343,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
           display: "flex",
           backgroundColor: "white",
           width: "100%",
-          minHeight: { xs: "30vh", sm: "49vh" },
+          minHeight: { xs: "20svh", sm: "30svh" },
           marginTop: "2rem",
           gap: { sx: "1rem", sm: "1.5rem" },
           borderRadius: "1px",
@@ -355,7 +355,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
         <Typography
           color="#055E68"
           fontWeight="bold"
-          fontSize="28px"
+          fontSize="1.5rem"
           sx={{
             "&::after": {
               content: '"ziganya"',
@@ -372,6 +372,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
           width="100%"
           sx={{ opacity: "0.7" }}
           fontWeight="600"
+          fontSize="0.8rem"
           textAlign="center"
         >
          Cotisation - Crédit - Rembourssement

@@ -25,7 +25,7 @@ export default function RootLayout({
   const [displayMenuDrawer, setDisplayMenuDrawer] = useState<boolean>(false);
   return (
     <Box
-      sx={{ display: "flex", alignItems: "flex-start", position: "relative" }}
+      sx={{ display: "flex", alignItems: "flex-start" ,position: "relative",height:"100svh" }}
     >
       <Sidebar
         displayMenuDrawer={displayMenuDrawer}
@@ -41,13 +41,14 @@ export default function RootLayout({
           {children}
           {pathname?.split("/").pop() === "timeline" && (
             <Typography
-              fontSize="13px"
+              fontSize="0.8rem"
+              // width="100%"
               textAlign="center"
               color="#055E68"
               fontWeight="800"
               position="absolute"
               bottom="10px"
-              left="50%"
+              right="0"
             >
               made with &#10084; by eric and douce
             </Typography>
