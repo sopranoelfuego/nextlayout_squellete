@@ -196,7 +196,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
         >
       
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={()=>setDisplayMenu((prev: boolean) => !prev)}>
               <ListItemIcon>
                 <HiOutlineIdentification fontSize={20} />
               </ListItemIcon>
@@ -205,6 +205,7 @@ const handleChangeLangue=(l:Ilanguage)=>{
           </ListItem>
               <ListItem disablePadding>
             <ListItemButton onClick={()=>{
+              setDisplayMenu((prev: boolean) => !prev)
               signOut()
               router.push("/login")
               }}>

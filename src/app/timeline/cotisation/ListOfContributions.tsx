@@ -92,9 +92,10 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    
   const [deleting, setDeleting] = useState(false);
-  const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [type, setType] = useState<"v" | "r">("v");
 

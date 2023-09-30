@@ -36,7 +36,9 @@ export interface ICreditType {
   membreId: number;
   etat?: number;
 
-  status?: string;
+  status?: "PAID" |
+	"IN_PAYMENT" |
+	"IN_TREATMENT";
   membre?: { id: number; fullName: string };
 }
 export interface ICompteSettingType {

@@ -140,7 +140,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.cotisationResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-            {resumee.cotisationResponse.length >0 ?(<Stack direction="column" spacing={1}>
+           <Stack direction="column" spacing={1}>
               <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
                   <Typography
                     fontSize="0.8rem"
@@ -174,7 +174,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
                     {/* {s.number} */}
                   </Typography>
                 </Box>
-            </Stack>):null}
+            </Stack>
           </Box>
           <Typography
             fontSize="12px"
@@ -215,7 +215,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.CreditResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-          {resumee.CreditResponse.length >0 ? ( <Stack direction="column" spacing={1}>
+         <Stack direction="column" spacing={1}>
               <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
                   <Typography
                     fontSize="0.8rem"
@@ -249,7 +249,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
                     {/* {s.number} */}
                   </Typography>
                 </Box>
-            </Stack>):null}
+            </Stack>
           </Box>
           <Typography
             fontSize="12px"
@@ -290,7 +290,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.remboursementResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-            {resumee.remboursementResponse.length >0 ? (<Stack direction="column" spacing={1}>
+             <Stack direction="column" spacing={1}>
               <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
                   <Typography
                     fontSize="0.8rem"
@@ -324,7 +324,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
                     {/* {s.number} */}
                   </Typography>
                 </Box>
-            </Stack>):null}
+            </Stack>
           </Box>
           <Typography
             fontSize="12px"

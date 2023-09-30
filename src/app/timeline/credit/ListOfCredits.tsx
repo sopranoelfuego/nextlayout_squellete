@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
@@ -16,18 +16,24 @@ import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import {  HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
+import {useRouter} from "next/navigation"
 
-import { FormattedMessage } from "react-intl";
+import {  HiOutlineTrash, HiOutlinePencil, HiOutlineX, HiOutlineCheck } from "react-icons/hi";
+
+import { FormattedMessage, useIntl } from "react-intl";
 import { ICreditType} from "../../../../types";
 import CreditHeader from "./CreditHeader";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import { AuthContext } from "@/components/contexts/authContext";
+import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 
 import { HiSearch } from "react-icons/hi";
 
 import CreateCredit from "./CreateCredit";
 import { Tooltip } from "@mui/material";
+import ValidateOrRejectDialog from "./ValidateOrRejectDialog";
+import DeleteDialog from "@/components/common/DeleteDialogue";
 
 // import { notFound } from 'next/navigation'
 
@@ -75,8 +81,25 @@ const top100Films = [
 ];
 const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
   console.log("contrubitions:", credits);
+  const intl=useIntl()
 
+  const { handleOpenAlert } = useContext(SnackAlertContext);
+    const router = useRouter();
+  const { user } = useContext(AuthContext);
   const [open, setOpen] = useState<boolean>(false);
+    const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [deleting, setDeleting] = useState(false);
+
+
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+
+  const [title, setTitle] = useState<string>("");
+  const [type, setType] = useState<"v" | "r">("v");
   const [filterValue, setFilterValue] = useState<string>("");
   const [credit, setCredit] = useState<ICreditType>({
     id: "",
@@ -104,6 +127,109 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
       });
     setOpen(true);
   };
+   const handleOpenDeleteDialogue =  (credit?: ICreditType) => {
+     
+     if (credit)
+      setCredit({
+        montant: credit.montant,
+        motif: credit.motif,
+        id: credit.id,
+        membreId: credit?.membre?.id!,
+      });
+    setOpenDeleteModal((prev) => !prev);
+  };
+
+   const handleSubmitValidateOrRejectContribution = async () => {
+    let res: any = "";
+
+    setLoading(true);
+    try {
+      if (credit.id) {
+        const url =
+          type === "v"
+            ? `${process.env.NEXT_PUBLIC_ROOT_API}/credits/valid/${credit.id}`
+            : `${process.env.NEXT_PUBLIC_ROOT_API}/credits/rejet/${credit.id}`;
+
+        res = await fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          // body: JSON.stringify(values),
+        });
+
+        const data = await res.json();
+        setLoading(false);
+        if (!data?.success) {
+          handleOpenAlert("info", data?.message);
+        } else {
+          router.push("/timeline/credit?page=0&size=10");
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+    }
+  };
+
+  const handleOpenValidOrRejectDialog = (
+    credit?: ICreditType,
+    typeM?: "v" | "r"
+  ) => {
+    if (typeM) {
+      switch (typeM) { 
+        case "r": {
+          setTitle("Rejet du contribution");
+          setMessage("voulez-vous vraiment rejeter cette contribution");
+          break;
+        }
+        default: {
+          setTitle("Validation du contribution");
+          setMessage("voulez-vous vraiment valider cette contribution");
+          break;
+        }
+      }
+      setType(typeM);
+    }
+
+    setCredit({
+      id: "",
+      montant: 0,
+    motif:"",
+      membreId: 0,
+    })
+    if (credit)
+      setCredit({
+        montant: credit.montant,
+        motif: credit.motif,
+        id: credit.id,
+        membreId: credit?.membre?.id!,
+      });
+    setOpenValidOrReject((prev) => !prev);
+  };
+  // ===========================HANDLE DELEDE ===========================
+   const handleOnDelete = () => {
+    setDeleting(true);
+    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/credits/${credit.id}`, {
+      method: "DELETE",
+      headers: {
+        Autorisation: `Bearer ${user.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setDeleting(false);
+        setOpenDeleteModal((prev) => !prev);
+        router.push("/timeline/credit?page=0&size=10");
+        handleOpenAlert("succes", <FormattedMessage id="succes-del" />);
+      })
+      .catch(() => {
+        setDeleting(false);
+        handleOpenAlert("error", <FormattedMessage id="delet-failed" />);
+      });
+  };
+
 
   return (
     <>
@@ -228,29 +354,60 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                   
                     <StyledTableCell align="center">
 
-                         <Stack
+                       <Stack
                         direction={{ xs: "column", sm: "row" }}
                         justifyContent="center"
                         alignItems="center"
                       >
-                        <Tooltip title="edit">
-
-                        <IconButton
-                          onClick={() => handleClickOpenCreateDialog(m)}
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "edit" })}`}
                         >
-                          <HiOutlinePencil fontSize={17} />
-                        </IconButton>
+                          <IconButton
+                           onClick={() => handleClickOpenCreateDialog(m)}
+                          >
+                            <HiOutlinePencil fontSize={17} />
+                          </IconButton>
                         </Tooltip>
-                        <Tooltip title="delete">
 
-                        <IconButton
-                          sx={{color:"red" }}
-                        //   onClick={() => handleDeleteMember(m)}
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "valid_info" })}`}
                         >
-                          <HiOutlineTrash fontSize={17} />
-                        </IconButton>
+                          <IconButton
+                            color="success"
+                            disabled={m?.etat === 1}
+                            onClick={() =>
+                              handleOpenValidOrRejectDialog(m, "v")
+                            }
+                          >
+                            <HiOutlineCheck fontSize={17} />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "reject_info" })}`}
+                        >
+                          <IconButton
+                            color="error"
+                            disabled={m?.etat === 2}
+                            onClick={() =>
+                              handleOpenValidOrRejectDialog(m, "r")
+                            }
+                          >
+                            <HiOutlineX fontSize={17} />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                          title={`${intl.formatMessage({ id: "delete" })}`}
+                        >
+                          <IconButton
+                            color="error"
+                            onClick={() => handleOpenDeleteDialogue(m)}
+                          >
+                            <HiOutlineTrash fontSize={17} />
+                          </IconButton>
                         </Tooltip>
                       </Stack>
+
+                      
                     
                     </StyledTableCell>
                   </StyledTableRow>
@@ -284,6 +441,20 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
         credit={credit}
         open={open}
         setOpen={setOpen}
+      />
+       <ValidateOrRejectDialog
+        message={message}
+        title={title}
+        open={openValidOrReject}
+        handleClose={handleOpenValidOrRejectDialog}
+        handleOperation={handleSubmitValidateOrRejectContribution}
+        loading={loading}
+      />
+       <DeleteDialog
+        open={openDeleteModal}
+        deleting={deleting}
+        handleClose={() => setOpenDeleteModal((prev) => !prev)}
+        handleDelete={handleOnDelete}
       />
     </>
   );

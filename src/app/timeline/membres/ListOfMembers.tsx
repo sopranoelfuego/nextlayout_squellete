@@ -20,7 +20,7 @@ import { HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
 import CreateMember from "@/app/timeline/membres/CreateMember";
 
 import { useRouter } from "next/navigation";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { MemberType } from "../../../../types";
 import DeleteDialog from "@/components/common/DeleteDialogue";
 import { AuthContext } from "@/components/contexts/authContext";
@@ -81,6 +81,7 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
     password: "",
     role: "USER",
   });
+  const intl=useIntl()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
@@ -119,15 +120,15 @@ const ListOfMembers = ({ members }: ListOfMembersProps) => {
       },
     })
       .then((res) => res.json())
-      .then((res) => {
+      .then(() => {
         setDeleting(false);
         setOpenDeleteModal((prev) => !prev);
         router.push("/timeline/membres?page=0&size=10");
-        handleOpenAlert("succes", <FormattedMessage id="succes-del" />);
+        handleOpenAlert("succes", `${intl.formatMessage({id:"succes-del"})}`);
       })
       .catch(() => {
         setDeleting(false);
-        handleOpenAlert("error", <FormattedMessage id="delet-failed" />);
+        handleOpenAlert("error", intl.formatMessage({id:"delet-failed"}));
       });
   };
 
