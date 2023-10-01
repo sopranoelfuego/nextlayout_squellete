@@ -196,7 +196,11 @@ const handleChangeLangue=(l:Ilanguage)=>{
         >
       
           <ListItem disablePadding>
-            <ListItemButton onClick={()=>setDisplayMenu((prev: boolean) => !prev)}>
+            <ListItemButton  onClick={()=>{
+              setDisplayMenu((prev: boolean) => !prev)
+              router.push("/timeline/profile")
+
+              }}>
               <ListItemIcon>
                 <HiOutlineIdentification fontSize={20} />
               </ListItemIcon>

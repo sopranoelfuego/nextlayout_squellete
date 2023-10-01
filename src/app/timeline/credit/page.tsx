@@ -15,7 +15,7 @@ interface ListOfCotisationsProps {
 // "montant":10000,
 //   "codeTransaction":"732456456546456546",
 //   "membreId":1
-const loadContributions = async ({ page, size, direction ,token}: ISearchParams ) => {
+const loadCredits = async ({ page, size, direction ,token}: ISearchParams ) => {
   // const res = await fetch(
   //       `${process.env.ROOT_API}/credits?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -70,7 +70,7 @@ export default async function Home({
   const direction =
     searchParams?.direction === "DESC" ? searchParams?.direction : "ASC";
 
-  const contributions: ListOfCotisationsProps = await loadContributions({
+  const contributions: ListOfCotisationsProps = await loadCredits({
     page,
     size,
     direction,
