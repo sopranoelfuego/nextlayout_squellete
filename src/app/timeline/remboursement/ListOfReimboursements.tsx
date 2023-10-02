@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
+import Button from "@mui/material/Button";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "@mui/material/styles/styled";
@@ -23,6 +24,7 @@ import {
   HiOutlineTrash,
   HiOutlinePencil,
 } from "react-icons/hi";
+import CustomChip from "@/components/common/CustomChip";
 
 import { FormattedMessage } from "react-intl";
 import { IReimbourssementType } from "../../../../types";
@@ -91,7 +93,6 @@ interface ListOfReimboursementsProps {
 const ListOfReimboursements = ({
   reimboursements,
 }: ListOfReimboursementsProps) => {
-  console.log("contrubitions:", reimboursements);
   const router = useRouter();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
@@ -111,7 +112,7 @@ const ListOfReimboursements = ({
     id: 0,
     montant: 0,
     codeTransaction: "",
-    getcreditId: 0,
+    creditId: 0,
   });
   const handleDeleteContribution = (reimboursement?: IReimbourssementType) => {
     if (reimboursement)
@@ -119,7 +120,7 @@ const ListOfReimboursements = ({
         montant: reimboursement.montant,
         codeTransaction: reimboursement.codeTransaction,
         id: reimboursement?.id!,
-        getcreditId: reimboursement.getcreditId,
+        creditId: reimboursement.creditId,
       });
     setOpenDeleteModal((prev) => !prev);
   };
@@ -134,14 +135,14 @@ const ListOfReimboursements = ({
       id: 0,
       montant: 0,
       codeTransaction: "",
-      getcreditId: 0,
+      creditId: 0,
     });
     if (reimboursement)
       setReimboursement({
         id: reimboursement?.id!,
         montant: reimboursement.montant,
         codeTransaction: reimboursement.codeTransaction,
-        getcreditId: reimboursement.getcreditId,
+        creditId: reimboursement.creditId,
       });
     setOpen(true);
   };
@@ -169,14 +170,14 @@ const ListOfReimboursements = ({
       id: 0,
       montant: 0,
       codeTransaction: "",
-      getcreditId: 0,
+      creditId: 0,
     });
     if (reimboursement)
       setReimboursement({
         id: reimboursement?.id!,
         montant: reimboursement.montant,
         codeTransaction: reimboursement.codeTransaction,
-        getcreditId: reimboursement.getcreditId,
+        creditId: reimboursement.creditId,
       });
     setOpenValidOrReject((prev) => !prev);
   };
@@ -258,6 +259,7 @@ const ListOfReimboursements = ({
           marginY: "0.5rem",
           backgroundColor: "white",
           width: "100%",
+          boxSizing:"border-box"
         }}
       >
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -293,6 +295,7 @@ const ListOfReimboursements = ({
           marginTop: "10px",
         }}
       >
+       
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -306,11 +309,18 @@ const ListOfReimboursements = ({
                 <StyledTableCell align="center">
                   <FormattedMessage id="trans-code" />
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="dateRemboursement" />
-                </StyledTableCell>
+
                 <StyledTableCell align="center">
                   <FormattedMessage id="status" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="single_interet" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="dejaRembourser" />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <FormattedMessage id="montantAvecInteret" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
@@ -318,52 +328,89 @@ const ListOfReimboursements = ({
               </StyledTableRow>
             </TableHead>
             <TableBody>
+              {/* 
+               
+                id: 1,
+        motif: 'no reason',
+        dateCredit: '2023-10-02',
+        montant: 5500,
+        etat: 0,
+        interet: 0,
+        montantAvecInteret: 5500,
+        dejaRembourser: 0,
+        membre: {
+          id: 2,
+          nom: 'Nizigiyimana',
+          prenom: 'Isaac',
+          contact: '+257616900535541',
+          password: '$2a$10$cxo3F3GmczPVP3XjiEpz3uXeFy8LQ6GlO84ruZpfBETikdgoUVwkq',
+          email: 'isaac@gmail.com',
+          credits: [
+            {
+              id: 1,
+              montant: 5500,
+              motif: 'no reason',
+              dateCredit: [ 2023, 10, 2 ],
+              etat: 0,
+              status: 'IN_PAYMENT',
+              dateValidation: '2023-10-02',
+              remboursements: []
+            }
+          ],
+          role: 'USER',
+          tokens: [],
+          enabled: true,
+          fullName: 'Nizigiyimana Isaac',
+          authorities: [ { authority: 'USER' } ],
+          eligbleToBeDeleted: false,
+          username: 'isaac@gmail.com',
+          accountNonLocked: true,
+          credentialsNonExpired: true,
+          accountNonExpired: true
+        },
+        status: 'IN_PAYMENT'
+      },
+               */}
               {reimboursements?.result?.map((m: IReimbourssementType) => {
                 return (
                   <StyledTableRow key={m.id}>
-                    <StyledTableCell>{m?.credit?.membre?.fullName}</StyledTableCell>
+                    {/* @ts-ignore */}
+                    <StyledTableCell>{m?.membre?.fullName}</StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.montant}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.codeTransaction}
                     </StyledTableCell>
+
                     <StyledTableCell align="center">
-                      {m?.dateRemboursement}
+                      {m.status === "IN_PAYMENT" && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: m?.status! })}`}
+                          color="#2d4f85"
+                        />
+                      )}
+                      {m.status === "IN_TREATMENT" && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: m?.status! })}`}
+                          color="#055E68"
+                        />
+                      )}
+                      {m.status === "PAID" && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: m?.status! })}`}
+                          color="#82472b"
+                        />
+                      )}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {m?.etat === 0 && (
-                        <Chip
-                          sx={{
-                            height: "auto",
-                            borderRadius: "10px",
-                          }}
-                          variant="outlined"
-                          label={`${intl.formatMessage({ id: "en_attente" })}`}
-                        />
-                      )}
-                      {m?.etat === 1 && (
-                        <Chip
-                          sx={{
-                            height: "auto",
-                            borderRadius: "10px",
-                          }}
-                          color="success"
-                          variant="outlined"
-                          label={`${intl.formatMessage({ id: "valid" })}`}
-                        />
-                      )}
-                      {m?.etat === 2 && (
-                        <Chip
-                          sx={{
-                            height: "auto",
-                            borderRadius: "10px",
-                          }}
-                          color="error"
-                          variant="outlined"
-                          label={`${intl.formatMessage({ id: "rejet" })}`}
-                        />
-                      )}
+                      {m.interet!}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {m.dejaRembourser!}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {m.montantAvecInteret!}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Stack
@@ -424,7 +471,7 @@ const ListOfReimboursements = ({
               })}
               {!reimboursements?.result && (
                 <StyledTableRow>
-                  <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
+                  <StyledTableCell colSpan={8} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
                       <FormattedMessage id="no-data-display" />
                     </Typography>

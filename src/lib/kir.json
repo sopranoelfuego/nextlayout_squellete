@@ -58,8 +58,15 @@
   "decaissements": "ayasohotse",
 
   "delete-message-desc": "Munywanyi igikogwa cifuta ningingo ntasubigwamwo ,emeza musi mukwemeza iri futwa ",
+  "single_interet":"inyungu",
 
   "cotisation": "Intererano",
+   "print":"gusohora",
+   "dejaRembourser":"ayarishwe",
+   "montantAvecInteret":"amahera yinyugu",
+
+
+
   "credit": "Ingurane",
   "rembourssement": "Ivyiyishura",
   "settings": "Ubuhinga",
@@ -67,8 +74,16 @@
   "nom": "Izina",
   "prenom": "Amatazirano",
   "search": "Rondera",
+  "new_refund":"kwinjiza irihwa",
+
   "relaod": "Gusubiramwo",
   "single_credit": "Ingurane",
+  "create-refund": "Kuriha ingurane",
+  
+
+   "IN_PAYMENT":"iriko irarihwa",
+  "PAID":"yarishwe",
+	"IN_TREATMENT":"irikwigwa",
 
   "motif":"igituma",
   "rejet":"yanswe",

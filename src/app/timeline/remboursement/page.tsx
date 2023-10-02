@@ -35,6 +35,33 @@ const loadReimboursements = async ({ page, size, direction ,token}: ISearchParam
       if(!res.ok)return
       return res.json();
 };
+// const loadCredits = async ({ page, size, direction ,token}: ISearchParams ) => {
+//   // const res = await fetch(
+//   //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
+//   //         cache:"no-cache",next:{
+//   //         tags:["cotisations"]
+//   //       },
+//   //       headers:{
+//   //         "Authorization":`Bearer ${token}`
+//   //       }
+//   //     }
+//   //     );
+//   // http://192.168.20.180:8081/gp-com/api/v1/credits
+//   const res = await fetch(
+//         // `${process.env.ROOT_API}/credits`,{
+//         'http://192.168.20.180:8081/gp-com/api/v1/credits',{
+//           cache:"no-cache",next:{
+//           tags:["credits"]
+//         },
+//         headers:{
+//           "Authorization":`Bearer ${token}`
+//         }
+//       }
+//       );
+//       // console.log("resjson:",res.json())
+//       if(!res.ok)return
+//       return res.json();
+// };
 
 
 export default async function Home({
@@ -66,16 +93,12 @@ export default async function Home({
   const direction =
     searchParams?.direction === "DESC" ? searchParams?.direction : "ASC";
 
-  const reimboursements: ListOfReimboursements = await loadReimboursements({
+const reimboursement=loadReimboursements({
     page,
     size,
     direction,
     token:userStorage?.token!
   })
 
-
-
-
-
-  return <ListOfReimboursements reimboursements={reimboursements} />;
+  return <ListOfReimboursements reimboursements={reimboursement}  />;
 }

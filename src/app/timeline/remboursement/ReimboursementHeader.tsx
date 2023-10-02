@@ -57,7 +57,7 @@ export default function ReimboursementHeader({
           className="py-2  hover:border-mainColor whitespace-nowrap  opacity-75 hover:opacity-100 px-3 bg-mainColor rounded text-white flex items-center justify-center gap-1 w-full  font-medium transition-all  "
         >
           <HiOutlineUserAdd fontSize={16} />{" "}
-          <FormattedMessage id="new_cotisation" />
+          <FormattedMessage id="new_refund" />
         </button>
       </Box>
     </Box>

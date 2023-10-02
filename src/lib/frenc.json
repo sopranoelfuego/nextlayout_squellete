@@ -9,10 +9,20 @@
   "montantParAction": "Montant par action",
   "dateDebutCycle": "Date de début du cycle",
   "dateFinCyle": "Date de fin de cycle",
+  "single_interet":"intérêt",
+   "print":"imprimer",
+   "dejaRembourser":"remboursé",
+   "montantAvecInteret":"montant avec Interet",
+
+
+
 
   "trans-code": "code transaction",
   "montant": "amout",
   "create-contr": "Créer une cotisation",
+  "create-refund": "Creér un remboursement",
+  "new_refund":"Creér un remboursement",
+
   "create-credit": "Créer un crédit",
   "en_attente": "en attente",
   "valid": "validé",
@@ -57,6 +67,11 @@
   "cotisation": "Cotisations",
   "credit": "Crédits",
   "single_credit": "Crédit",
+
+  "IN_PAYMENT":"in payment",
+  "PAID":"payeé",
+	"IN_TREATMENT":"en traitement",
+  
   
   "rembourssement": "Remboursements",
   "settings": "Paramètres",

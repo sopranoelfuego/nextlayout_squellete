@@ -40,6 +40,8 @@ import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 import { useRouter } from "next/navigation";
 
 import { Tooltip } from "@mui/material";
+import CustomChip from "@/components/common/CustomChip";
+
 import DeleteDialog from "@/components/common/DeleteDialogue";
 
 // import { notFound } from 'next/navigation'
@@ -87,7 +89,6 @@ const top100Films = [
   { label: "Pulp Fiction", year: 1994 },
 ];
 const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
-  console.log("contrubitions:", contributions);
   const router = useRouter();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
@@ -126,7 +127,6 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
   const handleClickOpenCreateDialog = (contribution?: CotisationType) => {
-    console.log("contibution:", contribution);
     setContribution({
       id: "",
       montant: 0,
@@ -354,38 +354,11 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                       {m?.dateCotisation}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {m?.etat === 0 && (
-                        <Chip
-                          sx={{
-                            height: "auto",
-                            borderRadius: "10px",
-                          }}
-                          variant="outlined"
-                          label={`${intl.formatMessage({ id: "en_attente" })}`}
-                        />
-                      )}
-                      {m?.etat === 1 && (
-                        <Chip
-                          sx={{
-                            height: "auto",
-                            borderRadius: "10px",
-                          }}
-                          color="success"
-                          variant="outlined"
-                          label={`${intl.formatMessage({ id: "valid" })}`}
-                        />
-                      )}
-                      {m?.etat === 2 && (
-                        <Chip
-                          sx={{
-                            height: "auto",
-                            borderRadius: "10px",
-                          }}
-                          color="error"
-                          variant="outlined"
-                          label={`${intl.formatMessage({ id: "rejet" })}`}
-                        />
-                      )}
+                         {m?.etat === 0 && <CustomChip text={`${intl.formatMessage({id:"en_attente"})}`} color="#2d4f85"/>}
+                      {m?.etat === 1 && <CustomChip text={`${intl.formatMessage({id:"valid"})}`} color="#055E68"/>}
+                      {m?.etat === 2 && <CustomChip text={`${intl.formatMessage({id:"rejet"})}`} color="#82472b"/>}
+                      
+                     
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Stack

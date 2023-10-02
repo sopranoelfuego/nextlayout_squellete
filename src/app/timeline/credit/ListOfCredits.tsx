@@ -1,5 +1,5 @@
 "use client";
-import React, { useState ,useContext} from "react";
+import React, { useState, useContext } from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
@@ -16,17 +16,23 @@ import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation";
 
-import {  HiOutlineTrash, HiOutlinePencil, HiOutlineX, HiOutlineCheck } from "react-icons/hi";
+import {
+  HiOutlineTrash,
+  HiOutlinePencil,
+  HiOutlineX,
+  HiOutlineCheck,
+} from "react-icons/hi";
 
 import { FormattedMessage, useIntl } from "react-intl";
-import { ICreditType} from "../../../../types";
+import { ICreditType } from "../../../../types";
 import CreditHeader from "./CreditHeader";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
+import CustomChip from "@/components/common/CustomChip";
 
 import { HiSearch } from "react-icons/hi";
 
@@ -80,23 +86,19 @@ const top100Films = [
   { label: "Pulp Fiction", year: 1994 },
 ];
 const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
-  console.log("contrubitions:", credits);
-  const intl=useIntl()
+  const intl = useIntl();
 
   const { handleOpenAlert } = useContext(SnackAlertContext);
-    const router = useRouter();
+  const router = useRouter();
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState<boolean>(false);
-    const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
+  const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
-  
 
   const [loading, setLoading] = useState<boolean>(false);
   const [deleting, setDeleting] = useState(false);
 
-
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
 
   const [title, setTitle] = useState<string>("");
   const [type, setType] = useState<"v" | "r">("v");
@@ -104,20 +106,20 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
   const [credit, setCredit] = useState<ICreditType>({
     id: "",
     montant: 0,
-    motif:"",
+    motif: "",
     membreId: 0,
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
   const handleClickOpenCreateDialog = (credit?: ICreditType) => {
-    console.log("contibution:",credit)
+    console.log("contibution:", credit);
     setCredit({
       id: "",
       montant: 0,
-    motif:"",
+      motif: "",
       membreId: 0,
-    })
+    });
     if (credit)
       setCredit({
         montant: credit.montant,
@@ -127,9 +129,8 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
       });
     setOpen(true);
   };
-   const handleOpenDeleteDialogue =  (credit?: ICreditType) => {
-     
-     if (credit)
+  const handleOpenDeleteDialogue = (credit?: ICreditType) => {
+    if (credit)
       setCredit({
         montant: credit.montant,
         motif: credit.motif,
@@ -139,7 +140,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
     setOpenDeleteModal((prev) => !prev);
   };
 
-   const handleSubmitValidateOrRejectContribution = async () => {
+  const handleSubmitValidateOrRejectContribution = async () => {
     let res: any = "";
 
     setLoading(true);
@@ -178,7 +179,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
     typeM?: "v" | "r"
   ) => {
     if (typeM) {
-      switch (typeM) { 
+      switch (typeM) {
         case "r": {
           setTitle("Rejet du contribution");
           setMessage("voulez-vous vraiment rejeter cette contribution");
@@ -196,9 +197,9 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
     setCredit({
       id: "",
       montant: 0,
-    motif:"",
+      motif: "",
       membreId: 0,
-    })
+    });
     if (credit)
       setCredit({
         montant: credit.montant,
@@ -209,7 +210,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
     setOpenValidOrReject((prev) => !prev);
   };
   // ===========================HANDLE DELEDE ===========================
-   const handleOnDelete = () => {
+  const handleOnDelete = () => {
     setDeleting(true);
     fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/credits/${credit.id}`, {
       method: "DELETE",
@@ -230,7 +231,6 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
       });
   };
 
-
   return (
     <>
       <CreditHeader
@@ -245,9 +245,9 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
         spacing={1}
         justifyContent={{ xs: "flex-end", md: "flex-end", lg: "center" }}
         sx={{
-          marginY:"0.5rem",
-          backgroundColor:"white",
-          width:"100%"
+          marginY: "0.5rem",
+          backgroundColor: "white",
+          width: "100%",
         }}
       >
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -313,7 +313,6 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
             <TableHead>
               <StyledTableRow>
                 <StyledTableCell>
- 
                   <FormattedMessage id="single_member" />
                 </StyledTableCell>
                 <StyledTableCell align="center">
@@ -335,26 +334,30 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
             </TableHead>
             <TableBody>
               {credits?.result?.map((m: ICreditType) => {
-           
                 return (
                   <StyledTableRow key={m.id}>
                     <StyledTableCell>{m?.membre?.fullName}</StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.montant}
                     </StyledTableCell>
+                    <StyledTableCell align="center">{m?.motif}</StyledTableCell>
                     <StyledTableCell align="center">
-                      {m?.motif}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {m?.status}
+                       {/* #2d4f85
+            #055E68
+            #82472b
+            
+            */}
+                      {m.status === 'IN_PAYMENT' && <CustomChip text={`${intl.formatMessage({id:m?.status!})}`} color="#2d4f85"/>}
+                      {m.status === 'IN_TREATMENT' && <CustomChip text={`${intl.formatMessage({id:m?.status!})}`} color="#055E68"/>}
+                      {m.status === 'PAID' && <CustomChip text={`${intl.formatMessage({id:m?.status!})}`} color="#82472b"/>}
+                      {/* {m?.status} */}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.dateCredit}
                     </StyledTableCell>
-                  
-                    <StyledTableCell align="center">
 
-                       <Stack
+                    <StyledTableCell align="center">
+                      <Stack
                         direction={{ xs: "column", sm: "row" }}
                         justifyContent="center"
                         alignItems="center"
@@ -363,7 +366,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                           title={`${intl.formatMessage({ id: "edit" })}`}
                         >
                           <IconButton
-                           onClick={() => handleClickOpenCreateDialog(m)}
+                            onClick={() => handleClickOpenCreateDialog(m)}
                           >
                             <HiOutlinePencil fontSize={17} />
                           </IconButton>
@@ -374,7 +377,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                         >
                           <IconButton
                             color="success"
-                            disabled={m?.etat === 1}
+                            disabled={m.status === 'IN_PAYMENT' }
                             onClick={() =>
                               handleOpenValidOrRejectDialog(m, "v")
                             }
@@ -387,7 +390,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                         >
                           <IconButton
                             color="error"
-                            disabled={m?.etat === 2}
+                            disabled={m.status === 'IN_TREATMENT'}
                             onClick={() =>
                               handleOpenValidOrRejectDialog(m, "r")
                             }
@@ -406,9 +409,6 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                           </IconButton>
                         </Tooltip>
                       </Stack>
-
-                      
-                    
                     </StyledTableCell>
                   </StyledTableRow>
                 );
@@ -437,12 +437,8 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
           onRowsPerPageChange={() => console.log("chanage rows")}
         />
       </Box>
-      <CreateCredit
-        credit={credit}
-        open={open}
-        setOpen={setOpen}
-      />
-       <ValidateOrRejectDialog
+      <CreateCredit credit={credit} open={open} setOpen={setOpen} />
+      <ValidateOrRejectDialog
         message={message}
         title={title}
         open={openValidOrReject}
@@ -450,7 +446,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
         handleOperation={handleSubmitValidateOrRejectContribution}
         loading={loading}
       />
-       <DeleteDialog
+      <DeleteDialog
         open={openDeleteModal}
         deleting={deleting}
         handleClose={() => setOpenDeleteModal((prev) => !prev)}

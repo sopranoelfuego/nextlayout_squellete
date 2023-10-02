@@ -53,6 +53,13 @@ export interface IReimbourssementType {
   codeTransaction: string;
   dateRemboursement?: string;
   etat?: number;
-  getcreditId: number;
+  interet?:number;
+  // getcreditId: number;
+  status?: "PAID" |
+	"IN_PAYMENT" |
+	"IN_TREATMENT";
+  creditId: number;
+   montantAvecInteret?: number,
+        dejaRembourser?: number,
   credit?: ICreditType;
 }

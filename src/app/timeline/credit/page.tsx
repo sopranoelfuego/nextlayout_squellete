@@ -76,7 +76,6 @@ export default async function Home({
     direction,
     token:userStorage?.token!
   })
-  console.log("contrubitions:", contributions);
 
   return <ListOfCredits credits={contributions} />;
 }

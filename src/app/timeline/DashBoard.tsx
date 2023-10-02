@@ -7,7 +7,14 @@ import Grid from "@mui/material/Grid";
 import Chip from "@mui/material/Chip";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Stack } from "@mui/material";
-import { CotisationType, ICompteSettingType, ICreditType, IReimbourssementType } from "../../../types";
+// import CustomChip from
+import {
+  CotisationType,
+  ICompteSettingType,
+  ICreditType,
+  IReimbourssementType,
+} from "../../../types";
+import CustomChip from "@/components/common/CustomChip";
 
 interface ISumarize {
   id: number;
@@ -71,7 +78,6 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
         marginTop={{ xs: "0.5rem", sm: "1rem" }}
         spacing="1rem"
       >
-      
         {/* ======================= RESUMER MEMBRE ======================== */}
         <Grid
           item
@@ -130,7 +136,13 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
             justifySelf: { xs: "left", sm: "center" },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "flex-start",justifyContent:"space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography
               fontSize={{ xs: "3rem", sm: "4rem" }}
               color="#055E68"
@@ -140,40 +152,36 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.cotisationResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-           <Stack direction="column" spacing={1}>
-              <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#2d4f85"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.cotisationResponse.filter((c:CotisationType)=>c.etat === 0).length} - ${intl.formatMessage({ id: "en_attente" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
-              <Box sx={{ border: "1px #055E68 solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#055E68"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.cotisationResponse.filter((c:CotisationType)=>c.etat === 1).length} - ${intl.formatMessage({ id: "valid" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
-              <Box sx={{ border: "1px #82472b solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#82472b"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.cotisationResponse.filter((c:CotisationType)=>c.etat === 2).length} - ${intl.formatMessage({ id: "rejet" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
+            <Stack direction="column" spacing={1}>
+              {/* #2d4f85
+            #055E68
+            #82472b
+            
+            */}
+              <CustomChip
+                color="#2d4f85"
+                text={`${
+                  resumee.cotisationResponse.filter(
+                    (c: CotisationType) => c.etat === 0
+                  ).length
+                } - ${intl.formatMessage({ id: "en_attente" })}`}
+              />
+              <CustomChip
+                color="#055E68"
+                text={` ${
+                  resumee.cotisationResponse.filter(
+                    (c: CotisationType) => c.etat === 1
+                  ).length
+                } - ${intl.formatMessage({ id: "valid" })}`}
+              />
+              <CustomChip
+                color="#82472b"
+                text={` ${
+                  resumee.cotisationResponse.filter(
+                    (c: CotisationType) => c.etat === 2
+                  ).length
+                } - ${intl.formatMessage({ id: "rejet" })}`}
+              />
             </Stack>
           </Box>
           <Typography
@@ -205,7 +213,13 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
             justifySelf: { xs: "left", sm: "center" },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "flex-start",justifyContent:"space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography
               fontSize={{ xs: "3rem", sm: "4rem" }}
               color="#055E68"
@@ -215,40 +229,31 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.CreditResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-         <Stack direction="column" spacing={1}>
-              <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#2d4f85"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.CreditResponse.filter((c:ICreditType)=>c.etat === 0).length} - ${intl.formatMessage({ id: "en_attente" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
-              <Box sx={{ border: "1px #055E68 solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#055E68"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.CreditResponse.filter((c:ICreditType)=>c.etat === 1).length} - ${intl.formatMessage({ id: "valid" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
-              <Box sx={{ border: "1px #82472b solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#82472b"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.CreditResponse.filter((c:ICreditType)=>c.etat === 2).length} - ${intl.formatMessage({ id: "rejet" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
+            <Stack direction="column" spacing={1}>
+              <CustomChip
+                color="#2d4f85"
+                text={`${
+                  resumee.CreditResponse.filter(
+                    (c: ICreditType) => c.etat === 0
+                  ).length
+                } - ${intl.formatMessage({ id: "en_attente" })}`}
+              />
+              <CustomChip
+                color="#055E68"
+                text={` ${
+                  resumee.CreditResponse.filter(
+                    (c: ICreditType) => c.etat === 1
+                  ).length
+                } - ${intl.formatMessage({ id: "valid" })}`}
+              />
+              <CustomChip
+                color="#82472b"
+                text={` ${
+                  resumee.CreditResponse.filter(
+                    (c: ICreditType) => c.etat === 2
+                  ).length
+                } - ${intl.formatMessage({ id: "rejet" })}`}
+              />
             </Stack>
           </Box>
           <Typography
@@ -280,7 +285,13 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
             justifySelf: { xs: "left", sm: "center" },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "flex-start",justifyContent:"space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography
               fontSize={{ xs: "3rem", sm: "4rem" }}
               color="#055E68"
@@ -290,40 +301,31 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
               {resumee.remboursementResponse.length}
             </Typography>
             {/* ======= CHIPS ================= */}
-             <Stack direction="column" spacing={1}>
-              <Box sx={{ border: "1px #2d4f85 solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#2d4f85"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.remboursementResponse.filter((c:IReimbourssementType)=>c.etat === 0).length} - ${intl.formatMessage({ id: "en_attente" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
-              <Box sx={{ border: "1px #055E68 solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#055E68"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.remboursementResponse.filter((c:IReimbourssementType)=>c.etat === 1).length} - ${intl.formatMessage({ id: "valid" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
-              <Box sx={{ border: "1px #82472b solid", borderRadius: "5px" }}>
-                  <Typography
-                    fontSize="0.8rem"
-                    color="#82472b"
-                    fontWeight="800"
-                    whiteSpace="nowrap"
-                  >
-                    {` ${resumee.remboursementResponse.filter((c:IReimbourssementType)=>c.etat === 2).length} - ${intl.formatMessage({ id: "rejet" })}`}
-                    {/* {s.number} */}
-                  </Typography>
-                </Box>
+            <Stack direction="column" spacing={1}>
+              <CustomChip
+                color="#2d4f85"
+                text={`${
+                  resumee.remboursementResponse.filter(
+                    (c: IReimbourssementType) => c.etat === 0
+                  ).length
+                } - ${intl.formatMessage({ id: "en_attente" })}`}
+              />
+              <CustomChip
+                color="#055E68"
+                text={` ${
+                  resumee.remboursementResponse.filter(
+                    (c: IReimbourssementType) => c.etat === 1
+                  ).length
+                } - ${intl.formatMessage({ id: "valid" })}`}
+              />
+              <CustomChip
+                color="#82472b"
+                text={` ${
+                  resumee.remboursementResponse.filter(
+                    (c: IReimbourssementType) => c.etat === 2
+                  ).length
+                } - ${intl.formatMessage({ id: "rejet" })}`}
+              />
             </Stack>
           </Box>
           <Typography
@@ -365,7 +367,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
           }}
         >
           {" "}
-          wellcome to{" "}
+          welcome to{" "}
         </Typography>
         <Typography
           maxWidth="40rem"
@@ -375,7 +377,7 @@ export default function DashBoard({ resumee }: { resumee: IResume }) {
           fontSize="0.8rem"
           textAlign="center"
         >
-         Cotisation - Crédit - Rembourssement
+          Cotisation - Crédit - Rembourssement
         </Typography>
       </Box>
     </Box>

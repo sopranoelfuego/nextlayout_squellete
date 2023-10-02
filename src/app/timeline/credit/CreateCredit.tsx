@@ -153,7 +153,6 @@ export default function CreateCredit({
     },
 
     onSubmit: async (values, resetForm) => {
-      console.log("Values:", values);
       if (validationSchema()) await handleSubmit(values, resetForm);
     },
   });
