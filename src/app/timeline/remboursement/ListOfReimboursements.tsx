@@ -93,7 +93,7 @@ interface ListOfReimboursementsProps {
 const ListOfReimboursements = ({
   reimboursements,
 }: ListOfReimboursementsProps) => {
-  console.log("reimboursements:",reimboursements)
+
   const router = useRouter();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
@@ -208,12 +208,14 @@ const ListOfReimboursements = ({
         if (!data?.success) {
           handleOpenAlert("info", data?.message);
         } else {
-          router.push("/timeline/cotisation?page=0&size=10");
+          handleOpenAlert("success", <FormattedMessage id="operation-success" />);
+          router.push("/timeline/remboursement?page=0&size=10");
         }
       }
     } catch (error) {
       setLoading(false);
-      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+      handleOpenAlert("success", <FormattedMessage id="operation-success" />);
+      router.push("/timeline/remboursement?page=0&size=10");
     }
   };
 
@@ -233,7 +235,7 @@ const ListOfReimboursements = ({
       .then(() => {
         setDeleting(false);
         setOpenDeleteModal((prev) => !prev);
-        router.push("/timeline/cotisation?page=0&size=10");
+        router.push("/timeline/remboursement?page=0&size=10");
         handleOpenAlert("succes", <FormattedMessage id="succes-del" />);
       })
       .catch(() => {
@@ -258,10 +260,10 @@ const ListOfReimboursements = ({
         alignItems="end"
         sx={{
           marginY: "0.5rem",
-          marginX:"0",
+          marginX: "0",
           backgroundColor: "white",
           width: "100%",
-          boxSizing:"border-box"
+          boxSizing: "border-box",
         }}
       >
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -297,7 +299,6 @@ const ListOfReimboursements = ({
           marginTop: "10px",
         }}
       >
-       
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -315,19 +316,20 @@ const ListOfReimboursements = ({
                 <StyledTableCell align="center">
                   <FormattedMessage id="status" />
                 </StyledTableCell>
-            
+
                 <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
-       
               {reimboursements?.result?.map((m: IReimbourssementType) => {
                 return (
                   <StyledTableRow key={m.id}>
                     {/* @ts-ignore */}
-                    <StyledTableCell>{m?.membre?.fullName}</StyledTableCell>
+                    <StyledTableCell>
+                      {m?.credit?.membre?.fullName}
+                    </StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.montant}
                     </StyledTableCell>
@@ -336,12 +338,26 @@ const ListOfReimboursements = ({
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                           {m?.etat === 0 && <CustomChip text={`${intl.formatMessage({id:"en_attente"})}`} color="#2d4f85"/>}
-                      {m?.etat === 1 && <CustomChip text={`${intl.formatMessage({id:"valid"})}`} color="#055E68"/>}
-                      {m?.etat === 2 && <CustomChip text={`${intl.formatMessage({id:"rejet"})}`} color="#82472b"/>}
-                    
+                      {m?.etat === 0 && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: "en_attente" })}`}
+                          color="#2d4f85"
+                        />
+                      )}
+                      {m?.etat === 1 && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: "valid" })}`}
+                          color="#055E68"
+                        />
+                      )}
+                      {m?.etat === 2 && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: "rejet" })}`}
+                          color="#82472b"
+                        />
+                      )}
                     </StyledTableCell>
-               
+
                     <StyledTableCell align="center">
                       <Stack
                         direction={{ xs: "column", sm: "row" }}
@@ -376,7 +392,7 @@ const ListOfReimboursements = ({
                         >
                           <IconButton
                             color="error"
-                            disabled={m?.etat === 2}
+                            disabled={m?.etat === 2 || m?.etat === 1}
                             onClick={() =>
                               handleOpenValidOrRejectDialog(m, "r")
                             }

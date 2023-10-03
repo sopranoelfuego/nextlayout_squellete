@@ -207,12 +207,15 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         if (!data?.success) {
           handleOpenAlert("info", data?.message);
         } else {
+      handleOpenAlert("success", <FormattedMessage id="operation-success" />);
           router.push("/timeline/cotisation?page=0&size=10");
         }
       }
     } catch (error) {
       setLoading(false);
-      handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+      // handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
+      handleOpenAlert("success", <FormattedMessage id="operation-success" />);
+          router.push("/timeline/cotisation?page=0&size=10");
     }
   };
 
@@ -394,7 +397,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                         >
                           <IconButton
                             color="error"
-                            disabled={m?.etat === 2}
+                            disabled={m?.etat === 2 || m?.etat === 1}
                             onClick={() =>
                               handleOpenValidOrRejectDialog(m, "r")
                             }

@@ -56,7 +56,7 @@ export const sidebarData:SidebarItemType[] = [
         priveleges: ["SuperAdmin"],
     },
     {
-        href: "/timeline/settings",
+        href: "/timeline/reports",
         linkName: <FormattedMessage id="rapports"/>,
         icon: <HiOutlineChartBar size={20} />,
         priveleges: ["SuperAdmin"],
