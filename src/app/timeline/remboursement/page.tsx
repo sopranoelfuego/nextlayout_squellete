@@ -93,7 +93,7 @@ export default async function Home({
   const direction =
     searchParams?.direction === "DESC" ? searchParams?.direction : "ASC";
 
-const reimboursement=loadReimboursements({
+const reimboursement=await loadReimboursements({
     page,
     size,
     direction,

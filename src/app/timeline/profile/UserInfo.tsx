@@ -9,7 +9,6 @@ export default function UserInfo() {
         width={200}
         height={200}
         src="/user.svg"
-        // src={`https://e7.pngegg.com/pngimages/8/36/png-clipart-man-black-illustration-computer-icons-google-account-user-profile-iconfinder-com-icons-profile-account-profile-thumbnail.png`}
         alt="profileImage"
       />
       {/* ============== USER INFO HERE ========= */}

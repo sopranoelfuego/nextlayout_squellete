@@ -1,6 +1,7 @@
 import React from "react";
 import {
     HiOutlineCog,
+    HiOutlineChartBar,
     HiOutlineHome,
     HiOutlineUsers,
     HiOutlineCash,
@@ -52,6 +53,12 @@ export const sidebarData:SidebarItemType[] = [
         href: "/timeline/settings",
         linkName: <FormattedMessage id="settings"/>,
         icon: <HiOutlineCog size={20} />,
+        priveleges: ["SuperAdmin"],
+    },
+    {
+        href: "/timeline/settings",
+        linkName: <FormattedMessage id="rapports"/>,
+        icon: <HiOutlineChartBar size={20} />,
         priveleges: ["SuperAdmin"],
     },
    

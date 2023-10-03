@@ -243,9 +243,10 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
       <Grid
         container
         spacing={1}
-        justifyContent={{ xs: "flex-end", md: "flex-end", lg: "center" }}
+        justifyContent={{ xs: "flex-end", md: "flex-end", lg: "center",backgroundColor:"red" }}
         sx={{
           marginY: "0.5rem",
+          marginX:"0",
           backgroundColor: "white",
           width: "100%",
         }}
@@ -257,7 +258,9 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
           <Autocomplete
             disablePortal
             id="combo-box-demo"
+            size="small"
             options={top100Films}
+            fullWidth
             sx={{
               Maxwidth: 300,
               minWidth: 200,
@@ -342,15 +345,11 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                     </StyledTableCell>
                     <StyledTableCell align="center">{m?.motif}</StyledTableCell>
                     <StyledTableCell align="center">
-                       {/* #2d4f85
-            #055E68
-            #82472b
-            
-            */}
+             
                       {m.status === 'IN_PAYMENT' && <CustomChip text={`${intl.formatMessage({id:m?.status!})}`} color="#2d4f85"/>}
                       {m.status === 'IN_TREATMENT' && <CustomChip text={`${intl.formatMessage({id:m?.status!})}`} color="#055E68"/>}
                       {m.status === 'PAID' && <CustomChip text={`${intl.formatMessage({id:m?.status!})}`} color="#82472b"/>}
-                      {/* {m?.status} */}
+                      
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {m?.dateCredit}
@@ -415,7 +414,7 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
               })}
               {!credits?.result && (
                 <StyledTableRow>
-                  <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
+                  <StyledTableCell colSpan={6} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
                       <FormattedMessage id="no-data-display" />
                     </Typography>

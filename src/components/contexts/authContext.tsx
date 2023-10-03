@@ -42,7 +42,7 @@ export default function AuthContextProvider({
         const userGot = JSON.parse(localStorage.getItem("user")!);
         if (userGot) {
 
-          setUser((user) => ({ ...user,nom:userGot.nom,email:userGot.email,role:userGot.role,token:userGot.token}));
+          setUser((user) => ({ ...user,id:userGot?.id,nom:userGot.nom,email:userGot.email,role:userGot.role,token:userGot.token}));
         } else {
           localStorage.removeItem("user");
           setUser({
@@ -66,10 +66,12 @@ export default function AuthContextProvider({
 
   const initiateUserSession = useCallback((token: string) => {
     let userGot: any = jwtDecode(token);
+  
 
     if (userGot)
       setUser((user) => ({
         ...user,
+        id:userGot.id,
         nom: userGot?.nom,
         prenom: userGot?.prenom || "",
         email: userGot?.email,
@@ -78,6 +80,7 @@ export default function AuthContextProvider({
       }));
     window.localStorage.setItem("user", JSON.stringify({
         ...user,
+        id:userGot.id,
         nom: userGot?.nom,
         prenom: userGot?.prenom || "",
         email: userGot?.email,

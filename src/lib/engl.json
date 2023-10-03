@@ -23,6 +23,7 @@
    "error-messag":"Ooops!..something wrong happen",
   "montantActuelle":"Avalaible amount",
   "dateDebutCycle":"Cycle starting date",
+  "rapports":"reports",
   "dateFinCyle":"Cycle end date",
   "jourApresCotisation":"Days from which interest start",
   "montantEndette":"Amount indebted",

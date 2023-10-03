@@ -93,6 +93,7 @@ interface ListOfReimboursementsProps {
 const ListOfReimboursements = ({
   reimboursements,
 }: ListOfReimboursementsProps) => {
+  console.log("reimboursements:",reimboursements)
   const router = useRouter();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
@@ -257,6 +258,7 @@ const ListOfReimboursements = ({
         alignItems="end"
         sx={{
           marginY: "0.5rem",
+          marginX:"0",
           backgroundColor: "white",
           width: "100%",
           boxSizing:"border-box"
@@ -313,64 +315,14 @@ const ListOfReimboursements = ({
                 <StyledTableCell align="center">
                   <FormattedMessage id="status" />
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="single_interet" />
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="dejaRembourser" />
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="montantAvecInteret" />
-                </StyledTableCell>
+            
                 <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody>
-              {/* 
-               
-                id: 1,
-        motif: 'no reason',
-        dateCredit: '2023-10-02',
-        montant: 5500,
-        etat: 0,
-        interet: 0,
-        montantAvecInteret: 5500,
-        dejaRembourser: 0,
-        membre: {
-          id: 2,
-          nom: 'Nizigiyimana',
-          prenom: 'Isaac',
-          contact: '+257616900535541',
-          password: '$2a$10$cxo3F3GmczPVP3XjiEpz3uXeFy8LQ6GlO84ruZpfBETikdgoUVwkq',
-          email: 'isaac@gmail.com',
-          credits: [
-            {
-              id: 1,
-              montant: 5500,
-              motif: 'no reason',
-              dateCredit: [ 2023, 10, 2 ],
-              etat: 0,
-              status: 'IN_PAYMENT',
-              dateValidation: '2023-10-02',
-              remboursements: []
-            }
-          ],
-          role: 'USER',
-          tokens: [],
-          enabled: true,
-          fullName: 'Nizigiyimana Isaac',
-          authorities: [ { authority: 'USER' } ],
-          eligbleToBeDeleted: false,
-          username: 'isaac@gmail.com',
-          accountNonLocked: true,
-          credentialsNonExpired: true,
-          accountNonExpired: true
-        },
-        status: 'IN_PAYMENT'
-      },
-               */}
+       
               {reimboursements?.result?.map((m: IReimbourssementType) => {
                 return (
                   <StyledTableRow key={m.id}>
@@ -384,34 +336,12 @@ const ListOfReimboursements = ({
                     </StyledTableCell>
 
                     <StyledTableCell align="center">
-                      {m.status === "IN_PAYMENT" && (
-                        <CustomChip
-                          text={`${intl.formatMessage({ id: m?.status! })}`}
-                          color="#2d4f85"
-                        />
-                      )}
-                      {m.status === "IN_TREATMENT" && (
-                        <CustomChip
-                          text={`${intl.formatMessage({ id: m?.status! })}`}
-                          color="#055E68"
-                        />
-                      )}
-                      {m.status === "PAID" && (
-                        <CustomChip
-                          text={`${intl.formatMessage({ id: m?.status! })}`}
-                          color="#82472b"
-                        />
-                      )}
+                           {m?.etat === 0 && <CustomChip text={`${intl.formatMessage({id:"en_attente"})}`} color="#2d4f85"/>}
+                      {m?.etat === 1 && <CustomChip text={`${intl.formatMessage({id:"valid"})}`} color="#055E68"/>}
+                      {m?.etat === 2 && <CustomChip text={`${intl.formatMessage({id:"rejet"})}`} color="#82472b"/>}
+                    
                     </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {m.interet!}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {m.dejaRembourser!}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {m.montantAvecInteret!}
-                    </StyledTableCell>
+               
                     <StyledTableCell align="center">
                       <Stack
                         direction={{ xs: "column", sm: "row" }}
@@ -471,7 +401,7 @@ const ListOfReimboursements = ({
               })}
               {!reimboursements?.result && (
                 <StyledTableRow>
-                  <StyledTableCell colSpan={8} sx={{ textAlign: "center" }}>
+                  <StyledTableCell colSpan={5} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">
                       <FormattedMessage id="no-data-display" />
                     </Typography>

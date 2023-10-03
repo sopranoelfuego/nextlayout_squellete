@@ -12,7 +12,7 @@ interface ListOfCotisationsProps {
   handleClickOpenCreateDialog: (member: MemberType) => void;
 }
 
-const loadContributions = async ({ page, size, direction ,token}: ISearchParams ) => {
+const loadContributions = async ({ page, size, direction ,token,memberId}: ISearchParams ) => {
   // const res = await fetch(
   //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -24,7 +24,7 @@ const loadContributions = async ({ page, size, direction ,token}: ISearchParams 
   //     }
   //     );
   const res = await fetch(
-        `${process.env.ROOT_API}/cotisations`,{
+        `${process.env.ROOT_API}/cotisations/membre/${memberId}`,{
           cache:"no-cache",next:{
           tags:["cotisations"]
         },
@@ -36,7 +36,7 @@ const loadContributions = async ({ page, size, direction ,token}: ISearchParams 
       if(!res.ok)return
       return res.json();
 };
-const loadCredits = async ({ page, size, direction ,token}: ISearchParams ) => {
+const loadCredits = async ({ page, size, direction ,token,memberId}: ISearchParams ) => {
   // const res = await fetch(
   //       `${process.env.ROOT_API}/credits?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -48,7 +48,7 @@ const loadCredits = async ({ page, size, direction ,token}: ISearchParams ) => {
   //     }
   //     );
   const res = await fetch(
-        `${process.env.ROOT_API}/credits`,{
+        `${process.env.ROOT_API}/credits/membre/${memberId}`,{
           cache:"no-cache",next:{
           tags:["credits"]
         },
@@ -60,7 +60,7 @@ const loadCredits = async ({ page, size, direction ,token}: ISearchParams ) => {
       if(!res.ok)return
       return res.json();
 };
-const loadReimboursements = async ({ page, size, direction ,token}: ISearchParams ) => {
+const loadReimboursements = async ({ page, size, direction ,token,memberId}: ISearchParams ) => {
   // const res = await fetch(
   //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -72,7 +72,7 @@ const loadReimboursements = async ({ page, size, direction ,token}: ISearchParam
   //     }
   //     );
   const res = await fetch(
-        `${process.env.ROOT_API}/remboursements`,{
+        `${process.env.ROOT_API}/remboursements/membre/${memberId}`,{
           cache:"no-cache",next:{
           tags:["remboursements"]
         },
@@ -119,20 +119,24 @@ export default async function Home({
     page,
     size,
     direction,
+    memberId:userStorage?.id,
     token:userStorage?.token!
   })
   const cotisationsData=loadContributions({
     page,
     size,
     direction,
+    memberId:userStorage?.id,
     token:userStorage?.token!
   })
   const remboursements=loadReimboursements({
     page,
     size,
     direction,
+    memberId:userStorage?.id,
     token:userStorage?.token!
   })
+  // if(userStorage)
   const [credits,cotisations,reimboursements]=await Promise.all([creditsData,cotisationsData,remboursements])
 //   const contributions: ListOfCotisationsProps = await loadContributions({
 //     page,

@@ -9,5 +9,6 @@ export interface ISearchParams{
     size:number
     direction:'ASC' | 'DESC' | string
     sortBy?:string,
-    token:string
+    token:string,
+    memberId?:string | number | undefined
 }

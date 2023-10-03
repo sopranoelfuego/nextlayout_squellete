@@ -175,11 +175,11 @@ CreateReimboursementProps) {
     formik.setFieldValue("creditId","")
     setCreditInputValue("")
     setMembers([])
-    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/credits/membre/${newValue.id}`,{cache:"no-cache"})
+    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/credits/membre/${newValue?.id}`,{cache:"no-cache"})
       .then((res) => res.json())
       .then((res) => {
         setCredits(
-          res.result?.map((res: ICreditType) => ({
+          res?.result?.map((res: ICreditType) => ({
             id: res.id,
             title: `${res.id}` + " || " + `${res.motif}`,
           }))
