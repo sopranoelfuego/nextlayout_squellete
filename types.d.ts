@@ -47,6 +47,14 @@ export interface ICompteSettingType {
   montantEndette: number;
   interet: number;
 }
+export interface IReportType {
+  montantCotise: number,
+  montantCredit: number,
+  montantRemburse: number,
+  montantRestantSurCredit: number,
+  montantTotalARecevoir: number,
+  interet: number
+}
 export interface IReimbourssementType {
   id?: string | number | undefined;
   montant: number;

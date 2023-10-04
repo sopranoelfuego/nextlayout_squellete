@@ -1,5 +1,11 @@
+
+import Box from "@mui/material/Box"
+import Report from "./Report"
+
 export default function Page(){
     return (
-        <h1>hello this reports</h1>
+        <Box>
+            <Report/>
+        </Box>
     )
 }

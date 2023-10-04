@@ -388,7 +388,7 @@ const ListOfReimboursements = ({
                           </IconButton>
                         </Tooltip>
                         <Tooltip
-                          title={`${intl.formatMessage({ id: "reject_info" })}`}
+                          title={`${intl.formatMessage({ id: "reject_info" })}` }
                         >
                           <IconButton
                             color="error"
