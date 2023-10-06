@@ -13,11 +13,9 @@ import { FormattedMessage, useIntl } from "react-intl";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { useRouter } from "next/navigation";
-import { revalidateTag } from "next/cache";
 
 import { HiUser, HiUserAdd, HiCash } from "react-icons/hi";
 
-import onHandleSubmit from "@/app/actions/serverActionMember";
 import { MemberType } from "../../../../types";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -306,7 +304,7 @@ export default function CreateMember({
                   borderRadius: "5px",
                   ":hover": { cursor: "pointer", backgroundColor: "#62A388" },
                   backgroundColor:
-                    formik.values.role === "TRESORERIER" ? "#62A388" : "white",
+                    formik.values.role === "TRESORIER" ? "#62A388" : "white",
                   boxShadow:
                     "0 4px 8px 0 rgba(160, 158, 158, 0.2),0 6px 20px 0 rgba(221, 218, 218, 0.3)",
                   paddingY: "1rem",

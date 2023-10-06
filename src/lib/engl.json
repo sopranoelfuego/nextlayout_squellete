@@ -44,6 +44,7 @@
   "delet-failed": "deletion failed",
   "contact": "contact",
   "montant": "amount",
+  "my_account":"My account",
   "trans-code": "transaction code",
   "contact-length": "contact length must be at least 11 digits",
   "no-data-display": "no data to display",
