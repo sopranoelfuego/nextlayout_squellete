@@ -107,7 +107,6 @@ export default async function Home({
     if (!userStorage) redirect("/login");
   }
 
-  // const session = await getServerSession(authOptions);
  
   const page =
     typeof searchParams?.page === "string" ? Number(searchParams?.page) : 0;
