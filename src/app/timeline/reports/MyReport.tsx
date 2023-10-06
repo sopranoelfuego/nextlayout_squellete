@@ -152,7 +152,7 @@ export default function MyReport({
             justifyContent="space-between"
             alignItems={{ xs: "fex-end", sm: "center" }}
           >
-            <Typography fontWeight={600}>montant cotisé:</Typography>
+            <Typography fontWeight={600}>Montant cotisé:</Typography>
             <Typography fontWeight={700}>
               {myReport?.montantCotise} fbu
             </Typography>
@@ -162,7 +162,7 @@ export default function MyReport({
             justifyContent="space-between"
             alignItems={{ xs: "fex-end", sm: "center" }}
           >
-            <Typography color="#252528">montant credit:</Typography>
+            <Typography color="#252528">Montant credit:</Typography>
             <Typography fontWeight={700}>
               {myReport?.montantCredit} fbu
             </Typography>
@@ -172,7 +172,7 @@ export default function MyReport({
             justifyContent="space-between"
             alignItems={{ xs: "fex-end", sm: "center" }}
           >
-            <Typography color="#252528">montant montantRemburse:</Typography>
+            <Typography color="#252528">Montant déjà Rembourse:</Typography>
             <Typography fontWeight={700}>
               {myReport?.montantRemburse} fbu
             </Typography>
@@ -183,38 +183,29 @@ export default function MyReport({
             alignItems={{ xs: "fex-end", sm: "center" }}
           >
             <Typography color="#252528">
-              montant montant Restant sur Crédit:
+              Montant Restant sur Crédit:
             </Typography>
             <Typography fontWeight={700}>
               {myReport?.montantRestantSurCredit} fbu
             </Typography>
           </Stack>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-between"
-            alignItems={{ xs: "fex-end", sm: "center" }}
-          >
-            <Typography color="#252528">interet:</Typography>
-            <Typography fontWeight={700}>
-              {myReport?.montantRestantSurCredit} fbu
-            </Typography>
-          </Stack>
+       
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
           >
             <Typography color="#252528">
-              montant montant total a recevoir:
+               Montant total à récevoir:
             </Typography>
             <Typography fontWeight={700} color="green">
-              {myReport?.montantRestantSurCredit} fbu
+              {myReport?.montantTotalARecevoir} fbu
             </Typography>
           </Stack>
         </Box>
       ) : (
         <Alert severity="info">
           <AlertTitle>Info</AlertTitle>
-          veuillez choisir le membere a calculer et{" "}
+          veuillez choisir le membre a afficher et{" "}
           <strong>cliquer sur submit</strong>
         </Alert>
       )}

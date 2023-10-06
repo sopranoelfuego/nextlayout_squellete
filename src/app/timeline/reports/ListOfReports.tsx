@@ -47,6 +47,8 @@ function createData(
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
+  console.log("report here:",row)
+
   return (
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -111,7 +113,7 @@ function createData(
   );
 }
 export default function ListOfReports({ reports }: { reports: any }) {
-  console.log("reports:", reports);
+
   
    return (
     <TableContainer component={Paper}>
@@ -125,8 +127,8 @@ export default function ListOfReports({ reports }: { reports: any }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {reports.map((row:IReportType & {nom:string,prenom:string,contact:string}) => (
-            <Row key={row.name} row={row} />
+          {reports?.rapportResponses?.map((row:IReportType & {nom:string,prenom:string,contact:string}) => (
+            <Row key={row?.nom} row={row} />
           ))}
         </TableBody>
       </Table>
