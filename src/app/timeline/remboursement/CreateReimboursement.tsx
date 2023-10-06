@@ -150,7 +150,7 @@ CreateReimboursementProps) {
           ? handleOpenAlert("success", <FormattedMessage id="edit-succ" />)
           : handleOpenAlert("success", <FormattedMessage id="create-succ" />);
         handleCloseDialog();
-        router.push("/timeline/reimboursement?page=0&size=10");
+        router.push("/timeline/remboursement?page=0&size=10");
       }
     } catch (error) {
       setCreating(false);
