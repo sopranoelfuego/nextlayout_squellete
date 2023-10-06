@@ -43,7 +43,6 @@ function a11yProps(index: number) {
 }
 
 interface ISettingProps{
- 
     settings:ISettingType,
     comptes:ICompteSettingType
 }
