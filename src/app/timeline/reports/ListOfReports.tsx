@@ -1,8 +1,7 @@
 "use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
+
 import Table from "@mui/material/Table";
 import Button from "@mui/material/Button";
 import TableBody from "@mui/material/TableBody";
@@ -12,7 +11,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
 import { FormattedMessage } from "react-intl";
 import { IReportType } from "../../../../types";
 import styled from "@mui/material/styles/styled";
@@ -51,9 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function createData(
   membre: {
-    nom: string;
-    prenom: string;
-    contact: string;
+    fullName: string;
   },
   montantCotise: number,
   montantCredit: number,
@@ -75,76 +71,25 @@ function createData(
 
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
-  const [open, setOpen] = React.useState(false);
-
-  console.log("report here:", row);
 
   return (
     <>
       <StyledTableRow>
-        <StyledTableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <HiOutlineChevronUp /> : <HiOutlineChevronDown />}
-          </IconButton>
+        <StyledTableCell component="th" scope="row" align="left">
+          {row?.membre?.fullName}
         </StyledTableCell>
-        <StyledTableCell component="th" scope="row">
-          {row?.membre?.nom}
+
+        <StyledTableCell align="right">{row.montantCotise}</StyledTableCell>
+        <StyledTableCell align="right">{row.montantCredit}</StyledTableCell>
+        <StyledTableCell align="right">{row.montantRemburse}</StyledTableCell>
+        <StyledTableCell align="right">
+          {row.montantRestantSurCredit}
         </StyledTableCell>
-        <StyledTableCell align="right">{row?.membre?.prenom}</StyledTableCell>
-        <StyledTableCell align="right">{row?.membre?.contact}</StyledTableCell>
+        <StyledTableCell align="right">{row.interet}</StyledTableCell>
+        <StyledTableCell align="right">
+          {row.montantTotalARecevoir}
+        </StyledTableCell>
       </StyledTableRow>
-      <TableRow>
-        <StyledTableCell
-          style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={6}
-        >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Rapport
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Montant cotisé</StyledTableCell>
-                    <StyledTableCell>Montant en crédit</StyledTableCell>
-                    <StyledTableCell align="right">
-                      Montant à rembourssé
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      Montant restant sur crédits
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      Montant total à remboursser
-                    </StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <StyledTableCell component="th" scope="row">
-                      {row.montantCotise}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.montantCredit}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.montantRemburse}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.montantRestantSurCredit}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.montantTotalARecevoir}
-                    </StyledTableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </StyledTableCell>
-      </TableRow>
     </>
   );
 }
@@ -161,15 +106,32 @@ export default function ListOfReports({ reports }: { reports: any }) {
         <Table aria-label="collapsible table">
           <TableHead>
             <StyledTableRow>
-              <StyledTableCell />
-              <StyledTableCell>
-                <FormattedMessage id="nom" />
+              <StyledTableCell align="left">
+                <FormattedMessage id="single_member" />
               </StyledTableCell>
               <StyledTableCell align="right">
-                <FormattedMessage id="prenom" />
+                {/* <FormattedMessage id="prenom" /> */}
+                Montant cotisé
               </StyledTableCell>
               <StyledTableCell align="right">
-                <FormattedMessage id="contact" />
+                {/* <FormattedMessage id="contact" /> */}
+                Montant en crédit
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {/* <FormattedMessage id="contact" /> */}
+                Montant à rembourssé
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {/* <FormattedMessage id="contact" /> */}
+                Montant restant sur crédits
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {/* <FormattedMessage id="contact" /> */}
+                interet
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {/* <FormattedMessage id="contact" /> */}
+                montant total à recevoir
               </StyledTableCell>
             </StyledTableRow>
           </TableHead>
@@ -178,37 +140,46 @@ export default function ListOfReports({ reports }: { reports: any }) {
               (
                 row: IReportType & {
                   membre: {
-                    nom: string;
-                    prenom: string;
-                    contact: string;
+                    fullName: string;
                   };
                 }
               ) => (
-                <Row key={row?.membre?.nom} row={row} />
+                <Row key={row?.membre?.fullName} row={row} />
               )
             )}
           </TableBody>
           <StyledTableRow>
-            <StyledTableCell colSpan={3} />
-            <StyledTableCell align="right" >
+            <StyledTableCell colSpan={6} />
+            <StyledTableCell align="right">
               {/* "montantDisponible": 0,
   "montantEndette": 0,
   "interet": 0, */}
-              <Stack direction="row"  justifyContent="right">
-                <Typography fontWeight="600" fontSize="0.9rem">montant en dette :</Typography>
-                <Typography fontWeight="600" fontSize="0.9rem">{reports?.montantEndette}</Typography>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography fontWeight="600" fontSize="0.9rem">
+                  montant en dette :
+                </Typography>
+                <Typography fontWeight="600" fontSize="0.9rem">
+                  {reports?.montantEndette}
+                </Typography>
               </Stack>
-              <Stack direction="row" justifyContent="right">
-                <Typography fontWeight="600" fontSize="0.9rem">montant disponible :</Typography>
-                <Typography fontWeight="600" fontSize="0.9rem">{reports?.montantDisponible}</Typography>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography fontWeight="600" fontSize="0.9rem">
+                  montant disponible :
+                </Typography>
+                <Typography fontWeight="600" fontSize="0.9rem">
+                  {reports?.montantDisponible}
+                </Typography>
               </Stack>
-              <Stack direction="row" justifyContent="right">
-                <Typography fontWeight="600" fontSize="0.9rem">interet :</Typography>
-                <Typography fontWeight="600" fontSize="0.9rem">{reports?.interet}</Typography>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography fontWeight="600" fontSize="0.9rem">
+                  interet :
+                </Typography>
+                <Typography fontWeight="600" fontSize="0.9rem">
+                  {reports?.interet}
+                </Typography>
               </Stack>
             </StyledTableCell>
           </StyledTableRow>
-       
         </Table>
       </TableContainer>
     </>
