@@ -10,7 +10,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_AUTH_SECRET_ID!,
     }),
     CredentialsProvider({
-      name: "Credentials",
+      id:"credentials",
+      name: "ziganya",
 
       credentials: {
         email: { label: "email", type: "text", placeholder: "eric" },
@@ -21,29 +22,31 @@ export const authOptions: NextAuthOptions = {
 
         
         const res = await fetch(
-          `http://localhost:8081/gp-com/api/v1/authenticate`,
+          `${process.env.ROOT_API}/authenticate`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-               username: credentials?.email,
-            password: credentials?.password,
+               email: credentials?.email,
+                password: credentials?.password,
             }),
           }
         );
         
-        // const user = await res.json();
-        console.log("credentials:",res)
-          const data=await  res.json()
-
-
-        if (data) {
-          return data;
-        } else {
-          return null;
+          const user = await res.json();
+          console.log("user:",res.ok,user)
+        if (!res.ok) {
+          throw new Error(user.message);
         }
+        // If no error and we have user data, return it
+        if (res.ok && user) {
+          return user;
+        }
+
+        // Return null if user data could not be retrieved
+        return null;
         {
   // "success": true,
   // "message": "Operation reussie",
@@ -59,6 +62,8 @@ export const authOptions: NextAuthOptions = {
   ],
    pages: {
     signIn: "/login",
+    error:"/login",
+    // error:"error avec login"
   },
   secret: process.env.JWT_SECRET,
 };

@@ -156,7 +156,7 @@ export default function ListOfReports({ reports }: { reports: any }) {
   "interet": 0, */}
               <Stack direction="row" justifyContent="space-between">
                 <Typography fontWeight="600" fontSize="0.9rem">
-                  montant en dette :
+                  En dette :
                 </Typography>
                 <Typography fontWeight="600" fontSize="0.9rem">
                   {reports?.montantEndette}
@@ -164,7 +164,7 @@ export default function ListOfReports({ reports }: { reports: any }) {
               </Stack>
               <Stack direction="row" justifyContent="space-between">
                 <Typography fontWeight="600" fontSize="0.9rem">
-                  montant disponible :
+                  Disponible :
                 </Typography>
                 <Typography fontWeight="600" fontSize="0.9rem">
                   {reports?.montantDisponible}

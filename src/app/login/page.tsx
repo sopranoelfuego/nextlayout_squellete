@@ -9,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
-import signIn from "next-auth";
+
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useFormik } from "formik";
@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
 import jwtDecode from "jwt-decode";
 import { AuthContext } from "@/components/contexts/authContext";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const intl = useIntl();
@@ -46,35 +47,39 @@ const Login = () => {
     onSubmit: async (values) => {
       setIsLoading(true);
       setWrongCredentials(false);
+     const res =await signIn('credentials', {redirect:false, email: values.email, password: values.password,callbackUrl:"/timeline" })
+     if(res?.error)
+     alert(res?.error)
+    console.log("res:",res)
       // signIn("credentials",values)
 
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_API}/authenticate`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: values?.email,
-              password: values?.password,
-            }),
-          }
-        );
+      // try {
+      //   const res = await fetch(
+      //     `${process.env.NEXT_PUBLIC_ROOT_API}/authenticate`,
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         email: values?.email,
+      //         password: values?.password,
+      //       }),
+      //     }
+      //   );
 
-        const data = await res.json();
+      //   const data = await res.json();
 
-        setIsLoading(false);
-        initiateUserSession(data?.result?.accessToken);
-        router.push("/timeline");
-      } catch (error) {
-        setWrongCredentials(true);
+      //   setIsLoading(false);
+      //   initiateUserSession(data?.result?.accessToken);
+      //   router.push("/timeline");
+      // } catch (error) {
+      //   setWrongCredentials(true);
 
-        handleOpenAlert("error", "network error");
-        setIsLoading(false);
+      //   handleOpenAlert("error", "network error");
+      //   setIsLoading(false);
 
-      }
+      // }
     },
   });
   return (

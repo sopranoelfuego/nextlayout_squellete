@@ -61,6 +61,7 @@ const loadCredits = async ({ page, size, direction ,token,memberId}: ISearchPara
       return res.json();
 };
 const loadReimboursements = async ({ page, size, direction ,token,memberId}: ISearchParams ) => {
+
   // const res = await fetch(
   //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -101,9 +102,9 @@ export default async function Home({
     role:"",
     token:""
   }
-  if(typeof window !== 'undefined'){
-
-    userStorage=JSON.parse(localStorage.getItem("user")!)
+  if(typeof window !== "undefined"){
+    console.log("console:")
+userStorage=JSON.parse(window.localStorage.getItem("user")!)
     if (!userStorage) redirect("/login");
   }
 
@@ -143,7 +144,6 @@ export default async function Home({
 //     direction,
 //     token:userStorage?.token!
 //   })
-
 
 
 
