@@ -103,7 +103,7 @@ export default async function Home({
     token:""
   }
   if(typeof window !== "undefined"){
-    console.log("console:")
+    
 userStorage=JSON.parse(window.localStorage.getItem("user")!)
     if (!userStorage) redirect("/login");
   }

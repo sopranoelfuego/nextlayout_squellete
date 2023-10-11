@@ -66,12 +66,10 @@ export default function AuthContextProvider({
 
   const initiateUserSession = useCallback((token: string) => {
     let userGot: any = jwtDecode(token);
-  
-
     if (userGot)
       setUser((user) => ({
         ...user,
-        id:userGot.id,
+        id:userGot?.id,
         nom: userGot?.nom,
         prenom: userGot?.prenom || "",
         email: userGot?.email,
@@ -80,7 +78,7 @@ export default function AuthContextProvider({
       }));
     window.localStorage.setItem("user", JSON.stringify({
         ...user,
-        id:userGot.id,
+        id:userGot?.id,
         nom: userGot?.nom,
         prenom: userGot?.prenom || "",
         email: userGot?.email,

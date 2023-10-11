@@ -36,12 +36,13 @@ export const authOptions: NextAuthOptions = {
         );
         
           const user = await res.json();
-          console.log("user:",res.ok,user)
+          // console.log("user:",res.ok,user)
         if (!res.ok) {
           throw new Error(user.message);
         }
         // If no error and we have user data, return it
         if (res.ok && user) {
+        
           return user;
         }
 
@@ -66,4 +67,26 @@ export const authOptions: NextAuthOptions = {
     // error:"error avec login"
   },
   secret: process.env.JWT_SECRET,
+  callbacks: {
+    async jwt(token) {
+      // @ts-ignore
+      if (token.token && token?.token?.user) {
+        return {
+          ...token,
+          // @ts-ignore
+          accessToken: token?.token?.user?.accessToken,
+        };
+      }
+          // @ts-ignore
+
+
+      return token;
+    },
+
+    // async session({ session, token }) {
+    //   session.user.accessToken = token.accessToken;
+        
+    //   return session;
+    // },
+  },
 };

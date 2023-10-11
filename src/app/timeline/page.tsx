@@ -6,17 +6,20 @@ import DashBoard from "./DashBoard";
 
 async function loadData () {
   const res = await fetch(`${process.env.ROOT_API}/dashboard`,{cache:"no-cache"});
-  const data = res.json();
+  const data = await res.json();
+        console.log("data:",data)
+
   // if(!data.ok)return
   return data;
 };
 export default async function Home() {
   if (typeof window !== "undefined") {
-    const userStorage = localStorage.getItem("user");
-    if (!userStorage) return redirect("/login");
+    const userStorage = JSON.parse(localStorage.getItem("user")!);
+    if (!userStorage?.id) return redirect("/login");
   }
 
    const {response}  = await loadData()
+   
   return <DashBoard resumee={response}/>;
 
 }
