@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react";
 
 import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
-import Button from "@mui/material/Button";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import styled from "@mui/material/styles/styled";
@@ -12,7 +11,6 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import TableBody from "@mui/material/TableBody";
-import Chip from "@mui/material/Chip";
 import TablePagination from "@mui/material/TablePagination";
 import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
@@ -91,7 +89,7 @@ interface ListOfReimboursementsProps {
 }
 
 const ListOfReimboursements = ({
-  reimboursements,
+  reimboursements
 }: ListOfReimboursementsProps) => {
 
   const router = useRouter();
@@ -131,7 +129,6 @@ const ListOfReimboursements = ({
   const handleClickOpenCreateDialog = (
     reimboursement?: IReimbourssementType
   ) => {
-    console.log("contibution:", reimboursement);
     setReimboursement({
       id: 0,
       montant: 0,
@@ -316,10 +313,13 @@ const ListOfReimboursements = ({
                 <StyledTableCell align="center">
                   <FormattedMessage id="status" />
                 </StyledTableCell>
+                {user.role !== "USER" && (
 
                 <StyledTableCell align="center">
                   <FormattedMessage id="actions" />
                 </StyledTableCell>
+                )}
+
               </StyledTableRow>
             </TableHead>
             <TableBody>
@@ -357,8 +357,9 @@ const ListOfReimboursements = ({
                         />
                       )}
                     </StyledTableCell>
+                      {user.role !== "USER" && (
 
-                    <StyledTableCell align="center">
+                <StyledTableCell align="center">
                       <Stack
                         direction={{ xs: "column", sm: "row" }}
                         justifyContent="center"
@@ -412,6 +413,9 @@ const ListOfReimboursements = ({
                         </Tooltip>
                       </Stack>
                     </StyledTableCell>
+                )}
+
+                    
                   </StyledTableRow>
                 );
               })}

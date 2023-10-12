@@ -7,7 +7,6 @@ import DashBoard from "./DashBoard";
 async function loadData () {
   const res = await fetch(`${process.env.ROOT_API}/dashboard`,{cache:"no-cache"});
   const data = await res.json();
-        console.log("data:",data)
 
   // if(!data.ok)return
   return data;

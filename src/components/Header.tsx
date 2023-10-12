@@ -107,8 +107,7 @@ function Header({
       {/* LANGAUE TOGGLE BLOCK */}
       <ClickAwayListener onClickAway={() => {
          setDisplayLang(false)
-        //  setDisplayMenu(false);
-        // console.log("click")
+        
         }}>
         <Box sx={{ position: "relative", marginRight: "2rem" }}>
           <Stack

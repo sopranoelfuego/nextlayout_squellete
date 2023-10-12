@@ -113,7 +113,6 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
     setFilterValue(e.target.value);
   const handleClear = () => setFilterValue("");
   const handleClickOpenCreateDialog = (credit?: ICreditType) => {
-    console.log("contibution:", credit);
     setCredit({
       id: "",
       montant: 0,
@@ -287,7 +286,6 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
             fullWidth
             type="date"
             size="small"
-            // {...formik.getFieldProps("dateDebutCycle")}
             variant="outlined"
           />
         </Grid>
@@ -300,7 +298,6 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
             fullWidth
             type="date"
             size="small"
-            // {...formik.getFieldProps("dateDebutCycle")}
             variant="outlined"
           />
         </Grid>
@@ -337,9 +334,11 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                 <StyledTableCell align="center">
                   <FormattedMessage id="dateCredit" />
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="actions" />
-                </StyledTableCell>
+                {user.role !== "USER" && (
+                  <StyledTableCell align="center">
+                    <FormattedMessage id="actions" />
+                  </StyledTableCell>
+                )}
               </StyledTableRow>
             </TableHead>
             <TableBody>
@@ -374,65 +373,70 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
                     <StyledTableCell align="center">
                       {m?.dateCredit}
                     </StyledTableCell>
+                    {user.role !== "USER" && (
+                      <StyledTableCell align="center">
+                        <Stack
+                          direction={{ xs: "column", sm: "row" }}
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Tooltip
+                            title={`${intl.formatMessage({ id: "edit" })}`}
+                          >
+                            <IconButton
+                              onClick={() => handleClickOpenCreateDialog(m)}
+                            >
+                              <HiOutlinePencil fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
 
-                    <StyledTableCell align="center">
-                      <Stack
-                        direction={{ xs: "column", sm: "row" }}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "edit" })}`}
-                        >
-                          <IconButton
-                            onClick={() => handleClickOpenCreateDialog(m)}
+                          <Tooltip
+                            title={`${intl.formatMessage({
+                              id: "valid_info",
+                            })}`}
                           >
-                            <HiOutlinePencil fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "valid_info" })}`}
-                        >
-                          <IconButton
-                            color="success"
-                            disabled={m.status === "IN_PAYMENT"}
-                            onClick={() =>
-                              handleOpenValidOrRejectDialog(m, "v")
-                            }
+                            <IconButton
+                              color="success"
+                              disabled={m.status === "IN_PAYMENT"}
+                              onClick={() =>
+                                handleOpenValidOrRejectDialog(m, "v")
+                              }
+                            >
+                              <HiOutlineCheck fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip
+                            title={`${intl.formatMessage({
+                              id: "reject_info",
+                            })}`}
                           >
-                            <HiOutlineCheck fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "reject_info" })}`}
-                        >
-                          <IconButton
-                            color="error"
-                            disabled={m.status === "IN_TREATMENT"}
-                            onClick={() =>
-                              handleOpenValidOrRejectDialog(m, "r")
-                            }
+                            <IconButton
+                              color="error"
+                              disabled={m.status === "IN_TREATMENT"}
+                              onClick={() =>
+                                handleOpenValidOrRejectDialog(m, "r")
+                              }
+                            >
+                              <HiOutlineX fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip
+                            title={`${intl.formatMessage({ id: "delete" })}`}
                           >
-                            <HiOutlineX fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "delete" })}`}
-                        >
-                          <IconButton
-                            color="error"
-                            onClick={() => handleOpenDeleteDialogue(m)}
-                          >
-                            <HiOutlineTrash fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-                      </Stack>
-                    </StyledTableCell>
+                            <IconButton
+                              color="error"
+                              onClick={() => handleOpenDeleteDialogue(m)}
+                            >
+                              <HiOutlineTrash fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
+                        </Stack>
+                      </StyledTableCell>
+                    )}
                   </StyledTableRow>
                 );
               })}
-              {!credits?.result && (
+              {credits?.result?.length == 0 && (
                 <StyledTableRow>
                   <StyledTableCell colSpan={6} sx={{ textAlign: "center" }}>
                     <Typography fontSize="bold">

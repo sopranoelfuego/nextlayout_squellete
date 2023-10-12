@@ -1,4 +1,6 @@
-export default function MesCotisations(){
-  return <h4>mes remboursements</h4>
+import ListOfReimboursements from "../remboursement/ListOfReimboursements";
+
+export default function MesCotisations({reimboursements}:{reimboursements:any}){
+  return <ListOfReimboursements reimboursements={reimboursements}/>
 
 }

@@ -7,7 +7,7 @@ import ListOfCredits from "../credit/ListOfCredits";
 
 
 interface IMesCreditsProps{
-  credits:ICreditType[]
+  credits:any
 }
 
 export default function MesCredits({credits}:IMesCreditsProps){
@@ -19,7 +19,7 @@ export default function MesCredits({credits}:IMesCreditsProps){
   });
   const [open, setOpen ] = useState<boolean>(false)
   const handleClickOpenCreateDialog = (credit?: ICreditType) => {
-    console.log("contibution:",credit)
+  
     setCredit({
       id: "",
       montant: 0,
@@ -35,10 +35,12 @@ export default function MesCredits({credits}:IMesCreditsProps){
       });
     setOpen(true);
   };
-  return <Box>
+  return (
+
+    <ListOfCredits credits={credits} />
+  )
     
-      <ListOfCredits credits={credits} />;
     
-  </Box>
+  
 
 }

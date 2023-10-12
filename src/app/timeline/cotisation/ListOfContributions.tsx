@@ -11,7 +11,6 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import TableBody from "@mui/material/TableBody";
-import Chip from "@mui/material/Chip";
 import TablePagination from "@mui/material/TablePagination";
 import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
@@ -92,8 +91,8 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   const router = useRouter();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
-    const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
   const [deleting, setDeleting] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
@@ -112,8 +111,8 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
     dateCotisation: "",
     membreId: "",
   });
-   const handleDeleteContribution = (contribution?: CotisationType) => {
-     if (contribution)
+  const handleDeleteContribution = (contribution?: CotisationType) => {
+    if (contribution)
       setContribution({
         montant: contribution.montant,
         codeTransaction: contribution.codeTransaction,
@@ -149,7 +148,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
     typeM?: "v" | "r"
   ) => {
     if (typeM) {
-      switch (typeM) { 
+      switch (typeM) {
         case "r": {
           setTitle("Rejet du contribution");
           setMessage("voulez-vous vraiment rejeter cette contribution");
@@ -207,7 +206,10 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         if (!data?.success) {
           handleOpenAlert("info", data?.message);
         } else {
-      handleOpenAlert("success", <FormattedMessage id="operation-success" />);
+          handleOpenAlert(
+            "success",
+            <FormattedMessage id="operation-success" />
+          );
           router.push("/timeline/cotisation?page=0&size=10");
         }
       }
@@ -215,19 +217,22 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
       setLoading(false);
       // handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
       handleOpenAlert("success", <FormattedMessage id="operation-success" />);
-          router.push("/timeline/cotisation?page=0&size=10");
+      router.push("/timeline/cotisation?page=0&size=10");
     }
   };
 
   // ===========================HANDLE DELEDE ===========================
-   const handleOnDelete = () => {
+  const handleOnDelete = () => {
     setDeleting(true);
-    fetch(`${process.env.NEXT_PUBLIC_ROOT_API}/contributions/${contribution.id}`, {
-      method: "DELETE",
-      headers: {
-        Autorisation: `Bearer ${user.token}`,
-      },
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_ROOT_API}/contributions/${contribution.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Autorisation: `Bearer ${user.token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         setDeleting(false);
@@ -337,9 +342,11 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                 <StyledTableCell align="center">
                   <FormattedMessage id="status" />
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  <FormattedMessage id="actions" />
-                </StyledTableCell>
+                {user.role !== "USER" && (
+                  <StyledTableCell align="center">
+                    <FormattedMessage id="actions" />
+                  </StyledTableCell>
+                )}
               </StyledTableRow>
             </TableHead>
             <TableBody>
@@ -357,66 +364,85 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
                       {m?.dateCotisation}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                         {m?.etat === 0 && <CustomChip text={`${intl.formatMessage({id:"en_attente"})}`} color="#2d4f85"/>}
-                      {m?.etat === 1 && <CustomChip text={`${intl.formatMessage({id:"valid"})}`} color="#055E68"/>}
-                      {m?.etat === 2 && <CustomChip text={`${intl.formatMessage({id:"rejet"})}`} color="#82472b"/>}
-                      
-                     
+                      {m?.etat === 0 && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: "en_attente" })}`}
+                          color="#2d4f85"
+                        />
+                      )}
+                      {m?.etat === 1 && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: "valid" })}`}
+                          color="#055E68"
+                        />
+                      )}
+                      {m?.etat === 2 && (
+                        <CustomChip
+                          text={`${intl.formatMessage({ id: "rejet" })}`}
+                          color="#82472b"
+                        />
+                      )}
                     </StyledTableCell>
-                    <StyledTableCell align="center">
-                      <Stack
-                        direction={{ xs: "column", sm: "row" }}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "edit" })}`}
+                    {user.role !== "USER" && (
+                      <StyledTableCell align="center">
+                        <Stack
+                          direction={{ xs: "column", sm: "row" }}
+                          justifyContent="center"
+                          alignItems="center"
                         >
-                          <IconButton
-                            onClick={() => handleClickOpenCreateDialog(m)}
+                          <Tooltip
+                            title={`${intl.formatMessage({ id: "edit" })}`}
                           >
-                            <HiOutlinePencil fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
+                            <IconButton
+                              onClick={() => handleClickOpenCreateDialog(m)}
+                            >
+                              <HiOutlinePencil fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
 
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "valid_info" })}`}
-                        >
-                          <IconButton
-                            color="success"
-                            disabled={m?.etat === 1}
-                            onClick={() =>
-                              handleOpenValidOrRejectDialog(m, "v")
-                            }
+                          <Tooltip
+                            title={`${intl.formatMessage({
+                              id: "valid_info",
+                            })}`}
                           >
-                            <HiOutlineCheck fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "reject_info" })}`}
-                        >
-                          <IconButton
-                            color="error"
-                            disabled={m?.etat === 2 || m?.etat === 1}
-                            onClick={() =>
-                              handleOpenValidOrRejectDialog(m, "r")
-                            }
+                            <IconButton
+                              color="success"
+                              disabled={m?.etat === 1}
+                              onClick={() =>
+                                handleOpenValidOrRejectDialog(m, "v")
+                              }
+                            >
+                              <HiOutlineCheck fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip
+                            title={`${intl.formatMessage({
+                              id: "reject_info",
+                            })}`}
                           >
-                            <HiOutlineX fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                          title={`${intl.formatMessage({ id: "delete" })}`}
-                        >
-                          <IconButton
-                            color="error"
-                            onClick={() => handleDeleteContribution(m)}
+                            <IconButton
+                              color="error"
+                              disabled={m?.etat === 2 || m?.etat === 1}
+                              onClick={() =>
+                                handleOpenValidOrRejectDialog(m, "r")
+                              }
+                            >
+                              <HiOutlineX fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip
+                            title={`${intl.formatMessage({ id: "delete" })}`}
                           >
-                            <HiOutlineTrash fontSize={17} />
-                          </IconButton>
-                        </Tooltip>
-                      </Stack>
-                    </StyledTableCell>
+                            <IconButton
+                              color="error"
+                              onClick={() => handleDeleteContribution(m)}
+                            >
+                              <HiOutlineTrash fontSize={17} />
+                            </IconButton>
+                          </Tooltip>
+                        </Stack>
+                      </StyledTableCell>
+                    )}
                   </StyledTableRow>
                 );
               })}
@@ -457,7 +483,7 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
         handleOperation={handleSubmitValidateOrRejectContribution}
         loading={loading}
       />
-       <DeleteDialog
+      <DeleteDialog
         open={openDeleteModal}
         deleting={deleting}
         handleClose={() => setOpenDeleteModal((prev) => !prev)}

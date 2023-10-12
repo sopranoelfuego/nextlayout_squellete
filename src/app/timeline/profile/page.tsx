@@ -148,5 +148,5 @@ userStorage=JSON.parse(window.localStorage.getItem("user")!)
 
 
 
-  return <Profile credits={credits} cotisations={cotisations} reimboursements={reimboursements}/>
+  return <Profile />
 }

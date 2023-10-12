@@ -68,7 +68,7 @@ export default function CreateMember({
       return false;
     }
     if (formik.values.contact.trim()?.length <= 10) {
-      console.log("error contact", formik.values.contact.trim()?.length);
+     handleOpenAlert("info",intl.formatMessage({ id: "contact-length" }))
       setErrors((_) => ({
         ...errors,
         contact: intl.formatMessage({ id: "contact-length" }),
@@ -201,6 +201,7 @@ export default function CreateMember({
                 error={Boolean(errors.nom)}
                 helperText={errors.nom}
                 size="small"
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -214,6 +215,7 @@ export default function CreateMember({
                 error={Boolean(errors.prenom)}
                 helperText={formik.touched.prenom && errors.prenom}
                 size="small"
+                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -228,6 +230,7 @@ export default function CreateMember({
                 onChange={(phone) => {
                   formik.setFieldValue("contact", "+" + phone);
                 }}
+                
               />
               <small className="text-red-800">
                 {formik.values.contact && formik.errors.contact}
@@ -243,6 +246,7 @@ export default function CreateMember({
                 helperText={errors.email}
                 type="email"
                 size="small"
+                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -255,6 +259,7 @@ export default function CreateMember({
                 helperText={errors.password}
                 type="text"
                 size="small"
+                required
               />
             </Grid>
             <Grid item xs={12} display="flex" gap="1rem" flexDirection="row">

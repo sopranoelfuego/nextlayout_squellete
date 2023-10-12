@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect,useContext } from "react";
+import React, { useEffect,useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -7,7 +7,11 @@ import UserInfo from "./UserInfo";
 import MesCredits from "./MesCreditsTab";
 import MesCotisations from "./MesCotisationTabs";
 import MesRemboursements from "./MesRemboursementsTab";
-import { CotisationType, ICreditType, IReimbourssementType } from "../../../../types";
+import {
+  CotisationType,
+  ICreditType,
+  IReimbourssementType,
+} from "../../../../types";
 import { ISearchParams } from "@/types";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
@@ -16,13 +20,19 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
-interface IProfileProps{
-  credits:ICreditType[],
-  cotisations:CotisationType[],
-  reimboursements:IReimbourssementType[]
+interface IProfileProps {
+  credits: ICreditType[];
+  cotisations: CotisationType[];
+  reimboursements: IReimbourssementType[];
 }
 
-const loadContributions = async ({ token,memberId}: {token:string,memberId:string | number | undefined} ) => {
+const loadContributions = async ({
+  token,
+  memberId,
+}: {
+  token: string;
+  memberId: string | number | undefined;
+}) => {
   // const res = await fetch(
   //       `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -34,19 +44,27 @@ const loadContributions = async ({ token,memberId}: {token:string,memberId:strin
   //     }
   //     );
   const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/membre/${memberId}`,{
-          cache:"no-cache",next:{
-          tags:["cotisations"]
-        },
-        headers:{
-          "Authorization":`Bearer ${token}`
-        }
-      }
-      );
-      if(!res.ok)return
-      return res.json();
+    `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations/membre/${memberId}`,
+    {
+      cache: "no-cache",
+      next: {
+        tags: ["cotisations"],
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (!res.ok) return;
+  return res.json();
 };
-const loadCredits = async ({ token,memberId}: {token:string,memberId:string | number | undefined} ) => {
+const loadCredits = async ({
+  token,
+  memberId,
+}: {
+  token: string;
+  memberId: string | number | undefined;
+}) => {
   // const res = await fetch(
   //       `${process.env.NEXT_PUBLIC_ROOT_API}/credits?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -59,22 +77,28 @@ const loadCredits = async ({ token,memberId}: {token:string,memberId:string | nu
   //     );
 
   const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_API}/credits/membre/${memberId}`,{
-          cache:"no-cache",next:{
-          tags:["credits"]
-        },
-        headers:{
-          "Authorization":`Bearer ${token}`
-        }
-      }
-      );
-        console.log("user:",memberId,token)
+    `${process.env.NEXT_PUBLIC_ROOT_API}/credits/membre/${memberId}`,
+    {
+      cache: "no-cache",
+      next: {
+        tags: ["credits"],
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-      if(!res.ok)return
-      return res.json();
+  if (!res.ok) return;
+  return res.json();
 };
-const loadReimboursements = async ({ token,memberId}: {token:string,memberId:string | number | undefined} ) => {
-
+const loadReimboursements = async ({
+  token,
+  memberId,
+}: {
+  token: string;
+  memberId: string | number | undefined;
+}) => {
   // const res = await fetch(
   //       `${process.env.NEXT_PUBLIC_ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
   //         cache:"no-cache",next:{
@@ -86,19 +110,20 @@ const loadReimboursements = async ({ token,memberId}: {token:string,memberId:str
   //     }
   //     );
   const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_API}/remboursements/by-membre/${memberId}`,{
-          cache:"no-cache",next:{
-          tags:["remboursements"]
-        },
-        headers:{
-          "Authorization":`Bearer ${token}`
-        }
-      }
-      );
-      if(!res.ok)return
-      return res.json();
+    `${process.env.NEXT_PUBLIC_ROOT_API}/remboursements/by-membre/${memberId}`,
+    {
+      cache: "no-cache",
+      next: {
+        tags: ["remboursements"],
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (!res.ok) return;
+  return res.json();
 };
-
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -122,39 +147,46 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-export default function Profile({credits,cotisations,reimboursements}:IProfileProps) {
+export default function Profile() {
   const { user } = useContext(AuthContext);
+  const [credits, setCredits] = useState({})
+const [cotisations, setCotisations] = useState({})
+  const [reimboursements, setReimboursements] = useState({})
   const { handleOpenAlert } = useContext(SnackAlertContext);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
-  
   useEffect(() => {
     let unSubscriber = true;
 
- 
-  // if(user)
+    // if(user)
 
     const init = () => {
-      if (user && unSubscriber){
-   const creditsData=loadCredits({
-    memberId:user?.id!,
-    token:user?.token!
-  })
-  const cotisationsData=loadContributions({
-    memberId:user?.id!,
-    token:user?.token!
-  })
-  const remboursements=loadReimboursements({
-    memberId:user?.id,
-    token:user?.token!
-  })
-   Promise.all([creditsData,cotisationsData,remboursements]).then(res=>console.log("res:",res)).catch(err=>{
-    handleOpenAlert("error",err.message)
-   })
-
+      if (user && unSubscriber) {
+        const creditsData = loadCredits({
+          memberId: user?.id!,
+          token: user?.token!,
+        });
+        const cotisationsData = loadContributions({
+          memberId: user?.id!,
+          token: user?.token!,
+        });
+        const remboursements = loadReimboursements({
+          memberId: user?.id!,
+          token: user?.token!,
+        });
+        Promise.all([creditsData, cotisationsData, remboursements])
+          .then((res) => {
+              setCredits(res?.[0])
+              setCotisations(res?.[1])
+              setReimboursements(res?.[2])
+          }
+          )
+          .catch((err) => {
+            console.log("error:",err.message)
+            // handleOpenAlert("error", err.message);
+          });
       }
-        
     };
     init();
     return () => {
@@ -185,13 +217,13 @@ export default function Profile({credits,cotisations,reimboursements}:IProfilePr
         </Box>
         <Box>
           <CustomTabPanel value={value} index={0}>
-            <MesCredits credits={credits}/>
+            <MesCredits credits={credits} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <MesCotisations />
+            <MesCotisations cotisations={cotisations} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            <MesRemboursements />
+            <MesRemboursements reimboursements={reimboursements}/>
           </CustomTabPanel>
         </Box>
       </Box>

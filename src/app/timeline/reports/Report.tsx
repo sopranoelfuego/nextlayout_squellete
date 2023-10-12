@@ -70,7 +70,6 @@ export default function Report({reports,members}:IReportProps) {
   //     token,
   //     memberId,
   //   }: ISearchParams) => {
-  //     console.log("enter:", memberId, token);
 
   //     // const res = await fetch(
   //     //       `${process.env.ROOT_API}/cotisations?page=${page}&size=${size}&direction=${direction}&sortBy=nom`,{
