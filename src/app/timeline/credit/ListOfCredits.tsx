@@ -16,7 +16,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import Paper from "@mui/material/Paper";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   HiOutlineTrash,
@@ -87,7 +87,8 @@ const top100Films = [
 ];
 const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
   const intl = useIntl();
-
+ const pathName=usePathname()
+ console.log("pathName:",pathName)
   const { handleOpenAlert } = useContext(SnackAlertContext);
   const router = useRouter();
   const { user } = useContext(AuthContext);
@@ -164,6 +165,9 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
         if (!data?.success) {
           handleOpenAlert("info", data?.message);
         } else {
+          if(pathName === '/timeline/profile')
+          router.push("/timeline/profile?page=0&size=10");
+        else
           router.push("/timeline/credit?page=0&size=10");
         }
       }
@@ -171,7 +175,10 @@ const ListOfCredits = ({ credits }: ListOfCreditsProps) => {
       setLoading(false);
       // handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
       handleOpenAlert("success", <FormattedMessage id="operation-success" />);
-      router.push("/timeline/credit?page=0&size=10");
+        if(pathName === '/timeline/profile')
+          router.push("/timeline/profile?page=0&size=10");
+        else
+          router.push("/timeline/credit?page=0&size=10");
     }
   };
 

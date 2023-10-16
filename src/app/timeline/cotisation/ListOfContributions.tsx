@@ -36,7 +36,7 @@ import { HiSearch } from "react-icons/hi";
 import CreateContribution from "./CreateContribution";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Tooltip } from "@mui/material";
 import CustomChip from "@/components/common/CustomChip";
@@ -89,11 +89,13 @@ const top100Films = [
 ];
 const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
   const router = useRouter();
+  const pathName = usePathname();
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const [deleting, setDeleting] = useState(false);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [openValidOrReject, setOpenValidOrReject] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
@@ -198,7 +200,6 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user.token}`,
           },
-          // body: JSON.stringify(values),
         });
 
         const data = await res.json();
@@ -210,13 +211,17 @@ const ListOfContributions = ({ contributions }: ListOfContributionsProps) => {
             "success",
             <FormattedMessage id="operation-success" />
           );
-          router.push("/timeline/cotisation?page=0&size=10");
+          if (pathName === "/timeline/profile")
+             router.push("/timeline/profile?page=0&size=10");
+         else router.push("/timeline/cotisation?page=0&size=10");
         }
       }
     } catch (error) {
       setLoading(false);
-      // handleOpenAlert("error", <FormattedMessage id="operation-failed" />);
       handleOpenAlert("success", <FormattedMessage id="operation-success" />);
+      if (pathName === "/timeline/profile")
+        router.push("/timeline/profile?page=0&size=10");
+      else
       router.push("/timeline/cotisation?page=0&size=10");
     }
   };

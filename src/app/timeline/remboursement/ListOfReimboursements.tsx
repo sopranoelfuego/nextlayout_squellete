@@ -37,7 +37,7 @@ import { HiSearch } from "react-icons/hi";
 import CreateReimboursement from "./CreateReimboursement";
 import { AuthContext } from "@/components/contexts/authContext";
 import { SnackAlertContext } from "@/components/contexts/snackAlertContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Tooltip } from "@mui/material";
 import DeleteDialog from "@/components/common/DeleteDialogue";
@@ -94,6 +94,7 @@ const ListOfReimboursements = ({
 
   const router = useRouter();
   const intl = useIntl();
+  const pathName =usePathname()
   const [open, setOpen] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -206,7 +207,10 @@ const ListOfReimboursements = ({
           handleOpenAlert("info", data?.message);
         } else {
           handleOpenAlert("success", <FormattedMessage id="operation-success" />);
-          router.push("/timeline/remboursement?page=0&size=10");
+          handleOpenValidOrRejectDialog()
+          if(pathName === "/timeline/profile" )
+          router.push("/timeline/profile?page=0&size=10");
+         else router.push("/timeline/remboursement?page=0&size=10");
         }
       }
     } catch (error) {
